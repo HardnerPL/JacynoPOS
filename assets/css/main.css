@@ -1,0 +1,30 @@
+html, body, .container, .center {
+    height: 100%;
+}
+
+.overflow-scroll {
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-square {
+    width: 27vw;
+    height: 27vw;
+    font-size: 2.5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginForm {
+}
