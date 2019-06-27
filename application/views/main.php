@@ -6,7 +6,7 @@
  * Time: 8:47 PM
  */
 ?>
-<div class="container-fluid">
+<!-- <div class="container-fluid">
     <div class="h-25 center-content">
         <a href="#" onclick="load_categories()" class="btn btn-dark">Home</a>
     </div>
@@ -29,3 +29,49 @@
         </div>
     </div>
 </div>
+-->
+<div class="container-fluid">
+    <div class="text-center m-4">
+        <h1>Lista zamówień</h1>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Godzina</th>
+            <th scope="col">Opcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">5</th>
+            <td>13:20</td>
+            <td>
+                <a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
+                <a href="#" class="btn btn-primary"><i class="far fa-sticky-note text-light"></i></a>
+                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">11</th>
+            <td>13:15</td>
+            <td>
+                <a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
+                <a href="#" class="btn btn-primary"><i class="far fa-sticky-note text-light"></i></a>
+                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">15</th>
+            <td>13:01</td>
+            <td>
+                <a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
+                <a href="#" class="btn btn-primary"><i class="far fa-sticky-note text-light"></i></a>
+                <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

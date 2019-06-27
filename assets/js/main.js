@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 function load_items(category_id) {
     $.ajax({
-        url: "ajax_items",
+        url: "ajax/items",
         type: "post",
         data: {
             category_id: category_id
@@ -17,14 +17,14 @@ function load_items(category_id) {
 }
 
 function load_categories() {
-    $.get("ajax_categories", function(data) {
+    $.get("ajax/categories", function(data) {
         $("#main-menu").html(data);
     })
 }
 
 function add_items_prompt(item_id) {
     $.ajax({
-        url: "ajax_add_items_prompt",
+        url: "ajax/add_items_prompt",
         type: "post",
         data: {
             item_id: item_id
@@ -37,7 +37,7 @@ function add_items_prompt(item_id) {
 
 function add_items(item_id) {
     $.ajax({
-        url: "ajax_add_items",
+        url: "ajax/add_items",
         type: "post",
         data: {
             item_id: item_id,
@@ -54,7 +54,7 @@ function add_items(item_id) {
 
 function get_price() {
     $.ajax({
-        url: "ajax_get_price",
+        url: "ajax/get_price",
         type: "post",
         dataType: "text",
         success: function(data) {
@@ -69,7 +69,7 @@ function update_price(value) {
 
 function delete_current_order() {
     $.ajax({
-        url: "ajax_delete_current_order",
+        url: "ajax/delete_current_order",
         success: function(data) {
             get_price();
         }
@@ -78,7 +78,7 @@ function delete_current_order() {
 
 function edit_current_order() {
     $.ajax({
-        url: "ajax_edit_order",
+        url: "ajax/edit_order",
         success: function(data) {
             $("#main-menu").html(data);
         }

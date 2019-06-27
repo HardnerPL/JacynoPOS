@@ -15,6 +15,9 @@ class Order_model extends CI_Model
 
     public function add_items($item)
     {
+        if (!isset($this->session->current_order)) {
+            //$this->db->query("INSERT INTO")
+        }
         $order_item['id'] = $item->item_id;
         $order_item['name'] = $item->item_name;
         $order_item['price'] = $item->item_price;
