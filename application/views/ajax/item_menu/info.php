@@ -17,7 +17,7 @@
             <a href="#" onclick="delete_order(<?= $current_order ?>)" class="btn btn-dark">Usuń</a>
         </li>
         <li class="list-inline-item">
-            <a href="#" onclick="edit_current_order(<?= $current_order ?>)" class="btn btn-dark">Edytuj</a>
+            <a href="#" onclick="edit_order(<?= $current_order ?>)" class="btn btn-dark">Edytuj</a>
         </li>
     </ul>
 </div>

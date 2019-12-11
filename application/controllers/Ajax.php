@@ -138,7 +138,7 @@ class Ajax extends CI_Controller
         if (!$this->user_model->can_access(1)) {
             redirect('login');
         }
-        $data['items'] = $this->session->order_items;
+        $data['items'] = $this->order_model->get_order_items();
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
         $this->load->view('ajax/edit_order', $data);

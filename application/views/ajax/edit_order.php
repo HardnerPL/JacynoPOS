@@ -7,13 +7,31 @@
  */
 ?>
 
-<ul>
+<table class="table h-75">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Stolik</th>
+        <th scope="col">Godzina</th>
+        <th scope="col">Opcje</th>
+    </tr>
+    </thead>
+    <tbody>
     <?php
-    foreach ($items as $item) {
-        $price = $item['count'] * $item['price'];
-        echo "<li>
-                {$item['name']} x {$item['count']} - {$price}zł <a href='#' onclick='delete_item({$item['id']})' class='btn btn-danger mb-2'>Usuń</a>
-            </li>";
+    foreach($orders as $order) {
+        ?>
+        <tr>
+            <td scope="row"><?= $order->order_id ?></td>
+            <td><?= $order->order_table ?></td>
+            <td>12:00</td>
+            <td>
+                <a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
+                <a onclick="open_order(<?= $order->order_id ?>)"href="#" class="btn btn-primary"><i class="far fa-sticky-note text-light"></i></a>
+                <a onclick="delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+            </td>
+        </tr>
+        <?php
     }
     ?>
-</ul>
+    </tbody>
+</table>

@@ -62,4 +62,9 @@ class Order_model extends CI_Model
     public function open_order() {
         $this->session->current_order = $this->input->post('order_id');
     }
+
+    public function get_order_items() {
+        $query = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}");
+        return $query->result();
+    }
 }
