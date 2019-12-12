@@ -2,11 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Hardner07@gmail.com
- * Date: 6/21/2019
- * Time: 11:11 PM
+ * Date: 6/28/2019
+ * Time: 12:28 PM
  */
 ?>
 
+<div class="text-center m-4">
+    <h1>Lista zamówień</h1>
+</div>
 <table class="table h-75">
     <thead>
     <tr>
@@ -35,3 +38,13 @@
     ?>
     </tbody>
 </table>
+<div class="center-content">
+    <div class="w-50 form-inline">
+        <div class="w-50">
+            <input type="text" class="form-control" id="table-input" placeholder="Stolik">
+        </div>
+        <div>
+            <button onclick="add_order()" type="submit" class="btn btn-primary">Dodaj</button>
+        </div>
+    </div>
+</div>
