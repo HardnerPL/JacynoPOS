@@ -43,8 +43,7 @@ class Order_model extends CI_Model
     public function get_current_price() : float
     {
         $price = 0.00;
-        $order_id = $this->session->current_order;
-        $query = $this->db->query("SELECT * FROM order_items WHERE order_id = '$order_id'");
+        $query = $this->db->query("SELECT * FROM order_items WHERE order_id = '{$this->session->current_order}'");
         foreach($query->result() as $item) {
             $query = $this->db->query("SELECT item_price FROM items WHERE item_id = $item->item_id");
             $price += $query->row()->item_price * $item->item_count;
@@ -64,7 +63,12 @@ class Order_model extends CI_Model
     }
 
     public function get_order_items() {
-        $query = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}");
-        return $query->result();
+        $order_items = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}")->result();
+        foreach ($order_items as $item) {
+			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
+			$item->price = $query->row()->item_price * $item->item_count;
+			$item->item_name  = $query->row()->item_name;
+		}
+        return $order_items;
     }
 }

@@ -10,25 +10,21 @@
 <table class="table h-75">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">Stolik</th>
-        <th scope="col">Godzina</th>
-        <th scope="col">Opcje</th>
+        <th scope="col">Nazwa</th>
+        <th scope="col">Ilość</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Komentarz</th>
     </tr>
     </thead>
     <tbody>
     <?php
-    foreach($orders as $order) {
+    foreach($order_items as $item) {
         ?>
         <tr>
-            <td scope="row"><?= $order->order_id ?></td>
-            <td><?= $order->order_table ?></td>
-            <td>12:00</td>
-            <td>
-                <a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
-                <a onclick="open_order(<?= $order->order_id ?>)"href="#" class="btn btn-primary"><i class="far fa-sticky-note text-light"></i></a>
-                <a onclick="delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
-            </td>
+			<td><?= $item->item_name ?></td>
+            <td scope="row"><?= $item->item_count ?></td>
+            <td><?= $item->price . " zł"?></td>
+            <td><?= $item->comment ?></td>
         </tr>
         <?php
     }
