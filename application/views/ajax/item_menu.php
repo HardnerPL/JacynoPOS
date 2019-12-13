@@ -7,15 +7,15 @@
  */
 ?>
 
-<div id="item-menu-navbar" class="h-25 center-content">
+<div id="item-menu-navbar" class="center-content h-auto">
 
 </div>
-<div class="h-50">
+<div id="category_menu">
     <ul id="item-menu-main" class="h-100 list-inline p-2">
 
     </ul>
 </div>
-<div id="item-menu-info" class="h-25 center-content">
+<div id="item-menu-info" class="h-auto center-content">
 
 </div>
 <script>

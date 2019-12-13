@@ -1,5 +1,7 @@
-html, body, .container, .center {
-    height: 100%;
+body, #container {
+	height: 100%;
+	display: flex;
+	flex-flow: column;
 }
 
 .overflow-scroll {
@@ -12,9 +14,13 @@ html, body, .container, .center {
 }
 
 .center-content {
-    display: flex;
+	display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.h-auto {
+	flex-grow: 1;
 }
 
 .btn-square {
@@ -24,6 +30,10 @@ html, body, .container, .center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#category_menu {
+	height: 60vh;
 }
 
 #loginForm {
