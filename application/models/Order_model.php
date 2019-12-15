@@ -8,67 +8,84 @@
 
 class Order_model extends CI_Model
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
-    public function get_orders() {
-        $query = $this->db->get('orders');
-        return $query->result();
-    }
+	public function get_orders()
+	{
+		$query = $this->db->get('orders');
+		return $query->result();
+	}
 
-    public function add_order()
-    {
-        $table = $this->input->post('table');
-        $this->db->query("
+	public function add_order()
+	{
+		$table = $this->input->post('table');
+		$this->db->query("
                   INSERT INTO orders (order_table, order_status, order_printed)
                               VALUES ('$table', 'draft', 'false')
         ");
-        $this->session->current_order = $this->db->insert_id();
-    }
+		$this->session->current_order = $this->db->insert_id();
+	}
 
-    public function add_items($item)
-    {
-        $order_id = $this->session->current_order;
-        $item_id = $item->item_id;
-        $item_count = $this->input->post('item_count');
-        $comment = $this->input->post('item_comment');
-        $this->db->query("
-                  INSERT INTO order_items (order_id, item_id, item_count, comment, delivered)
+	public function add_items($item)
+	{
+		$order_id = $this->session->current_order;
+		$item_id = $item->item_id;
+		$item_count = $this->input->post('item_count');
+		$comment = $this->input->post('item_comment');
+		$query = $this->db->query("SELECT * FROM order_items 
+			WHERE order_id = $order_id AND item_id = $item_id");
+		if ($query->num_rows() > 0) {
+			$this->db->query("UPDATE order_items SET item_count = item_count + $item_count");
+		} else {
+			$this->db->query("INSERT INTO order_items (order_id, item_id, item_count, comment, delivered)
                               VALUES ('$order_id', '$item_id', '$item_count', '$comment', 'false')
         ");
-    }
-
-    public function get_current_price() : float
-    {
-        $price = 0.00;
-        $query = $this->db->query("SELECT * FROM order_items WHERE order_id = '{$this->session->current_order}'");
-        foreach($query->result() as $item) {
-            $query = $this->db->query("SELECT item_price FROM items WHERE item_id = $item->item_id");
-            $price += $query->row()->item_price * $item->item_count;
-        }
-        return $price;
-    }
-
-    public function delete_order() {
-        $order_id = $this->input->post('order_id');
-        $this->db->query("DELETE FROM orders WHERE order_id = $order_id");
-        $this->db->query("DELETE FROM order_items WHERE order_id = $order_id");
-        $this->session->unset_userdata('current_order');
-    }
-
-    public function open_order() {
-        $this->session->current_order = $this->input->post('order_id');
-    }
-
-    public function get_order_items() {
-        $order_items = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}")->result();
-        foreach ($order_items as $item) {
-			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
-			$item->price = $query->row()->item_price * $item->item_count;
-			$item->item_name  = $query->row()->item_name;
 		}
-        return $order_items;
-    }
+	}
+
+	public function get_current_price(): float
+	{
+		$price = 0.00;
+		$query = $this->db->query("SELECT * FROM order_items WHERE order_id = '{$this->session->current_order}'");
+		foreach ($query->result() as $item) {
+			$query = $this->db->query("SELECT item_price FROM items WHERE item_id = $item->item_id");
+			$price += $query->row()->item_price * $item->item_count;
+		}
+		return $price;
+	}
+
+	public function delete_order()
+	{
+		$order_id = $this->input->post('order_id');
+		$this->db->query("DELETE FROM orders WHERE order_id = $order_id");
+		$this->db->query("DELETE FROM order_items WHERE order_id = $order_id");
+		$this->session->unset_userdata('current_order');
+	}
+
+	public function open_order()
+	{
+		$this->session->current_order = $this->input->post('order_id');
+	}
+
+	public function get_order_items()
+	{
+		$order_items = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}")->result();
+		foreach ($order_items as $item) {
+			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
+			$item->item_price = $query->row()->item_price;
+			$item->price = $item->item_price * $item->item_count;
+			$item->item_name = $query->row()->item_name;
+		}
+		return $order_items;
+	}
+
+	public function delete_order_item()
+	{
+		$order_id = $this->input->post('order_id');
+		$item_id = $this->input->post('item_id');
+		$this->db->query("DELETE FROM order_items WHERE order_id = $order_id AND item_id = $item_id");
+	}
 }

@@ -144,4 +144,12 @@ class Ajax extends CI_Controller
         $this->load->view('ajax/edit_order', $data);
         $this->load->view('templates/footer', $data);
     }
+
+	public function delete_order_item()
+	{
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$this->order_model->delete_order_item();
+	}
 }

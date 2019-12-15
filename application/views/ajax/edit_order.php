@@ -8,28 +8,36 @@
 ?>
 
 <div class="overflow-scroll h-75">
-	<table class="table">
-		<thead>
-		<tr>
-			<th scope="col">Nazwa</th>
-			<th scope="col">Ilość</th>
-			<th scope="col">Cena</th>
-			<th scope="col">Komentarz</th>
-		</tr>
-		</thead>
-		<tbody>
-		<?php
-		foreach ($order_items as $item) {
-			?>
-			<tr>
-				<td><?= $item->item_name ?></td>
-				<td scope="row"><?= $item->item_count ?></td>
-				<td><?= $item->price . " zł" ?></td>
-				<td><?= $item->comment ?></td>
-			</tr>
-			<?php
-		}
+	<h1 class="text-center">Szczegóły</h1>
+	<hr>
+
+	<?php
+	foreach ($order_items as $item) {
 		?>
-		</tbody>
-	</table>
+		<div>
+			<div class="row">
+				<div class="col-9">
+					<div>
+						<div><b><?= $item->item_name ?></b></div>
+					</div>
+					<div>
+						<?= $item->item_count . " x " . $item->item_price ?>
+						<b class="float-right"><?= $item->price . " zł" ?></b>
+					</div>
+					<div>
+						<?= $item->comment ?>
+					</div>
+				</div>
+				<div class="col-3">
+					<a onclick="edit_order_item(<?= $item->order_id . ", " . $item->item_id ?>)" href="#" class="btn btn-primary mb-2"><i
+							class="far fa-sticky-note text-light"></i></a>
+					<a onclick="delete_order_item(<?= $item->order_id . ", " . $item->item_id ?>)" href="#" class="btn btn-danger"><i
+							class="fas fa-trash-alt text-light"></i></a>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<?php
+	}
+	?>
 </div>
