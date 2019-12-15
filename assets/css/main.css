@@ -1,4 +1,4 @@
-body, #container {
+body, .container, .container-fluid {
 	height: 100%;
 	display: flex;
 	flex-flow: column;

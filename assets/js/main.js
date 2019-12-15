@@ -2,6 +2,7 @@ $(document).ready(function () {
     load_order_menu();
 })
 
+
 function load_items(category_id) {
     $.ajax({
         url: "ajax/items",
@@ -137,4 +138,8 @@ function add_order() {
             load_item_menu();
         }
     })
+}
+
+function load_last_page() {
+
 }

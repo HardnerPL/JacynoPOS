@@ -7,5 +7,5 @@
  */
 ?>
 
-<a href="#" onclick="load_order_menu()" class="btn btn-dark">Home</a>
-<a href="#" onclick="load_item_menu_categories()" class="btn btn-dark">Back</a>
+<a href="#" onclick="load_order_menu()" class="btn btn-dark mr-2">Home</a>
+<a href="#" onclick="load_last_page()" class="btn btn-dark">Back</a>
