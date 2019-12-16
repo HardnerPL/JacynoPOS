@@ -82,10 +82,28 @@ class Order_model extends CI_Model
 		return $order_items;
 	}
 
+	public function get_order_item()
+	{
+		$order_id = $this->session->current_order;
+		$item_id = $this->input->post('item_id');
+		$order_item = $this->db->query("SELECT * FROM order_items WHERE order_id = $order_id AND item_id = $item_id")->row();
+		return $order_item;
+	}
+
 	public function delete_order_item()
 	{
 		$order_id = $this->input->post('order_id');
 		$item_id = $this->input->post('item_id');
 		$this->db->query("DELETE FROM order_items WHERE order_id = $order_id AND item_id = $item_id");
+	}
+
+	public function edit_item()
+	{
+		$order_id = $this->session->current_order;
+		$item_id = $this->input->post('item_id');
+		$item_count = $this->input->post('item_count');
+		$comment = $this->input->post('item_comment');
+		$this->db->query("UPDATE order_items SET item_count = $item_count, comment = '$comment' 
+WHERE order_id = $order_id AND item_id = $item_id");
 	}
 }

@@ -152,4 +152,24 @@ class Ajax extends CI_Controller
 		}
 		$this->order_model->delete_order_item();
 	}
+
+	public function edit_order_item()
+	{
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$data['order_item'] = $this->order_model->get_order_item();
+		$data['ajax'] = true;
+		$this->load->view('templates/header', $data);
+		$this->load->view('ajax/edit_order_item', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function edit_item() {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$this->order_model->edit_item();
+		$this->get_price();
+	}
 }
