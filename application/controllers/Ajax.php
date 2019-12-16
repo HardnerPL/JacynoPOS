@@ -99,13 +99,18 @@ class Ajax extends CI_Controller
 
     public function add_items()
     {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
         $item = $this->item_model->get_item($this->input->post('item_id'));
         $this->order_model->add_items($item);
-        $this->get_price();
     }
 
     public function get_price()
     {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
         echo $this->order_model->get_current_price();
     }
 
@@ -170,6 +175,5 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$this->order_model->edit_item();
-		$this->get_price();
 	}
 }

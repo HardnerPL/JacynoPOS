@@ -70,26 +70,22 @@ function add_items(item_id) {
 			item_comment: $("#comment-input").val()
 		},
 		dataType: "text",
-		success: function (data) {
+		success: function () {
 			load_item_menu_categories();
-			update_price(data);
+			update_price();
 		}
 	})
 }
 
-function get_price() {
+function update_price() {
 	$.ajax({
 		url: "ajax/get_price",
 		type: "post",
 		dataType: "text",
-		success: function (data) {
-			update_price(data);
+		success: function (value) {
+			$("#price").html("Cena: " + value + "zł");
 		}
 	})
-}
-
-function update_price(value) {
-	$("#price").html("Cena: " + value + "zł");
 }
 
 function delete_order(order_id) {
@@ -99,13 +95,13 @@ function delete_order(order_id) {
 		data: {
 			order_id: order_id
 		},
-		success: function (data) {
+		success: function () {
 			load_order_menu();
 		}
 	})
 }
 
-function edit_order(order_id) {
+function edit_order() {
 	$.ajax({
 		url: "ajax/edit_order",
 		success: function (data) {
@@ -191,9 +187,9 @@ function edit_item(item_id) {
 			item_comment: $("#comment-input").val()
 		},
 		dataType: "text",
-		success: function (data) {
+		success: function () {
 			edit_order();
-			get_price(data);
+			update_price();
 		}
 	})
 }

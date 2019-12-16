@@ -9,7 +9,7 @@
 <div class="text-center">
     <h2 id="price">
         <script>
-            get_price()
+            update_price()
         </script>
     </h2>
     <ul class="list-inline">
