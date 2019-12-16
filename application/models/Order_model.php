@@ -38,7 +38,7 @@ class Order_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM order_items 
 			WHERE order_id = $order_id AND item_id = $item_id");
 		if ($query->num_rows() > 0) {
-			$this->db->query("UPDATE order_items SET item_count = item_count + $item_count");
+			$this->db->query("UPDATE order_items SET item_count = item_count + $item_count WHERE order_id = $order_id AND item_id = $item_id");
 		} else {
 			$this->db->query("INSERT INTO order_items (order_id, item_id, item_count, comment, delivered)
                               VALUES ('$order_id', '$item_id', '$item_count', '$comment', 'false')
