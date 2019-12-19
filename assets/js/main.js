@@ -193,3 +193,13 @@ function edit_item(item_id) {
 		}
 	})
 }
+
+function confirm_delete_popup(delete_id) {
+	$.get("ajax/confirm_delete_popup/" + delete_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function close_popup() {
+	$(".popup-bg").remove();
+}

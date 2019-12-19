@@ -13,6 +13,17 @@ class Ajax extends CI_Controller
         parent::__construct();
     }
 
+    public function confirm_delete_popup($delete_id) {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$data['delete_id'] = $delete_id;
+		$data['ajax'] = true;
+		$this->load->view('templates/header', $data);
+		$this->load->view('ajax/popup/confirm_delete', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
     public function order_menu()
     {
         if (!$this->user_model->can_access(1)) {
