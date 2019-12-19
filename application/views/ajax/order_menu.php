@@ -27,7 +27,7 @@
 			<tr>
 				<td scope="row"><?= $order->order_id ?></td>
 				<td><?= $order->order_table ?></td>
-				<td>12:00</td>
+				<td><?= $order->order_time ?></td>
 				<td>
 					<a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
 					<a onclick="open_order(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i

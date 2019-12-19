@@ -22,9 +22,10 @@ class Order_model extends CI_Model
 	public function add_order()
 	{
 		$table = $this->input->post('table');
+		$time = date('H:i');
 		$this->db->query("
-                  INSERT INTO orders (order_table, order_status, order_printed)
-                              VALUES ('$table', 'draft', 'false')
+                  INSERT INTO orders (order_table, order_time, order_status, order_printed)
+                              VALUES ('$table', '$time', 'draft', 'false')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}
