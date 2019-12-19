@@ -14,6 +14,8 @@ To install the application you will only need a PHP server with MySQL support, l
 http://localhost/pos/
 ```
 
+So far there is no built in CMS, so you need to manage everything from your database. You will need to set up a database for users and items, register an account and give it access of 1 or higher. Then you can log in using that account and play around with the POS.
+
 ## Built With
 
 * [CodeIgniter](https://codeigniter.com/) - The web framework used
