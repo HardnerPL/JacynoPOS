@@ -194,8 +194,14 @@ function edit_item(item_id) {
 	})
 }
 
-function confirm_delete_popup(delete_id) {
-	$.get("ajax/confirm_delete_popup/" + delete_id, function (data) {
+function confirm_delete_order(order_id) {
+	$.get("ajax/confirm_delete_order/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function confirm_delete_order_item(order_id, order_item_id) {
+	$.get("ajax/confirm_delete_order_item/" + order_id + '/' + order_item_id, function (data) {
 		$("body").append(data);
 	})
 }

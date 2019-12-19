@@ -32,7 +32,7 @@
 					<a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
 					<a onclick="open_order(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
 							class="far fa-sticky-note text-light"></i></a>
-					<a onclick="confirm_delete_popup(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i
+					<a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i
 							class="fas fa-trash-alt text-light"></i></a>
 				</td>
 			</tr>
