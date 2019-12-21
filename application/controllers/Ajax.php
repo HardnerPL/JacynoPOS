@@ -36,7 +36,7 @@ class Ajax extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-    public function order_menu()
+    public function main_menu()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -45,34 +45,36 @@ class Ajax extends CI_Controller
         $data['orders'] = $this->order_model->get_orders();
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
+        $this->load->view('ajax/main_menu', $data);
+        $this->load->view('templates/footer', $data);
+
+    }
+
+    public function order_menu()
+    {
+        if (!$this->user_model->can_access(1)) {
+            redirect('login');
+        }
+        $data['ajax'] = true;
+		$data['categories'] = $this->category_model->get_all_categories();
+		$data['current_order'] = $this->session->current_order;
+        $this->load->view('templates/header', $data);
         $this->load->view('ajax/order_menu', $data);
         $this->load->view('templates/footer', $data);
-
     }
 
-    public function item_menu()
+    public function order_menu_navbar()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
         }
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/item_menu', $data);
+        $this->load->view('ajax/order_menu/navbar', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function item_menu_navbar()
-    {
-        if (!$this->user_model->can_access(1)) {
-            redirect('login');
-        }
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
-        $this->load->view('ajax/item_menu/navbar', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
-    public function item_menu_categories()
+    public function order_menu_categories()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -80,11 +82,11 @@ class Ajax extends CI_Controller
         $data['categories'] = $this->category_model->get_all_categories();
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/item_menu/categories', $data);
+        $this->load->view('ajax/categories', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function item_menu_info()
+    public function order_menu_info()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -92,7 +94,7 @@ class Ajax extends CI_Controller
         $data['current_order'] = $this->session->current_order;
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/item_menu/info', $data);
+        $this->load->view('ajax/order_menu/info', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -153,15 +155,15 @@ class Ajax extends CI_Controller
         $this->order_model->delete_order();
     }
 
-    public function open_order()
+    public function load_order()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
         }
-        $this->order_model->open_order();
+        $this->order_model->load_order();
     }
 
-    public function edit_order()
+    public function edit_order_menu()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -169,7 +171,7 @@ class Ajax extends CI_Controller
         $data['order_items'] = $this->order_model->get_order_items();
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/edit_order', $data);
+        $this->load->view('ajax/edit_order_menu', $data);
         $this->load->view('templates/footer', $data);
     }
 

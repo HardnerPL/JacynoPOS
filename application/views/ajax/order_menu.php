@@ -3,52 +3,34 @@
  * Created by PhpStorm.
  * User: Hardner07@gmail.com
  * Date: 6/28/2019
- * Time: 12:28 PM
+ * Time: 1:03 PM
  */
 ?>
 
-<div class="center-content m-4">
-	<h1>Lista zamówień</h1>
+<div id="order-menu-navbar" class="center-content h-auto">
+	<a href="#" onclick="load_main_menu()" class="btn btn-dark mr-2">Home</a>
+	<a href="#" onclick="load_last_page()" class="btn btn-dark">Back</a>
 </div>
-<div class="overflow-scroll h-75">
-	<table class="table">
-		<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Stolik</th>
-			<th scope="col">Godzina</th>
-			<th scope="col">Opcje</th>
-		</tr>
-		</thead>
-		<tbody>
+<div id="category_menu">
+    <ul id="order-menu-main" class="h-100 list-inline">
 		<?php
-		foreach ($orders as $order) {
-			?>
-			<tr>
-				<td scope="row"><?= $order->order_id ?></td>
-				<td><?= $order->order_table ?></td>
-				<td><?= $order->order_time ?></td>
-				<td>
-					<a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
-					<a onclick="open_order(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
-							class="far fa-sticky-note text-light"></i></a>
-					<a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i
-							class="fas fa-trash-alt text-light"></i></a>
-				</td>
-			</tr>
-			<?php
-		}
-		?>
-		</tbody>
-	</table>
+		foreach ($categories as $row) { ?><li class='list-inline-item'><a href='#' onclick='load_items(<?= $row->category_id ?>)' class='btn btn-primary btn-square mb-2'><?= $row->category_name ?></a></li><?php } ?>
+    </ul>
 </div>
-<div class="center-content h-auto">
-	<div class="w-50 form-inline">
-		<div class="w-50">
-			<input type="text" class="form-control" id="table-input" placeholder="Stolik">
-		</div>
-		<div>
-			<button onclick="add_order()" type="submit" class="btn btn-primary">Dodaj</button>
-		</div>
+<div id="order-menu-info" class="h-auto center-content">
+	<div class="text-center">
+		<h2 id="price">
+			<script>
+                update_price()
+			</script>
+		</h2>
+		<ul class="list-inline">
+			<li class="list-inline-item">
+				<a href="#" onclick="delete_order(<?= $current_order ?>)" class="btn btn-dark">Usuń</a>
+			</li>
+			<li class="list-inline-item">
+				<a href="#" onclick="edit_order_menu(<?= $current_order ?>)" class="btn btn-dark">Edytuj</a>
+			</li>
+		</ul>
 	</div>
 </div>

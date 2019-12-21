@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	load_order_menu();
+	load_main_menu();
 })
 
 function load_items(category_id) {
@@ -10,9 +10,15 @@ function load_items(category_id) {
 			category_id: category_id
 		},
 		success: function (data) {
-			$("#item-menu-main").html(data);
+			$("#order-menu-main").html(data);
 			window.current_menu = "items";
 		}
+	})
+}
+
+function load_main_menu() {
+	$.get("ajax/main_menu", function (data) {
+		$("#container").html(data);
 	})
 }
 
@@ -22,28 +28,10 @@ function load_order_menu() {
 	})
 }
 
-function load_item_menu() {
-	$.get("ajax/item_menu", function (data) {
-		$("#container").html(data);
-	})
-}
-
-function load_item_menu_navbar() {
-	$.get("ajax/item_menu_navbar", function (data) {
-		$("#item-menu-navbar").html(data);
-	})
-}
-
-function load_item_menu_categories() {
-	$.get("ajax/item_menu_categories", function (data) {
-		$("#item-menu-main").html(data);
+function load_order_menu_categories() {
+	$.get("ajax/order_menu_categories", function (data) {
+		$("#order-menu-main").html(data);
 		window.current_menu = "categories";
-	})
-}
-
-function load_item_menu_info() {
-	$.get("ajax/item_menu_info", function (data) {
-		$("#item-menu-info").html(data);
 	})
 }
 
@@ -55,7 +43,7 @@ function add_items_prompt(item_id) {
 			item_id: item_id
 		},
 		success: function (data) {
-			$("#item-menu-main").html(data);
+			$("#order-menu-main").html(data);
 		}
 	})
 }
@@ -71,7 +59,7 @@ function add_items(item_id) {
 		},
 		dataType: "text",
 		success: function () {
-			load_item_menu_categories();
+			load_order_menu_categories();
 			update_price();
 		}
 	})
@@ -96,30 +84,30 @@ function delete_order(order_id) {
 			order_id: order_id
 		},
 		success: function () {
-			load_order_menu();
+			load_main_menu();
 		}
 	})
 }
 
-function edit_order() {
+function edit_order_menu() {
 	$.ajax({
-		url: "ajax/edit_order",
+		url: "ajax/edit_order_menu",
 		success: function (data) {
-			$("#item-menu-main").html(data);
+			$("#order-menu-main").html(data);
 			window.current_menu = "edit_order";
 		}
 	})
 }
 
-function open_order(order_id) {
+function load_order(order_id) {
 	$.ajax({
-		url: "ajax/open_order",
+		url: "ajax/load_order",
 		type: "post",
 		data: {
 			order_id: order_id
 		},
 		success: function () {
-			load_item_menu();
+			load_order_menu();
 		}
 	})
 }
@@ -133,7 +121,7 @@ function add_order() {
 		},
 		dataType: "text",
 		success: function () {
-			load_item_menu();
+			load_order_menu();
 		}
 	})
 }
@@ -147,7 +135,7 @@ function edit_order_item(order_id, item_id) {
 			item_id: item_id
 		},
 		success: function (data) {
-			$("#item-menu-main").html(data);
+			$("#order-menu-main").html(data);
 			window.current_menu = "edit_order_item";
 		}
 	})
@@ -162,19 +150,19 @@ function delete_order_item(order_id, item_id) {
 			item_id: item_id
 		},
 		success: function (data) {
-			edit_order(order_id);
-			load_item_menu_info()
+			load_order_menu_categories();
+			update_price();
 		}
 	})
 }
 
 function load_last_page() {
 	if (current_menu == "categories")
-		load_order_menu();
+		load_main_menu();
 	else if (current_menu == "edit_order_item")
-		edit_order();
+		edit_order_menu();
 	else
-		load_item_menu_categories();
+		load_order_menu_categories();
 }
 
 function edit_item(item_id) {
@@ -188,7 +176,7 @@ function edit_item(item_id) {
 		},
 		dataType: "text",
 		success: function () {
-			edit_order();
+			load_order_menu_categories();
 			update_price();
 		}
 	})
