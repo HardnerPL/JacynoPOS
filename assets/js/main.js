@@ -17,27 +17,27 @@ function load_item_list(category_id) {
 }
 
 function load_main_menu() {
-	$.get("ajax/main_menu", function (data) {
+	$.get("ajax/load_main_menu", function (data) {
 		$("#container").html(data);
 	})
 }
 
 function load_order_menu() {
-	$.get("ajax/order_menu", function (data) {
+	$.get("ajax/load_order_menu", function (data) {
 		$("#container").html(data);
 	})
 }
 
 function load_order_menu_category_list() {
-	$.get("ajax/order_menu_category_list", function (data) {
+	$.get("ajax/load_order_menu_category_list", function (data) {
 		$("#order-menu-main").html(data);
 		window.current_menu = "categories";
 	})
 }
 
-function add_item_prompt(item_id) {
+function load_item_form(item_id) {
 	$.ajax({
-		url: "ajax/add_item_prompt",
+		url: "ajax/load_item_form",
 		type: "post",
 		data: {
 			item_id: item_id
@@ -126,9 +126,9 @@ function add_order() {
 	})
 }
 
-function edit_order_item(order_id, item_id) {
+function load_edit_item_form(order_id, item_id) {
 	$.ajax({
-		url: "ajax/edit_order_item",
+		url: "ajax/load_edit_item_form",
 		type: "post",
 		data: {
 			order_id: order_id,
@@ -136,7 +136,7 @@ function edit_order_item(order_id, item_id) {
 		},
 		success: function (data) {
 			$("#order-menu-main").html(data);
-			window.current_menu = "edit_order_item";
+			window.current_menu = "edit_item_form";
 		}
 	})
 }
@@ -159,7 +159,7 @@ function delete_order_item(order_id, item_id) {
 function load_last_page() {
 	if (current_menu == "categories")
 		load_main_menu();
-	else if (current_menu == "edit_order_item")
+	else if (current_menu == "edit_item_form")
 		edit_order_menu();
 	else
 		load_order_menu_category_list();

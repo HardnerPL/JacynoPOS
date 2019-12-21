@@ -36,7 +36,7 @@ class Ajax extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-    public function main_menu()
+    public function load_main_menu()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -50,7 +50,7 @@ class Ajax extends CI_Controller
 
     }
 
-    public function order_menu()
+    public function load_order_menu()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -63,18 +63,7 @@ class Ajax extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function order_menu_navbar()
-    {
-        if (!$this->user_model->can_access(1)) {
-            redirect('login');
-        }
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
-        $this->load->view('ajax/order_menu/navbar', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
-    public function order_menu_category_list()
+    public function load_order_menu_category_list()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -83,18 +72,6 @@ class Ajax extends CI_Controller
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
         $this->load->view('ajax/category_list', $data);
-        $this->load->view('templates/footer', $data);
-    }
-
-    public function order_menu_info()
-    {
-        if (!$this->user_model->can_access(1)) {
-            redirect('login');
-        }
-        $data['current_order'] = $this->session->current_order;
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
-        $this->load->view('ajax/order_menu/info', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -110,7 +87,7 @@ class Ajax extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function add_item_prompt()
+    public function load_item_form()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -118,7 +95,7 @@ class Ajax extends CI_Controller
         $data['ajax'] = true;
         $data['item_id'] = $this->input->post('item_id');
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/add_item', $data);
+        $this->load->view('ajax/add_item_form', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -183,7 +160,7 @@ class Ajax extends CI_Controller
 		$this->order_model->delete_order_item();
 	}
 
-	public function edit_order_item()
+	public function load_edit_item_form()
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
@@ -191,7 +168,7 @@ class Ajax extends CI_Controller
 		$data['order_item'] = $this->order_model->get_order_item();
 		$data['ajax'] = true;
 		$this->load->view('templates/header', $data);
-		$this->load->view('ajax/edit_order_item', $data);
+		$this->load->view('ajax/edit_item_form', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
