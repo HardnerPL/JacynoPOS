@@ -193,6 +193,17 @@ class Ajax extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
+	public function confirm_edit_order_item() {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$data['item'] = $this->order_model->get_order_item();
+		$data['ajax'] = true;
+		$this->load->view('templates/header', $data);
+		$this->load->view('ajax/popup/confirm_edit_order_item', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
 	public function edit_item() {
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');

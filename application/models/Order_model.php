@@ -88,6 +88,9 @@ class Order_model extends CI_Model
 		$order_id = $this->session->current_order;
 		$item_id = $this->input->post('item_id');
 		$order_item = $this->db->query("SELECT * FROM order_items WHERE order_id = $order_id AND item_id = $item_id")->row();
+		$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item_id");
+		$order_item->item_price = $query->row()->item_price;
+		$order_item->item_name = $query->row()->item_name;
 		return $order_item;
 	}
 

@@ -209,3 +209,20 @@ function confirm_delete_order_item(order_id, order_item_id) {
 function close_popup() {
 	$(".popup-bg").remove();
 }
+
+function confirm_edit_order_item(item_id) {
+	$.ajax({
+		url: "ajax/confirm_edit_order_item",
+		type: "post",
+		data: {
+			item_id: item_id
+		},
+		dataType: "text",
+		success: function (data) {
+			$("body").append(data)
+			$("#item_count").html($("#count-input").val());
+			$("#item_comment").html($("#comment-input").val());
+			$(".popup-bg").removeClass('d-none');
+		}
+	})
+}
