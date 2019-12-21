@@ -30,7 +30,7 @@
 				<td><?= $order->order_time ?></td>
 				<td>
 					<a href="#" class="btn btn-dark"><i class="fas fa-info text-light"></i></a>
-					<a onclick="load_order(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
+					<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
 							class="far fa-sticky-note text-light"></i></a>
 					<a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i
 							class="fas fa-trash-alt text-light"></i></a>

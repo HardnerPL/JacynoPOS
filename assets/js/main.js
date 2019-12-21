@@ -23,11 +23,17 @@ function load_main_menu() {
 	})
 }
 
-function load_order_menu() {
-	$.get("ajax/load_order_menu", function (data) {
-		window.current_menu = "order_menu";
-		$("#container").html(data);
-	})
+function load_order_menu(order_id) {
+	$.ajax({
+		url: "ajax/load_order_menu",
+		type: "post",
+		data: {
+			order_id: order_id
+		},
+		success: function (data) {
+			window.current_menu = "order_menu";
+			$("#container").html(data);
+	}});
 }
 
 function load_order_menu_category_list() {
@@ -98,19 +104,6 @@ function edit_order_menu() {
 		success: function (data) {
 			$("#order-menu-main").html(data);
 			window.current_menu = "edit_order";
-		}
-	})
-}
-
-function load_order(order_id) {
-	$.ajax({
-		url: "ajax/load_order",
-		type: "post",
-		data: {
-			order_id: order_id
-		},
-		success: function () {
-			load_order_menu();
 		}
 	})
 }

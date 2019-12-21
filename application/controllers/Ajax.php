@@ -56,6 +56,7 @@ class Ajax extends CI_Controller
             redirect('login');
         }
         $data['ajax'] = true;
+		$this->order_model->load_order();
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['current_order'] = $this->session->current_order;
         $this->load->view('templates/header', $data);
@@ -130,14 +131,6 @@ class Ajax extends CI_Controller
             redirect('login');
         }
         $this->order_model->delete_order();
-    }
-
-    public function load_order()
-    {
-        if (!$this->user_model->can_access(1)) {
-            redirect('login');
-        }
-        $this->order_model->load_order();
     }
 
     public function edit_order_menu()
