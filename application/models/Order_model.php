@@ -30,7 +30,7 @@ class Order_model extends CI_Model
 		$this->session->current_order = $this->db->insert_id();
 	}
 
-	public function add_items($item)
+	public function add_item($item)
 	{
 		$order_id = $this->session->current_order;
 		$item_id = $item->item_id;

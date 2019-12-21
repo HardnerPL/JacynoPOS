@@ -12,10 +12,9 @@
 	<a href="#" onclick="load_last_page()" class="btn btn-dark">Back</a>
 </div>
 <div id="category_menu">
-    <ul id="order-menu-main" class="h-100 list-inline">
-		<?php
-		foreach ($categories as $row) { ?><li class='list-inline-item'><a href='#' onclick='load_items(<?= $row->category_id ?>)' class='btn btn-primary btn-square mb-2'><?= $row->category_name ?></a></li><?php } ?>
-    </ul>
+	<ul id="order-menu-main" class="h-100 list-inline">
+		<script>load_order_menu_category_list()</script>
+	</ul>
 </div>
 <div id="order-menu-info" class="h-auto center-content">
 	<div class="text-center">

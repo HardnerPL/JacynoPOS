@@ -74,7 +74,7 @@ class Ajax extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function order_menu_categories()
+    public function order_menu_category_list()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -82,7 +82,7 @@ class Ajax extends CI_Controller
         $data['categories'] = $this->category_model->get_all_categories();
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/categories', $data);
+        $this->load->view('ajax/category_list', $data);
         $this->load->view('templates/footer', $data);
     }
 
@@ -98,7 +98,7 @@ class Ajax extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function items()
+    public function load_item_list()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -106,11 +106,11 @@ class Ajax extends CI_Controller
         $data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
         $data['ajax'] = true;
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/items', $data);
+        $this->load->view('ajax/item_list', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function add_items_prompt()
+    public function add_item_prompt()
     {
         if (!$this->user_model->can_access(1)) {
             redirect('login');
@@ -118,17 +118,17 @@ class Ajax extends CI_Controller
         $data['ajax'] = true;
         $data['item_id'] = $this->input->post('item_id');
         $this->load->view('templates/header', $data);
-        $this->load->view('ajax/add_items', $data);
+        $this->load->view('ajax/add_item', $data);
         $this->load->view('templates/footer', $data);
     }
 
-    public function add_items()
+    public function add_item()
     {
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
         $item = $this->item_model->get_item($this->input->post('item_id'));
-        $this->order_model->add_items($item);
+        $this->order_model->add_item($item);
     }
 
     public function get_price()

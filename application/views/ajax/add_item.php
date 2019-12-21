@@ -19,7 +19,7 @@
             <input type="text" class="form-control" id="comment-input" placeholder="Komentarz">
         </div>
         <div class="text-center">
-            <button onclick="add_items(<?= $item_id ?>)" class="btn btn-primary">Dodaj</button>
+            <button onclick="add_item(<?= $item_id ?>)" class="btn btn-primary">Dodaj</button>
         </div>
     </div>
 </div>
