@@ -10,8 +10,9 @@ function load_item_list(category_id) {
 			category_id: category_id
 		},
 		success: function (data) {
+			window.current_menu = "item_list";
+			window.current_category = category_id;
 			$("#order-menu-main").html(data);
-			window.current_menu = "items";
 		}
 	})
 }
@@ -24,14 +25,15 @@ function load_main_menu() {
 
 function load_order_menu() {
 	$.get("ajax/load_order_menu", function (data) {
+		window.current_menu = "order_menu";
 		$("#container").html(data);
 	})
 }
 
 function load_order_menu_category_list() {
 	$.get("ajax/load_order_menu_category_list", function (data) {
+		window.current_menu = "order_menu";
 		$("#order-menu-main").html(data);
-		window.current_menu = "categories";
 	})
 }
 
@@ -43,6 +45,7 @@ function load_item_form(item_id) {
 			item_id: item_id
 		},
 		success: function (data) {
+			window.current_menu = "item_form";
 			$("#order-menu-main").html(data);
 		}
 	})
@@ -157,12 +160,25 @@ function delete_order_item(order_id, item_id) {
 }
 
 function load_last_page() {
-	if (current_menu == "categories")
-		load_main_menu();
-	else if (current_menu == "edit_item_form")
-		edit_order_menu();
-	else
-		load_order_menu_category_list();
+	switch(current_menu) {
+		case "order_menu":
+			window.current_menu = "main_menu";
+			load_main_menu();
+			break;
+		case "edit_order":
+		case "item_list":
+			window.current_menu = "order_menu";
+			load_order_menu_category_list();
+			break;
+		case "edit_item_form":
+			window.current_menu = "edit_order";
+			edit_order_menu();
+			break;
+		case "item_form":
+			window.current_menu = "item_list";
+			load_item_list(current_category);
+			break;
+	}
 }
 
 function edit_item(item_id) {
