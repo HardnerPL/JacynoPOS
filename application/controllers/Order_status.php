@@ -27,4 +27,11 @@ class Order_status extends CI_Controller
 		}
 		$this->order_model->set_order_status($order_id, 'paid');
 	}
+
+	public function archive_order($order_id) {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$this->order_model->set_order_status($order_id, 'archived');
+	}
 }

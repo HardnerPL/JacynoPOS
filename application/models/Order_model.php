@@ -15,7 +15,7 @@ class Order_model extends CI_Model
 
 	public function get_orders()
 	{
-		$query = $this->db->get('orders');
+		$query = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'archived'");
 		return $query->result();
 	}
 

@@ -250,3 +250,12 @@ function pay_off_order(order_id) {
 		}
 	})
 }
+
+function archive_order(order_id) {
+	$.ajax({
+		url: "order_status/archive_order/" + order_id,
+		success: function (data) {
+			load_main_menu();
+		}
+	})
+}
