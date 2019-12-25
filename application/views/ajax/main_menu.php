@@ -28,19 +28,26 @@
         <hr>
         <?php
         foreach ($orders as $order) {
-            ?>
+            $collapse_id = 'order-info-'.$order->order_id ?>
             <div class="row text-center">
                 <div class="col-2"><?= $order->order_id ?></div>
                 <div class="col-2"><?= $order->order_table ?></div>
                 <div class="col-4"><?= $order->order_time ?></div>
                 <div class="col-4">
-                    <a class="btn btn-dark" href="#">
+                    <a class="btn btn-dark" data-toggle="collapse" data-target="#<?= $collapse_id ?>" role="button"
+                       aria-expanded="false" aria-controls="<?= $collapse_id ?>">
                         <i class="fas fa-info text-light"></i>
                     </a>
                     <a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
                                 class="far fa-sticky-note text-light"></i></a>
-                    <a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger"><i
-                                class="fas fa-trash-alt text-light"></i></a>
+                    <a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger">
+                        <i class="fas fa-trash-alt text-light"></i>
+                    </a>
+                </div>
+                <div class="col-12 collapse text-left" id=<?= $collapse_id ?>>
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                        squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+                        sapiente ea proident.
                 </div>
             </div>
             <hr>
