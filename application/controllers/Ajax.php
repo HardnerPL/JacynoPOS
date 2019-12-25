@@ -18,10 +18,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['order_id'] = $order_id;
-		$data['ajax'] = true;
-		$this->load->view('templates/header', $data);
 		$this->load->view('ajax/popup/confirm_delete_order', $data);
-		$this->load->view('templates/footer', $data);
 	}
 
 	public function confirm_delete_order_item($order_id, $order_item_id) {
@@ -30,10 +27,7 @@ class Ajax extends CI_Controller
 		}
 		$data['order_id'] = $order_id;
 		$data['order_item_id'] = $order_item_id;
-		$data['ajax'] = true;
-		$this->load->view('templates/header', $data);
 		$this->load->view('ajax/popup/confirm_delete_order_item', $data);
-		$this->load->view('templates/footer', $data);
 	}
 
     public function load_main_menu()
@@ -43,10 +37,7 @@ class Ajax extends CI_Controller
         }
 
         $data['orders'] = $this->order_model->get_orders();
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/main_menu', $data);
-        $this->load->view('templates/footer', $data);
 
     }
 
@@ -55,13 +46,10 @@ class Ajax extends CI_Controller
         if (!$this->user_model->can_access(1)) {
             redirect('login');
         }
-        $data['ajax'] = true;
 		$this->order_model->load_order();
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['current_order'] = $this->session->current_order;
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/order_menu', $data);
-        $this->load->view('templates/footer', $data);
     }
 
     public function load_order_menu_category_list()
@@ -70,10 +58,7 @@ class Ajax extends CI_Controller
             redirect('login');
         }
         $data['categories'] = $this->category_model->get_all_categories();
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/category_list', $data);
-        $this->load->view('templates/footer', $data);
     }
 
     public function load_item_list()
@@ -82,10 +67,7 @@ class Ajax extends CI_Controller
             redirect('login');
         }
         $data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/item_list', $data);
-        $this->load->view('templates/footer', $data);
     }
 
     public function load_item_form()
@@ -93,11 +75,8 @@ class Ajax extends CI_Controller
         if (!$this->user_model->can_access(1)) {
             redirect('login');
         }
-        $data['ajax'] = true;
         $data['item_id'] = $this->input->post('item_id');
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/add_item_form', $data);
-        $this->load->view('templates/footer', $data);
     }
 
     public function add_item()
@@ -139,10 +118,7 @@ class Ajax extends CI_Controller
             redirect('login');
         }
         $data['order_items'] = $this->order_model->get_order_items();
-        $data['ajax'] = true;
-        $this->load->view('templates/header', $data);
         $this->load->view('ajax/edit_order_menu', $data);
-        $this->load->view('templates/footer', $data);
     }
 
 	public function delete_order_item()
@@ -159,10 +135,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['order_item'] = $this->order_model->get_order_item();
-		$data['ajax'] = true;
-		$this->load->view('templates/header', $data);
 		$this->load->view('ajax/edit_item_form', $data);
-		$this->load->view('templates/footer', $data);
 	}
 
 	public function confirm_edit_order_item() {
@@ -170,10 +143,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
-		$data['ajax'] = true;
-		$this->load->view('templates/header', $data);
 		$this->load->view('ajax/popup/confirm_edit_order_item', $data);
-		$this->load->view('templates/footer', $data);
 	}
 
 	public function edit_item() {
