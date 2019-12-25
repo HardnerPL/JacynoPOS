@@ -15,7 +15,7 @@ class Order_model extends CI_Model
 
 	public function get_orders()
 	{
-		$query = $this->db->get('orders');
+		$query = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'archived'");
 		return $query->result();
 	}
 
@@ -109,5 +109,9 @@ class Order_model extends CI_Model
 		$comment = $this->input->post('item_comment');
 		$this->db->query("UPDATE order_items SET item_count = $item_count, comment = '$comment' 
 WHERE order_id = $order_id AND item_id = $item_id");
+	}
+
+	public function set_order_status($order_id, $status) {
+		$this->db->query("UPDATE orders SET order_status = '$status' WHERE order_id = $order_id");
 	}
 }
