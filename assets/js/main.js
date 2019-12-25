@@ -223,3 +223,30 @@ function confirm_edit_order_item(item_id) {
 		}
 	})
 }
+
+function forward_order(order_id) {
+	$.ajax({
+		url: "order_status/forward_order/" + order_id,
+		success: function (data) {
+			load_main_menu();
+		}
+	})
+}
+
+function give_out_order(order_id) {
+	$.ajax({
+		url: "order_status/give_out_order/" + order_id,
+		success: function (data) {
+			load_main_menu();
+		}
+	})
+}
+
+function pay_off_order(order_id) {
+	$.ajax({
+		url: "order_status/pay_off_order/" + order_id,
+		success: function (data) {
+			load_main_menu();
+		}
+	})
+}
