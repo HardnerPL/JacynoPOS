@@ -27,3 +27,7 @@ This project is licensed under the MIT License - see the [license.txt](license.t
 ## Acknowledgments
 
 Huge thanks to [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) for this README template.
+
+## Contributors
+
+Huge thanks to [Pjacyn](https://github.com/Pjacyn) for help he is best brother ever.
