@@ -111,7 +111,8 @@ class Order_model extends CI_Model
 WHERE order_id = $order_id AND item_id = $item_id");
 	}
 
-	public function set_order_status($order_id, $status) {
+	public function set_order_status($order_id, $status)
+	{
 		$this->db->query("UPDATE orders SET order_status = '$status' WHERE order_id = $order_id");
 	}
 }

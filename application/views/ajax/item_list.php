@@ -7,5 +7,5 @@
  */
 
 foreach ($items as $item) {
-    echo "<li class='list-inline-item'><a href='#' onclick='load_item_form($item->item_id)' class='btn btn-primary btn-square mb-2'>$item->item_name</a></li>";
+	echo "<li class='list-inline-item'><a href='#' onclick='load_item_form($item->item_id)' class='btn btn-primary btn-square mb-2'>$item->item_name</a></li>";
 }
