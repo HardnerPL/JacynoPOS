@@ -15,7 +15,7 @@ class Order_model extends CI_Model
 
 	public function get_orders()
 	{
-		$query = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'archived'");
+		$query = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'closed'");
 		return $query->result();
 	}
 
@@ -25,7 +25,7 @@ class Order_model extends CI_Model
 		$time = date('H:i');
 		$this->db->query("
                   INSERT INTO orders (order_table, order_time, order_status, order_printed)
-                              VALUES ('$table', '$time', 'draft', 'false')
+                              VALUES ('$table', '$time', 'open', 'false')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}

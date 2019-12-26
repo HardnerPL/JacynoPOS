@@ -242,18 +242,9 @@ function give_out_order(order_id) {
 	})
 }
 
-function pay_off_order(order_id) {
+function close_order(order_id) {
 	$.ajax({
-		url: "order_status/pay_off_order/" + order_id,
-		success: function (data) {
-			load_main_menu();
-		}
-	})
-}
-
-function archive_order(order_id) {
-	$.ajax({
-		url: "order_status/archive_order/" + order_id,
+		url: "order_status/close_order/" + order_id,
 		success: function (data) {
 			load_main_menu();
 		}

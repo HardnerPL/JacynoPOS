@@ -21,17 +21,10 @@ class Order_status extends CI_Controller
 		$this->order_model->set_order_status($order_id, 'out');
 	}
 
-	public function pay_off_order($order_id) {
+	public function close_order($order_id) {
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
-		$this->order_model->set_order_status($order_id, 'paid');
-	}
-
-	public function archive_order($order_id) {
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$this->order_model->set_order_status($order_id, 'archived');
+		$this->order_model->set_order_status($order_id, 'closed');
 	}
 }
