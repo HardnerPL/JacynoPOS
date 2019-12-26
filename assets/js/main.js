@@ -259,3 +259,7 @@ function archive_order(order_id) {
 		}
 	})
 }
+
+function trigger_collapse(collapse_id) {
+	$("#" + collapse_id).collapse('toggle');
+}
