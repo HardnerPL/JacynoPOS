@@ -25,7 +25,7 @@
                 Opcje
             </div>
         </div>
-        <hr>
+        <hr class="m-0">
         <?php
         foreach ($orders as $order) {
             $collapse_id = 'order-info-' . $order->order_id ?>
@@ -34,26 +34,41 @@
                 <div class="col-2" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_table ?></div>
                 <div class="col-4" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_time ?></div>
                 <div class="col-4">
-                    <a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary"><i
-                                class="far fa-sticky-note text-light"></i></a>
-                    <a onclick="confirm_delete_order(<?= $order->order_id ?>)" href="#" class="btn btn-danger">
-                        <i class="fas fa-trash-alt text-light"></i>
+                    <a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary w-100 h-100 rounded-0">
+                        <i class="far fa-sticky-note text-light"></i>
                     </a>
                 </div>
                 <div class="col-12 collapse text-left" id=<?= $collapse_id ?>>
                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
                     squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
                     sapiente ea proident.
+                    <div class="row no-gutters">
+                        <div class="col-4">
+                            <a href="#" class="btn btn-primary w-100 rounded-0">
+                                <i class="far fa-sticky-note text-light"></i>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-danger w-100 rounded-0">
+                                <i class="far fa-sticky-note text-light"></i>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-warning w-100 rounded-0">
+                                <i class="far fa-sticky-note text-light"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr>
+            <hr class="m-0">
             <?php
         }
         ?>
     </div>
 </div>
 <div class="row h-auto fixed-bottom center-content">
-    <div class="offset-md-2 col-12 col-md-6">
+    <div class="col-12 col-md-6">
         <div class="input-group mb-3 px-2">
             <input type="text" class="form-control" id="table-input" placeholder="Stolik">
             <div class="input-group-append">
