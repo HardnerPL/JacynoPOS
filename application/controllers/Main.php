@@ -8,6 +8,11 @@
 
 class Main extends CI_Controller {
 
+    /**
+     * @var User_model
+     */
+    public $user_model;
+
     public function __construct()
     {
         parent::__construct();
