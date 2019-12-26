@@ -33,7 +33,8 @@ function load_order_menu(order_id) {
 		success: function (data) {
 			window.current_menu = "order_menu";
 			$("#container").html(data);
-	}});
+		}
+	});
 }
 
 function load_order_menu_category_list() {
@@ -153,7 +154,7 @@ function delete_order_item(order_id, item_id) {
 }
 
 function load_last_page() {
-	switch(current_menu) {
+	switch (current_menu) {
 		case "order_menu":
 			window.current_menu = "main_menu";
 			load_main_menu();

@@ -5,18 +5,18 @@ body, .container, .container-fluid {
 }
 
 .overflow-scroll {
-    overflow-y: scroll;
+	overflow-y: scroll;
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent;
+	width: 0px;
+	background: transparent;
 }
 
 .center-content {
 	display: flex;
-    justify-content: center;
-    align-items: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .h-auto {
@@ -24,12 +24,12 @@ body, .container, .container-fluid {
 }
 
 .btn-square {
-    width: 28vw;
-    height: 28vw;
-    font-size: 4vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 28vw;
+	height: 28vw;
+	font-size: 4vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .popup-bg {
@@ -38,7 +38,7 @@ body, .container, .container-fluid {
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .popup {
