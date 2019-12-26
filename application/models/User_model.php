@@ -36,8 +36,9 @@ class User_model extends CI_Model
 	private function get_user_hash($username)
 	{
 		$query = $this->db->query("SELECT user_password FROM users WHERE user_name = '$username'");
-		$row = $query->row();
-		return $row->user_password;
+		if ($query->num_rows() > 0) {
+			return $query->row()->user_password;
+		} else return "USER NOT FOUND";
 	}
 
 	private function get_user_access($username)
