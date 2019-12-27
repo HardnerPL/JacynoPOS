@@ -25,9 +25,6 @@
 		</h2>
 		<ul class="list-inline">
 			<li class="list-inline-item">
-				<a href="#" onclick="delete_order(<?= $current_order ?>)" class="btn btn-dark">Usuń</a>
-			</li>
-			<li class="list-inline-item">
 				<a href="#" onclick="edit_order_menu(<?= $current_order ?>)" class="btn btn-dark">Edytuj</a>
 			</li>
 		</ul>

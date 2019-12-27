@@ -13,15 +13,6 @@ class Ajax extends CI_Controller
 		parent::__construct();
 	}
 
-	public function confirm_delete_order($order_id)
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['order_id'] = $order_id;
-		$this->load->view('ajax/popup/confirm_delete_order', $data);
-	}
-
 	public function confirm_delete_order_item($order_id, $order_item_id)
 	{
 		if (!$this->user_model->can_access(1)) {
@@ -104,14 +95,6 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$this->order_model->add_order();
-	}
-
-	public function delete_order()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$this->order_model->delete_order();
 	}
 
 	public function edit_order_menu()

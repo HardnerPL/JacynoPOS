@@ -86,19 +86,6 @@ function update_price() {
 	})
 }
 
-function delete_order(order_id) {
-	$.ajax({
-		url: "ajax/delete_order",
-		type: "post",
-		data: {
-			order_id: order_id
-		},
-		success: function () {
-			load_main_menu();
-		}
-	})
-}
-
 function edit_order_menu() {
 	$.ajax({
 		url: "ajax/edit_order_menu",
@@ -189,12 +176,6 @@ function edit_item(item_id) {
 			load_order_menu_category_list();
 			update_price();
 		}
-	})
-}
-
-function confirm_delete_order(order_id) {
-	$.get("ajax/confirm_delete_order/" + order_id, function (data) {
-		$("body").append(data);
 	})
 }
 
