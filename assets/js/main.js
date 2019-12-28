@@ -236,3 +236,10 @@ function close_order(order_id) {
 function trigger_collapse(collapse_id) {
 	$("#" + collapse_id).collapse('toggle');
 }
+
+function change_item_count(value) {
+	input = parseInt($("#count-input").val());
+	if (input != "" && input + value > 0) {
+		$("#count-input").val(input + value);
+	}
+}
