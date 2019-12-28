@@ -16,7 +16,7 @@
 				<div class="input-group-prepend">
 					<button onclick="change_item_count(-1)" type="button" class="btn btn-primary">-</button>
 				</div>
-				<input type="text" class="form-control" id="count-input" placeholder="Ilość" value="1">
+				<input type="number" class="form-control" id="count-input" placeholder="Ilość" value="1">
 				<div class="input-group-append">
 					<button onclick="change_item_count(1)" type="button" class="btn btn-primary">+</button>
 				</div>
