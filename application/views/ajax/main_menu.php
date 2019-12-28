@@ -39,9 +39,11 @@
                     </a>
                 </div>
                 <div class="col-12 collapse text-left" id=<?= $collapse_id ?>>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                    squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                    sapiente ea proident.
+					<div class="m-2">
+						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+						squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
+						sapiente ea proident.
+					</div>
                     <div class="row no-gutters">
                         <div class="col-4">
                             <a href="#" class="btn btn-primary w-100 rounded-0">
@@ -68,7 +70,7 @@
     </div>
 </div>
 <div class="row h-auto fixed-bottom center-content">
-    <div class="col-12 col-md-6">
+    <div class="col-8 col-sm-6">
         <div class="input-group mb-3 px-2">
             <input type="text" class="form-control" id="table-input" placeholder="Stolik">
             <div class="input-group-append">
