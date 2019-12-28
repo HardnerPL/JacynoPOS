@@ -33,7 +33,7 @@
 					   class="btn btn-primary mb-2"><i
 							class="far fa-sticky-note text-light"></i></a>
 					<a onclick="confirm_delete_order_item(<?= $item->order_id . ", " . $item->item_id ?>)" href="#"
-					   class="btn btn-danger"><i
+					   class="btn btn-danger mb-2"><i
 							class="fas fa-trash-alt text-light"></i></a>
 				</div>
 			</div>
