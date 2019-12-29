@@ -4,6 +4,10 @@ body, .container, .container-fluid {
 	flex-flow: column;
 }
 
+.vh-60 {
+	height: 60vh;
+}
+
 .overflow-scroll {
 	overflow-y: scroll;
 }
@@ -44,10 +48,6 @@ body, .container, .container-fluid {
 .popup {
 	background-color: #fefefe;
 	border: 1px solid #888;
-}
-
-#category_menu {
-	height: 60vh;
 }
 
 #loginForm {
