@@ -1,4 +1,5 @@
-<div class="center-content">
+
+<div class="col-8 offset-2 center-content">
 	<div>
 		<div class="form-group">
 			<label for="count">Ilość</label>

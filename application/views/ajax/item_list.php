@@ -5,7 +5,14 @@
  * Date: 6/21/2019
  * Time: 9:27 PM
  */
-
-foreach ($items as $item) {
-	echo "<li class='list-inline-item'><a href='#' onclick='load_item_form($item->item_id)' class='btn btn-primary btn-square mb-2'>$item->item_name</a></li>";
-}
+?>
+<div class="col-12">
+	<div class="row no-gutters">
+<?php foreach ($items as $item) { ?>
+	<div class="col-4 p-1">
+		<a href=#" onclick="load_item_form(<?= $item->item_id ?>)"
+		   class="btn btn-primary btn-square rounded-0 center-content p-0"><?= $item->item_name ?></a>
+	</div>
+<?php } ?>
+	</div>
+</div>

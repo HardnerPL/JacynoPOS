@@ -5,6 +5,14 @@
  * Date: 6/21/2019
  * Time: 8:53 PM
  */
-foreach ($categories as $row) {
-	echo "<li class='list-inline-item'><a href='#' onclick='load_item_list($row->category_id)' class='btn btn-primary btn-square mb-2'>$row->category_name</a></li>";
-}
+?>
+<div class="col-12">
+	<div class="row no-gutters">
+<?php foreach ($categories as $row) { ?>
+	<div class="col-4 p-1">
+		<a href=#" onclick="load_item_list(<?= $row->category_id ?>)"
+		   class="btn btn-primary btn-square rounded-0 center-content p-0"><?= $row->category_name ?></a>
+	</div>
+<?php } ?>
+	</div>
+</div>

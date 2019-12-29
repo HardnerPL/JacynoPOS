@@ -13,6 +13,7 @@ function load_item_list(category_id) {
 			window.current_menu = "item_list";
 			window.current_category = category_id;
 			$("#order-menu-main").html(data);
+			square_buttons();
 		}
 	})
 }
@@ -41,6 +42,7 @@ function load_order_menu_category_list() {
 	$.get("ajax/load_order_menu_category_list", function (data) {
 		window.current_menu = "order_menu";
 		$("#order-menu-main").html(data);
+		square_buttons();
 	})
 }
 
@@ -242,4 +244,8 @@ function change_item_count(value) {
 	if (input != "" && input + value > 0) {
 		$("#count-input").val(input + value);
 	}
+}
+
+function square_buttons() {
+	$(".btn-square").height($(".btn-square").width());
 }

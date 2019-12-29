@@ -11,10 +11,8 @@
 	<a href="#" onclick="load_main_menu()" class="btn btn-dark mr-2">Home</a>
 	<a href="#" onclick="load_last_page()" class="btn btn-dark">Back</a>
 </div>
-<div class="row vh-60">
-	<ul id="order-menu-main" class="h-100 list-inline col-12">
-		<script>load_order_menu_category_list()</script>
-	</ul>
+<div id="order-menu-main" class="row vh-60">
+	<script>load_order_menu_category_list()</script>
 </div>
 <div id="order-menu-info" class="h-auto center-content row">
 	<div class="text-center">

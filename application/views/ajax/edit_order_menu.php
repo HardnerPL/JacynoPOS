@@ -6,12 +6,12 @@
  * Time: 11:11 PM
  */
 ?>
-<div class="overflow-scroll h-100">
-	<?php
-	foreach ($order_items as $item) {
-		?>
+
+<div class="col-12">
+	<?php foreach ($order_items as $item) { ?>
 		<div class="row no-gutters">
-			<div class="col-9 p-1" onclick="load_edit_item_form(<?= $item->order_id . ", " . $item->item_id ?>)">
+			<div class="col-9 p-1"
+				 onclick="load_edit_item_form(<?= $item->order_id . ", " . $item->item_id ?>)">
 				<div>
 					<div><b><?= $item->item_name ?></b></div>
 				</div>
@@ -31,7 +31,5 @@
 			</div>
 		</div>
 		<hr class="m-0">
-		<?php
-	}
-	?>
+	<?php } ?>
 </div>

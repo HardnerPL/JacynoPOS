@@ -27,15 +27,6 @@ body, .container, .container-fluid {
 	flex-grow: 1;
 }
 
-.btn-square {
-	width: 28vw;
-	height: 28vw;
-	font-size: 4vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .popup-bg {
 	display: flex;
 	position: fixed;
