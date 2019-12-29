@@ -68,7 +68,10 @@ class Order_model extends CI_Model
 
 	public function load_order()
 	{
-		$this->session->current_order = $this->input->post('order_id');
+		$order_id = $this->input->post('order_id');
+		if (!empty($order_id)) {
+			$this->session->current_order = $order_id;
+		}
 	}
 
 	public function get_order_items()
