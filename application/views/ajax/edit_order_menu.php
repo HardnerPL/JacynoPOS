@@ -6,11 +6,7 @@
  * Time: 11:11 PM
  */
 ?>
-
-<div class="overflow-scroll h-75">
-	<h1 class="text-center mb-4">Szczegóły</h1>
-	<hr class="m-0">
-
+<div class="overflow-scroll h-100">
 	<?php
 	foreach ($order_items as $item) {
 		?>
