@@ -236,7 +236,14 @@ function close_order(order_id) {
 }
 
 function trigger_collapse(collapse_id) {
-	$("#" + collapse_id).collapse('toggle');
+	current_collapse_id = window.current_collapse_id;
+	if (current_collapse_id) $("#" + current_collapse_id).collapse('toggle');
+	if (current_collapse_id != collapse_id) {
+		current_collapse_id = collapse_id;
+		$("#" + collapse_id).collapse('toggle');
+	} else {
+		delete(window.current_collapse_id);
+	}
 }
 
 function change_item_count(value) {
