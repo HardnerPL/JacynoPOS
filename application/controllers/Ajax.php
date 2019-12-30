@@ -139,4 +139,12 @@ class Ajax extends CI_Controller
 		}
 		$this->order_model->edit_item();
 	}
+
+	public function load_main_menu_row($row_id) {
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$data['order'] = $this->order_model->get_order($row_id);
+		$this->load->view('ajax/main_menu/order_list_row', $data);
+	}
 }

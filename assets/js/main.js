@@ -24,6 +24,17 @@ function load_main_menu() {
 	})
 }
 
+function load_main_menu_row(row_id) {
+	$.get("ajax/load_main_menu_row/" + row_id, function (data) {
+		$("#order-row-" + row_id).replaceWith(data);
+	})
+}
+
+function delete_main_menu_row(row_id) {
+	$("#order-row-" + row_id).next("hr").remove();
+	$("#order-row-" + row_id).remove();
+}
+
 function load_order_menu(order_id) {
 	$.ajax({
 		url: "ajax/load_order_menu",
@@ -212,7 +223,7 @@ function forward_order(order_id) {
 	$.ajax({
 		url: "order_status/forward_order/" + order_id,
 		success: function (data) {
-			load_main_menu();
+			load_main_menu_row(order_id);
 		}
 	})
 }
@@ -221,7 +232,7 @@ function give_out_order(order_id) {
 	$.ajax({
 		url: "order_status/give_out_order/" + order_id,
 		success: function (data) {
-			load_main_menu();
+			load_main_menu_row(order_id);
 		}
 	})
 }
@@ -230,7 +241,7 @@ function close_order(order_id) {
 	$.ajax({
 		url: "order_status/close_order/" + order_id,
 		success: function (data) {
-			load_main_menu();
+			delete_main_menu_row(order_id);
 		}
 	})
 }
@@ -242,7 +253,7 @@ function trigger_collapse(collapse_id) {
 		current_collapse_id = collapse_id;
 		$("#" + collapse_id).collapse('toggle');
 	} else {
-		delete(window.current_collapse_id);
+		delete (window.current_collapse_id);
 	}
 }
 

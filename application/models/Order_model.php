@@ -19,6 +19,11 @@ class Order_model extends CI_Model
 		return $query->result();
 	}
 
+	public function get_order($order_id) {
+		$query = $this->db->query("SELECT * FROM orders WHERE order_id = $order_id");
+		return $query->row();
+	}
+
 	public function add_order()
 	{
 		$table = $this->input->post('table');
