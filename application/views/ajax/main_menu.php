@@ -9,20 +9,17 @@
 <div class="row center-content m-4">
     <h1>Lista zamówień</h1>
 </div>
-<div class="row mb-5 h-auto overflow-scroll">
+<div id="main-menu-table" class="row h-auto overflow-scroll">
     <div class="col-12">
         <div class="row text-center">
-            <div class="col-2">
+            <div class="col-3">
                 #
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 Stolik
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 Godzina
-            </div>
-            <div class="col-4">
-                Opcje
             </div>
         </div>
         <hr class="m-0">
@@ -30,12 +27,12 @@
         foreach ($orders as $order) {
             $collapse_id = 'order-info-' . $order->order_id ?>
             <div class="row text-center">
-                <div class="col-2" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_id ?></div>
-                <div class="col-2" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_table ?></div>
-                <div class="col-4" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_time ?></div>
-                <div class="col-4">
+                <div class="col" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_id ?></div>
+                <div class="col" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_table ?></div>
+                <div class="col" onclick="trigger_collapse('<?= $collapse_id ?>')"><?= $order->order_time ?></div>
+                <div class="col">
                     <a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary w-100 h-100 rounded-0">
-                        <i class="far fa-sticky-note text-light"></i>
+                        <i class="far fa-sticky-note"></i>
                     </a>
                 </div>
                 <div class="col-12 collapse text-left" id=<?= $collapse_id ?>>

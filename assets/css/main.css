@@ -41,5 +41,6 @@ body, .container, .container-fluid {
 	border: 1px solid #888;
 }
 
-#loginForm {
+#main-menu-table {
+	margin-bottom: 4rem;
 }
