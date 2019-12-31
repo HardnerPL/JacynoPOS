@@ -19,13 +19,13 @@ function load_item_list(category_id) {
 }
 
 function load_main_menu() {
-	$.get("ajax/load_main_menu", function (data) {
+	$.get("main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
 	})
 }
 
 function load_main_menu_row(row_id) {
-	$.get("ajax/load_main_menu_row/" + row_id, function (data) {
+	$.get("main_menu/load_order_list_row/" + row_id, function (data) {
 		$("#order-row-" + row_id).replaceWith(data);
 	})
 }

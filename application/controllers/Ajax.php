@@ -23,17 +23,6 @@ class Ajax extends CI_Controller
 		$this->load->view('ajax/popup/confirm_delete_order_item', $data);
 	}
 
-	public function load_main_menu()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-
-		$data['orders'] = $this->order_model->get_orders();
-		$this->load->view('ajax/main_menu', $data);
-
-	}
-
 	public function load_order_menu()
 	{
 		if (!$this->user_model->can_access(1)) {
@@ -138,13 +127,5 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$this->order_model->edit_item();
-	}
-
-	public function load_main_menu_row($row_id) {
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['order'] = $this->order_model->get_order($row_id);
-		$this->load->view('ajax/main_menu/order_list_row', $data);
 	}
 }
