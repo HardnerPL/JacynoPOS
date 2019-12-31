@@ -21,6 +21,7 @@ function load_item_list(category_id) {
 function load_main_menu() {
 	$.get("main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
+		square_buttons();
 	})
 }
 

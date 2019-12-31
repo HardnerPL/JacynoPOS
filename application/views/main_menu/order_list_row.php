@@ -1,9 +1,9 @@
 <div id="order-row-<?= $order->order_id ?>" class="row text-center">
-	<div class="col" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id ?></div>
-	<div class="col" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
-	<div class="col" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>
+	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id ?></div>
+	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
+	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>
 	<div class="col">
-		<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary w-100 h-100 rounded-0">
+		<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#" class="btn btn-primary btn-square w-100 rounded-0 p-0 center-content">
 			<i class="far fa-sticky-note"></i>
 		</a>
 	</div>
