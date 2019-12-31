@@ -100,7 +100,7 @@ class Order_menu extends CI_Controller
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
-		$data['order_item'] = $this->order_model->get_order_item();
+		$data['item'] = $this->order_model->get_order_item();
 		$this->load->view('order_menu/edit_item_form', $data);
 	}
 
