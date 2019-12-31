@@ -20,7 +20,7 @@
 				   value="<?= $order_item->comment ?>">
 		</div>
 		<div class="text-center">
-			<button onclick="confirm_edit_order_item(<?= $order_item->item_id ?>)" class="btn btn-primary">Zatwierdź
+			<button onclick="confirm_edit_item_popup(<?= $order_item->item_id ?>)" class="btn btn-primary">Zatwierdź
 			</button>
 		</div>
 	</div>

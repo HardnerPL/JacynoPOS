@@ -135,15 +135,15 @@ function edit_item(item_id) {
 	})
 }
 
-function confirm_delete_order_item(order_id, order_item_id) {
-	$.get("order_menu/confirm_delete_order_item/" + order_id + '/' + order_item_id, function (data) {
+function confirm_delete_item_popup(order_id, order_item_id) {
+	$.get("order_menu/confirm_delete_item_popup/" + order_id + '/' + order_item_id, function (data) {
 		$("body").append(data);
 	})
 }
 
-function confirm_edit_order_item(item_id) {
+function confirm_edit_item_popup(item_id) {
 	$.ajax({
-		url: "order_menu/confirm_edit_order_item",
+		url: "order_menu/confirm_edit_item_popup",
 		type: "post",
 		data: {
 			item_id: item_id

@@ -13,7 +13,7 @@ class Order_menu extends CI_Controller
 		parent::__construct();
 	}
 
-	public function confirm_delete_order_item($order_id, $order_item_id)
+	public function confirm_delete_item_popup($order_id, $order_item_id)
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
@@ -104,7 +104,7 @@ class Order_menu extends CI_Controller
 		$this->load->view('order_menu/edit_item_form', $data);
 	}
 
-	public function confirm_edit_order_item()
+	public function confirm_edit_item_popup()
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
