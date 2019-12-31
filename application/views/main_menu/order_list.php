@@ -1,5 +1,5 @@
-<div id="main-menu-table" class="row h-auto overflow-scroll">
-	<div class="col-12">
+<div id="main-menu-table" class="row h-75 overflow-scroll">
+	<div class="col-12 p-0">
 		<div class="row text-center">
 			<div class="col-3">
 				#

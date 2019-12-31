@@ -4,6 +4,10 @@ body, .container, .container-fluid {
 	flex-flow: column;
 }
 
+.bg-dark-red {
+	background-color: #8B0000;
+}
+
 .vh-60 {
 	height: 60vh;
 }
@@ -39,6 +43,10 @@ body, .container, .container-fluid {
 .popup {
 	background-color: #fefefe;
 	border: 1px solid #888;
+}
+
+#container {
+	height: 100vh;
 }
 
 #main-menu-table {
