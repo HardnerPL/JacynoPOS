@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="col-12">
+<div class="col-12 h-100 overflow-scroll">
 	<?php foreach ($order_items as $item) { ?>
 		<div class="row no-gutters">
 			<div class="col-9 p-1"
