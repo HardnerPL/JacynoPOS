@@ -6,7 +6,7 @@
  * Time: 12:48 PM
  */
 
-class Ajax extends CI_Controller
+class Order_menu extends CI_Controller
 {
 	public function __construct()
 	{
@@ -31,7 +31,7 @@ class Ajax extends CI_Controller
 		$this->order_model->load_order();
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['current_order'] = $this->session->current_order;
-		$this->load->view('ajax/order_menu', $data);
+		$this->load->view('order_menu/order_menu', $data);
 	}
 
 	public function load_order_menu_category_list()
@@ -40,7 +40,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['categories'] = $this->category_model->get_all_categories();
-		$this->load->view('ajax/category_list', $data);
+		$this->load->view('order_menu/category_list', $data);
 	}
 
 	public function load_item_list()
@@ -49,7 +49,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
-		$this->load->view('ajax/item_list', $data);
+		$this->load->view('order_menu/item_list', $data);
 	}
 
 	public function load_item_form()
@@ -58,7 +58,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['item_id'] = $this->input->post('item_id');
-		$this->load->view('ajax/add_item_form', $data);
+		$this->load->view('order_menu/add_item_form', $data);
 	}
 
 	public function add_item()
@@ -84,7 +84,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['order_items'] = $this->order_model->get_order_items();
-		$this->load->view('ajax/edit_order_menu', $data);
+		$this->load->view('order_menu/edit_order_menu', $data);
 	}
 
 	public function delete_order_item()
@@ -101,7 +101,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['order_item'] = $this->order_model->get_order_item();
-		$this->load->view('ajax/edit_item_form', $data);
+		$this->load->view('order_menu/edit_item_form', $data);
 	}
 
 	public function confirm_edit_order_item()
