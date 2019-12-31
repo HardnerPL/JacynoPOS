@@ -8,6 +8,10 @@ body, .container, .container-fluid {
 	background-color: #8B0000;
 }
 
+.btn-icon {
+	font-size: 8vw;
+}
+
 .vh-60 {
 	height: 60vh;
 }

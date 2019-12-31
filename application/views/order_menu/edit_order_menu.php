@@ -26,7 +26,7 @@
 			<div class="col-2">
 				<a onclick="confirm_delete_item_popup(<?= $item->order_id . ", " . $item->item_id ?>)" href="#"
 				   class="btn btn-danger w-100 h-100 rounded-0 center-content">
-					<i class="far fa-trash-alt fa-sticky-note text-light"></i>
+					<i class="fas fa-trash-alt"></i>
 				</a>
 			</div>
 		</div>
