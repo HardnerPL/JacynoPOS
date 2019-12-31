@@ -20,7 +20,7 @@ class Ajax extends CI_Controller
 		}
 		$data['order_id'] = $order_id;
 		$data['order_item_id'] = $order_item_id;
-		$this->load->view('ajax/popup/confirm_delete_order_item', $data);
+		$this->load->view('popup/confirm_delete_order_item', $data);
 	}
 
 	public function load_order_menu()
@@ -110,7 +110,7 @@ class Ajax extends CI_Controller
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
-		$this->load->view('ajax/popup/confirm_edit_order_item', $data);
+		$this->load->view('popup/confirm_edit_order_item', $data);
 	}
 
 	public function edit_item()
