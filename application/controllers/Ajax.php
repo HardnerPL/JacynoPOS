@@ -78,14 +78,6 @@ class Ajax extends CI_Controller
 		echo $this->order_model->get_current_price();
 	}
 
-	public function add_order()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$this->order_model->add_order();
-	}
-
 	public function edit_order_menu()
 	{
 		if (!$this->user_model->can_access(1)) {

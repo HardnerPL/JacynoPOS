@@ -25,4 +25,12 @@ class Main_menu extends CI_Controller
 		$data['order'] = $this->order_model->get_order($row_id);
 		$this->load->view('main_menu/order_list_row', $data);
 	}
+
+	public function add_order()
+	{
+		if (!$this->user_model->can_access(1)) {
+			redirect('login');
+		}
+		$this->order_model->add_order();
+	}
 }

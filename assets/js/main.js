@@ -18,24 +18,6 @@ function load_item_list(category_id) {
 	})
 }
 
-function load_main_menu() {
-	$.get("main_menu/load_main_menu", function (data) {
-		$("#container").html(data);
-		square_buttons();
-	})
-}
-
-function load_main_menu_row(row_id) {
-	$.get("main_menu/load_order_list_row/" + row_id, function (data) {
-		$("#order-row-" + row_id).replaceWith(data);
-	})
-}
-
-function delete_main_menu_row(row_id) {
-	$("#order-row-" + row_id).next("hr").remove();
-	$("#order-row-" + row_id).remove();
-}
-
 function load_order_menu(order_id) {
 	$.ajax({
 		url: "ajax/load_order_menu",
@@ -106,20 +88,6 @@ function edit_order_menu() {
 		success: function (data) {
 			$("#order-menu-main").html(data);
 			window.current_menu = "edit_order";
-		}
-	})
-}
-
-function add_order() {
-	$.ajax({
-		url: "ajax/add_order",
-		type: "post",
-		data: {
-			table: $("#table-input").val()
-		},
-		dataType: "text",
-		success: function () {
-			load_order_menu();
 		}
 	})
 }
