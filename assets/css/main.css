@@ -32,6 +32,10 @@ body, .container, .container-fluid {
 	height: 10%;
 }
 
+.h-5 {
+	height: 5%;
+}
+
 .btn-icon {
 	font-size: 8vw;
 }

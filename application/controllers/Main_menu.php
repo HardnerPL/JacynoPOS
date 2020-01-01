@@ -14,6 +14,7 @@ class Main_menu extends CI_Controller
 		}
 		$data['orders'] = $this->order_model->get_orders();
 		$this->load->view('main_menu/top_menu');
+		$this->load->view('main_menu/order_list_header');
 		$this->load->view('main_menu/order_list', $data);
 		$this->load->view('main_menu/bottom_menu');
 	}
