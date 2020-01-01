@@ -11,7 +11,7 @@ function load_item_menu() {
 
 function load_category_list() {
 	$.get("item_menu/load_category_list", function (data) {
-		window.current_menu = "order_menu";
+		window.current_menu = "item_menu";
 		$("#item-menu-main").replaceWith(data);
 		square_buttons();
 	})
