@@ -1,4 +1,3 @@
-
 <div class="col-12 h-100">
 	<div class="row h-15">
 		<div class="col-12 h-100 center-content">

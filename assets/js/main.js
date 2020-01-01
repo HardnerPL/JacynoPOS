@@ -8,14 +8,14 @@ function load_last_page() {
 			window.current_menu = "main_menu";
 			load_main_menu();
 			break;
-		case "item_menu":
 		case "item_list":
 			window.current_menu = "order_menu";
-			load_order_menu_category_list();
+			load_category_list();
 			break;
+		case "item_menu":
 		case "edit_item_form":
 			window.current_menu = "edit_order";
-			edit_order_menu();
+			load_order_menu();
 			break;
 		case "item_form":
 			window.current_menu = "item_list";
@@ -68,4 +68,11 @@ function trigger_collapse(collapse_id) {
 
 function square_buttons() {
 	$(".btn-square").height($(".btn-square").width());
+}
+
+function change_item_count(value) {
+	input = parseInt($("#count-input").val());
+	if (input != "" && input + value > 0) {
+		$("#count-input").val(input + value);
+	}
 }

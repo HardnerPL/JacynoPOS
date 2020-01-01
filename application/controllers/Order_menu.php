@@ -23,53 +23,6 @@ class Order_menu extends CI_Controller
 		$this->load->view('order_menu/confirm_delete_item_popup', $data);
 	}
 
-	public function load_item_menu()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['categories'] = $this->category_model->get_all_categories();
-		$data['current_order'] = $this->session->current_order;
-		$this->load->view('item_menu/navbar', $data);
-		$this->load->view('item_menu/category_list', $data);
-	}
-
-	public function load__category_list()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['categories'] = $this->category_model->get_all_categories();
-		$this->load->view('item_menu/category_list', $data);
-	}
-
-	public function load_item_list()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
-		$this->load->view('item_menu/item_list', $data);
-	}
-
-	public function load_item_form()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$data['item'] = $this->item_model->get_item($this->input->post('item_id'));
-		$this->load->view('order_menu/add_item_form', $data);
-	}
-
-	public function add_item()
-	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		$item = $this->item_model->get_item($this->input->post('item_id'));
-		$this->order_model->add_item($item);
-	}
-
 	public function get_price()
 	{
 		if (!$this->user_model->can_access(1)) {
@@ -78,13 +31,12 @@ class Order_menu extends CI_Controller
 		echo $this->order_model->get_current_price();
 	}
 
-	public function load_order_menu($order_id)
+	public function load_order_menu($order_id = NULL)
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
 		$this->order_model->load_order($order_id);
-		$data['order_id'] = $order_id;
 		$data['order_items'] = $this->order_model->get_order_items();
 		$this->load->view('order_menu/navbar', $data);
 		$this->load->view('order_menu/order_menu', $data);

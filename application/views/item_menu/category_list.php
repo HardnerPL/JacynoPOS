@@ -6,7 +6,7 @@
  * Time: 8:53 PM
  */
 ?>
-<div id="order-menu-main" class="row h-75">
+<div id="item-menu-main" class="row h-85">
 	<div class="col-12 px-1">
 		<div class="row no-gutters">
 			<?php foreach ($categories as $row) { ?>

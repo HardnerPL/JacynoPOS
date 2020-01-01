@@ -12,4 +12,5 @@
 <script src="assets/js/main.js"></script>
 <script src="assets/js/main_menu.js"></script>
 <script src="assets/js/order_menu.js"></script>
+<script src="assets/js/item_menu.js"></script>
 </html>

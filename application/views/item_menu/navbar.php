@@ -1,4 +1,4 @@
-<div id="item-menu-navbar" class="row h-25">
+<div id="item-menu-navbar" class="row h-15">
 	<div class="col-12 h-100 p-0">
 		<div class="row no-gutters h-100">
 			<div class="col h-100">

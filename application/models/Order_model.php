@@ -38,6 +38,7 @@ class Order_model extends CI_Model
 	public function add_item($item)
 	{
 		$order_id = $this->session->current_order;
+		echo $order_id;
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
 		$comment = $this->input->post('item_comment');

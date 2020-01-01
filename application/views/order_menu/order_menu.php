@@ -6,7 +6,7 @@
  * Time: 1:03 PM
  */
 ?>
-<div id="order_menu_list" class="row h-60">
+<div id="order-menu-list" class="row h-60">
 	<div class="col-12 h-100 overflow-scroll p-0">
 		<?php foreach ($order_items as $item) { ?>
 			<div class="row no-gutters">
