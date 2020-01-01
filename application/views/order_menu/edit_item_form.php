@@ -31,6 +31,7 @@
 		</div>
 	</div>
 	<div class="row h-15">
-		<a onclick="confirm_edit_item_popup(<?= $item->item_id ?>)" href="#" class="btn btn-success rounded-0 w-100 h-100 center-content">Dodaj</a>
+		<a onclick="confirm_edit_item_popup(<?= $item->item_id ?>)" href="#"
+		   class="btn btn-success rounded-0 w-100 h-100 center-content">Zatwierdź</a>
 	</div>
 </div>
