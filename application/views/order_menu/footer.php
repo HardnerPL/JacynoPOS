@@ -2,7 +2,7 @@
 	<div class="col-12 p-0 h-100">
 		<a href="#" onclick="load_item_menu()"
 		   class="btn btn-primary rounded-0 center-content w-100 h-100">
-			<i class="fas fa-edit btn-icon"></i>
+			<i class="fas fa-plus btn-icon"></i>
 		</a>
 	</div>
 </div>

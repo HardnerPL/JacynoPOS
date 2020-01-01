@@ -18,13 +18,17 @@
 		<div class="col-12 p-0">
 			<div class="row no-gutters h-100">
 				<div class="col-3 h-100">
-					<a onclick="change_item_count(-1)" href="#" class="btn btn-danger rounded-0 w-100 h-100 center-content">-</a>
+					<a onclick="change_item_count(-1)" href="#" class="btn btn-danger rounded-0 w-100 h-100 center-content">
+						<i class="fas fa-minus btn-icon"></i>
+					</a>
 				</div>
 				<div class="col h-100">
 					<input type="number" class="form-control h-100 rounded-0 text-center" id="count-input" placeholder="Ilość" value="1">
 				</div>
 				<div class="col-3 h-100">
-					<a onclick="change_item_count(1)" href="#" class="btn btn-success rounded-0 w-100 h-100 center-content">+</a>
+					<a onclick="change_item_count(1)" href="#" class="btn btn-success rounded-0 w-100 h-100 center-content">
+						<i class="fas fa-plus btn-icon"></i>
+					</a>
 				</div>
 			</div>
 		</div>
