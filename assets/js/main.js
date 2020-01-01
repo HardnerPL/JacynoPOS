@@ -8,7 +8,7 @@ function load_last_page() {
 			window.current_menu = "main_menu";
 			load_main_menu();
 			break;
-		case "edit_order":
+		case "item_menu":
 		case "item_list":
 			window.current_menu = "order_menu";
 			load_order_menu_category_list();

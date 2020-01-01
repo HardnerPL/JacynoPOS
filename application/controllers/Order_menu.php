@@ -23,24 +23,24 @@ class Order_menu extends CI_Controller
 		$this->load->view('order_menu/confirm_delete_item_popup', $data);
 	}
 
-	public function load_order_menu()
+	public function load_item_menu()
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
-		$this->order_model->load_order();
 		$data['categories'] = $this->category_model->get_all_categories();
 		$data['current_order'] = $this->session->current_order;
-		$this->load->view('order_menu/order_menu', $data);
+		$this->load->view('item_menu/navbar', $data);
+		$this->load->view('item_menu/category_list', $data);
 	}
 
-	public function load_order_menu_category_list()
+	public function load__category_list()
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
 		$data['categories'] = $this->category_model->get_all_categories();
-		$this->load->view('order_menu/category_list', $data);
+		$this->load->view('item_menu/category_list', $data);
 	}
 
 	public function load_item_list()
@@ -49,7 +49,7 @@ class Order_menu extends CI_Controller
 			redirect('login');
 		}
 		$data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
-		$this->load->view('order_menu/item_list', $data);
+		$this->load->view('item_menu/item_list', $data);
 	}
 
 	public function load_item_form()
@@ -78,13 +78,18 @@ class Order_menu extends CI_Controller
 		echo $this->order_model->get_current_price();
 	}
 
-	public function edit_order_menu()
+	public function load_order_menu($order_id)
 	{
 		if (!$this->user_model->can_access(1)) {
 			redirect('login');
 		}
+		$this->order_model->load_order($order_id);
+		$data['order_id'] = $order_id;
 		$data['order_items'] = $this->order_model->get_order_items();
-		$this->load->view('order_menu/edit_order_menu', $data);
+		$this->load->view('order_menu/navbar', $data);
+		$this->load->view('order_menu/order_menu', $data);
+		$this->load->view('order_menu/price', $data);
+		$this->load->view('order_menu/footer', $data);
 	}
 
 	public function delete_order_item()

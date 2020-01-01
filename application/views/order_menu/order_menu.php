@@ -6,40 +6,32 @@
  * Time: 1:03 PM
  */
 ?>
+<div id="order_menu_list" class="row h-60">
+	<div class="col-12 h-100 overflow-scroll p-0">
+		<?php foreach ($order_items as $item) { ?>
+			<div class="row no-gutters">
+				<div class="col-10 p-1"
+					 onclick="load_edit_item_form(<?= $item->order_id . ", " . $item->item_id ?>)">
+					<div>
+						<div><b><?= $item->item_count . " x " . $item->item_name ?></b></div>
+					</div>
+					<div>
+						Cena: <?= $item->item_price ?> zł
+						<b class="float-right mr-2"><?= $item->price ?> zł</b>
+					</div>
+					<div>
+						<?= $item->comment ?>
+					</div>
+				</div>
+				<div class="col-2">
+					<a onclick="confirm_delete_item_popup(<?= $item->order_id . ", " . $item->item_id ?>)" href="#"
+					   class="btn btn-danger w-100 h-100 rounded-0 center-content">
+						<i class="fas fa-trash-alt"></i>
+					</a>
+				</div>
+			</div>
+			<hr class="m-0">
+		<?php } ?>
+	</div>
+</div>
 
-<div id="order-menu-navbar" class="row h-auto">
-	<div class="col-12 h-100 p-0">
-		<div class="row no-gutters h-100">
-			<div class="col h-100">
-				<a href="#" onclick="load_main_menu()" class="btn btn-dark w-100 h-100 rounded-0 center-content">
-					<i class="fas fa-home btn-icon"></i>
-				</a>
-			</div>
-			<div class="col h-100">
-				<a href="#" onclick="load_last_page()" class="btn bg-dark-red text-light w-100 h-100 rounded-0 center-content">
-					<i class="fas fa-arrow-left btn-icon"></i>
-				</a>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="order-menu-main" class="row vh-60">
-	<script>load_order_menu_category_list()</script>
-</div>
-<div id="order-menu-info" class="h-auto center-content row">
-	<div class="col-12 p-0 h-100">
-		<div class="h-25 text-center">
-			<h2 id="price" class="m-0">
-				<script>
-                    update_price()
-				</script>
-			</h2>
-		</div>
-		<div class="h-75">
-			<a href="#" onclick="edit_order_menu(<?= $current_order ?>)"
-			   class="btn btn-primary rounded-0 center-content w-100 h-100">
-				<i class="fas fa-edit btn-icon"></i>
-			</a>
-		</div>
-	</div>
-</div>

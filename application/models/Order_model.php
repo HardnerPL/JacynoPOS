@@ -71,9 +71,11 @@ class Order_model extends CI_Model
 		$this->session->unset_userdata('current_order');
 	}
 
-	public function load_order()
+	public function load_order($order_id)
 	{
-		$order_id = $this->input->post('order_id');
+		if (empty($order_id)) {
+			$order_id = $this->input->post('order_id');
+		}
 		if (!empty($order_id)) {
 			$this->session->current_order = $order_id;
 		}

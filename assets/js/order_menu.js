@@ -1,3 +1,13 @@
+function load_item_menu() {
+	$.ajax({
+		url: "order_menu/load_item_menu",
+		success: function (data) {
+			window.current_menu = "item_menu";
+			$("#container").html(data);
+		}
+	});
+}
+
 function load_item_list(category_id) {
 	$.ajax({
 		url: "order_menu/load_item_list",
@@ -14,22 +24,8 @@ function load_item_list(category_id) {
 	})
 }
 
-function load_order_menu(order_id) {
-	$.ajax({
-		url: "order_menu/load_order_menu",
-		type: "post",
-		data: {
-			order_id: order_id
-		},
-		success: function (data) {
-			window.current_menu = "order_menu";
-			$("#container").html(data);
-		}
-	});
-}
-
-function load_order_menu_category_list() {
-	$.get("order_menu/load_order_menu_category_list", function (data) {
+function load_category_list() {
+	$.get("order_menu/load_category_list", function (data) {
 		window.current_menu = "order_menu";
 		$("#order-menu-main").html(data);
 		square_buttons();
@@ -78,12 +74,12 @@ function update_price() {
 	})
 }
 
-function edit_order_menu() {
+function load_order_menu(order_id) {
 	$.ajax({
-		url: "order_menu/edit_order_menu",
+		url: "order_menu/load_order_menu/" + order_id,
 		success: function (data) {
-			$("#order-menu-main").html(data);
-			window.current_menu = "edit_order";
+			$("#container").html(data);
+			window.current_menu = "order_menu";
 		}
 	})
 }

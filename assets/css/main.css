@@ -12,6 +12,10 @@ body, .container, .container-fluid {
 	height: 70%;
 }
 
+.h-60 {
+	height: 60%;
+}
+
 .h-20 {
 	height: 20%;
 }
