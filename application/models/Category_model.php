@@ -17,4 +17,8 @@ class Category_model extends CI_Model
 	{
 		return $this->db->query("SELECT * FROM categories")->result();
 	}
+
+	public function get_subcategories($category_id) {
+		return $this->db->query("SELECT * FROM subcategories WHERE category_id = $category_id")->result();
+	}
 }
