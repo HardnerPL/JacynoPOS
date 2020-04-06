@@ -21,13 +21,17 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		if (!$this->user_model->can_access(1)) {
-			redirect('login');
-		}
-		//$data['items'] = $this->item_model->get_all_items($data['categories']);
 		$data['title'] = "POS";
 		$this->load->view('templates/header', $data);
-		$this->load->view('main', $data);
+		if ($this->user_model->can_access('admin')) {
+			$this->load->view('waiter/main', $data);
+		} else if ($this->user_model->can_access('waiter')) {
+			$this->load->view('waiter/main', $data);
+		} else if ($this->user_model->can_access('kitchen')) {
+			$this->load->view('kitchen/main', $data);
+		} else {
+			redirect('login');
+		}
 		$this->load->view('templates/footer', $data);
 	}
 

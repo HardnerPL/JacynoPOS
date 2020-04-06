@@ -9,7 +9,7 @@ class Main_menu extends CI_Controller
 
 	public function load_main_menu()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['orders'] = $this->order_model->get_orders();
@@ -20,7 +20,7 @@ class Main_menu extends CI_Controller
 	}
 
 	public function load_order_list_row($row_id) {
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['order'] = $this->order_model->get_order($row_id);
@@ -29,7 +29,7 @@ class Main_menu extends CI_Controller
 
 	public function add_order()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$this->order_model->add_order();

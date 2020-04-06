@@ -9,7 +9,7 @@ class Item_menu extends CI_Controller
 
 	public function load_item_menu()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['categories'] = $this->category_model->get_all_categories();
@@ -19,7 +19,7 @@ class Item_menu extends CI_Controller
 
 	public function load_category_list()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['categories'] = $this->category_model->get_all_categories();
@@ -28,7 +28,7 @@ class Item_menu extends CI_Controller
 
 	public function load_item_list()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
@@ -37,7 +37,7 @@ class Item_menu extends CI_Controller
 
 	public function load_item_form()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['item'] = $this->item_model->get_item($this->input->post('item_id'));
@@ -46,7 +46,7 @@ class Item_menu extends CI_Controller
 
 	public function add_item()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$item = $this->item_model->get_item($this->input->post('item_id'));

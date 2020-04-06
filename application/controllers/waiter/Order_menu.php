@@ -15,7 +15,7 @@ class Order_menu extends CI_Controller
 
 	public function confirm_delete_item_popup($order_id, $order_item_id)
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['order_id'] = $order_id;
@@ -25,7 +25,7 @@ class Order_menu extends CI_Controller
 
 	public function get_price()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		echo $this->order_model->get_current_price();
@@ -33,7 +33,7 @@ class Order_menu extends CI_Controller
 
 	public function load_order_menu($order_id = NULL)
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$this->order_model->load_order($order_id);
@@ -46,7 +46,7 @@ class Order_menu extends CI_Controller
 
 	public function delete_order_item()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$this->order_model->delete_order_item();
@@ -54,7 +54,7 @@ class Order_menu extends CI_Controller
 
 	public function load_edit_item_form()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
@@ -63,7 +63,7 @@ class Order_menu extends CI_Controller
 
 	public function confirm_edit_item_popup()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
@@ -72,7 +72,7 @@ class Order_menu extends CI_Controller
 
 	public function edit_item()
 	{
-		if (!$this->user_model->can_access(1)) {
+		if (!$this->user_model->can_access('waiter')) {
 			redirect('login');
 		}
 		$this->order_model->edit_item();

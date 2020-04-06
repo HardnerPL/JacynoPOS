@@ -28,7 +28,7 @@ class User_model extends CI_Model
 		$data = array(
 			'user_name' => $user_name,
 			'user_password' => password_hash($user_password, PASSWORD_DEFAULT),
-			'user_access' => 0
+			'user_role' => ''
 		);
 		$this->db->insert('users', $data);
 	}
@@ -41,11 +41,11 @@ class User_model extends CI_Model
 		} else return "USER NOT FOUND";
 	}
 
-	private function get_user_access($username)
+	private function get_user_role($username)
 	{
-		$query = $this->db->query("SELECT user_access FROM users WHERE user_name = '$username'");
+		$query = $this->db->query("SELECT user_role FROM users WHERE user_name = '$username'");
 		$row = $query->row();
-		return $row->user_access;
+		return $row->user_role;
 	}
 
 	public function register(): string
@@ -68,20 +68,20 @@ class User_model extends CI_Model
 		$password = $this->input->post('password');
 		if (!empty($username) && !empty($password) && $this->config->item('dev') && $username == $password) {
 			$this->session->username = 'dev';
-			$this->session->access = 1;
+			$this->session->role = 'admin';
 			redirect('index');
 		} else if (!empty($username) && !empty($password)) {
 			if (password_verify($password, $this->get_user_hash($username))) {
 				$this->session->username = $username;
-				$this->session->access = $this->get_user_access($username);
+				$this->session->role = $this->get_user_role($username);
 				redirect('index');
 			}
 		}
 	}
 
-	public function can_access($access): bool
+	public function can_access($role): bool
 	{
-		if (!empty($this->session->access) && $this->session->access >= $access) {
+		if (!empty($this->session->role) && ($this->session->role == $role || $this->session->role == 'admin')) {
 			return true;
 		} else {
 			return false;
