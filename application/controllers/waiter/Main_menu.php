@@ -13,10 +13,10 @@ class Main_menu extends CI_Controller
 			redirect('login');
 		}
 		$data['orders'] = $this->order_model->get_orders();
-		$this->load->view('main_menu/top_menu');
-		$this->load->view('main_menu/order_list_header');
-		$this->load->view('main_menu/order_list', $data);
-		$this->load->view('main_menu/bottom_menu');
+		$this->load->view('waiter/main_menu/top_menu');
+		$this->load->view('waiter/main_menu/order_list_header');
+		$this->load->view('waiter/main_menu/order_list', $data);
+		$this->load->view('waiter/main_menu/bottom_menu');
 	}
 
 	public function load_order_list_row($row_id) {
@@ -24,7 +24,7 @@ class Main_menu extends CI_Controller
 			redirect('login');
 		}
 		$data['order'] = $this->order_model->get_order($row_id);
-		$this->load->view('main_menu/order_list_row', $data);
+		$this->load->view('waiter/main_menu/order_list_row', $data);
 	}
 
 	public function add_order()

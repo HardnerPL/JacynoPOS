@@ -1,6 +1,6 @@
 function load_item_menu() {
 	$.ajax({
-		url: "item_menu/load_item_menu",
+		url: "waiter/item_menu/load_item_menu",
 		success: function (data) {
 			window.current_menu = "item_menu";
 			$("#container").html(data);
@@ -10,7 +10,7 @@ function load_item_menu() {
 }
 
 function load_category_list() {
-	$.get("item_menu/load_category_list", function (data) {
+	$.get("waiter/item_menu/load_category_list", function (data) {
 		window.current_menu = "item_menu";
 		$("#item-menu-main").replaceWith(data);
 		square_buttons();
@@ -19,7 +19,7 @@ function load_category_list() {
 
 function load_item_list(category_id) {
 	$.ajax({
-		url: "item_menu/load_item_list",
+		url: "waiter/item_menu/load_item_list",
 		type: "post",
 		data: {
 			category_id: category_id
@@ -35,7 +35,7 @@ function load_item_list(category_id) {
 
 function load_item_form(item_id) {
 	$.ajax({
-		url: "item_menu/load_item_form",
+		url: "waiter/item_menu/load_item_form",
 		type: "post",
 		data: {
 			item_id: item_id
@@ -49,7 +49,7 @@ function load_item_form(item_id) {
 
 function add_item(item_id) {
 	$.ajax({
-		url: "item_menu/add_item",
+		url: "waiter/item_menu/add_item",
 		type: "post",
 		data: {
 			item_id: item_id,

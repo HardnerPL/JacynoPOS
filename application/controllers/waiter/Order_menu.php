@@ -20,7 +20,7 @@ class Order_menu extends CI_Controller
 		}
 		$data['order_id'] = $order_id;
 		$data['order_item_id'] = $order_item_id;
-		$this->load->view('order_menu/confirm_delete_item_popup', $data);
+		$this->load->view('waiter/order_menu/confirm_delete_item_popup', $data);
 	}
 
 	public function get_price()
@@ -38,10 +38,10 @@ class Order_menu extends CI_Controller
 		}
 		$this->order_model->load_order($order_id);
 		$data['order_items'] = $this->order_model->get_order_items();
-		$this->load->view('order_menu/navbar', $data);
-		$this->load->view('order_menu/order_menu', $data);
-		$this->load->view('order_menu/price', $data);
-		$this->load->view('order_menu/footer', $data);
+		$this->load->view('waiter/order_menu/navbar', $data);
+		$this->load->view('waiter/order_menu/order_menu', $data);
+		$this->load->view('waiter/order_menu/price', $data);
+		$this->load->view('waiter/order_menu/footer', $data);
 	}
 
 	public function delete_order_item()
@@ -58,7 +58,7 @@ class Order_menu extends CI_Controller
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
-		$this->load->view('order_menu/edit_item_form', $data);
+		$this->load->view('waiter/order_menu/edit_item_form', $data);
 	}
 
 	public function confirm_edit_item_popup()
@@ -67,7 +67,7 @@ class Order_menu extends CI_Controller
 			redirect('login');
 		}
 		$data['item'] = $this->order_model->get_order_item();
-		$this->load->view('order_menu/confirm_edit_item_popup', $data);
+		$this->load->view('waiter/order_menu/confirm_edit_item_popup', $data);
 	}
 
 	public function edit_item()

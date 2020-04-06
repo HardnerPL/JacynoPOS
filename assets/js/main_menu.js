@@ -1,5 +1,5 @@
 function load_main_menu() {
-	$.get("main_menu/load_main_menu", function (data) {
+	$.get("waiter/main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
 		square_buttons();
 	})
@@ -7,7 +7,7 @@ function load_main_menu() {
 
 function add_order() {
 	$.ajax({
-		url: "main_menu/add_order",
+		url: "waiter/main_menu/add_order",
 		type: "post",
 		data: {
 			table: $("#table-input").val()
@@ -20,7 +20,7 @@ function add_order() {
 }
 
 function load_main_menu_row(row_id) {
-	$.get("main_menu/load_order_list_row/" + row_id, function (data) {
+	$.get("waiter/main_menu/load_order_list_row/" + row_id, function (data) {
 		$("#order-row-" + row_id).replaceWith(data);
 	})
 }

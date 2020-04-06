@@ -1,7 +1,7 @@
 function load_order_menu(order_id) {
 	if (!order_id) order_id = "";
 	$.ajax({
-		url: "order_menu/load_order_menu/" + order_id,
+		url: "waiter/order_menu/load_order_menu/" + order_id,
 		success: function (data) {
 			$("#container").html(data);
 			window.current_menu = "order_menu";
@@ -11,7 +11,7 @@ function load_order_menu(order_id) {
 
 function update_price() {
 	$.ajax({
-		url: "order_menu/get_price",
+		url: "waiter/order_menu/get_price",
 		type: "post",
 		dataType: "text",
 		success: function (value) {
@@ -22,7 +22,7 @@ function update_price() {
 
 function load_edit_item_form(order_id, item_id) {
 	$.ajax({
-		url: "order_menu/load_edit_item_form",
+		url: "waiter/order_menu/load_edit_item_form",
 		type: "post",
 		data: {
 			order_id: order_id,
@@ -37,7 +37,7 @@ function load_edit_item_form(order_id, item_id) {
 
 function delete_order_item(order_id, item_id) {
 	$.ajax({
-		url: "order_menu/delete_order_item",
+		url: "waiter/order_menu/delete_order_item",
 		type: "post",
 		data: {
 			order_id: order_id,
@@ -52,7 +52,7 @@ function delete_order_item(order_id, item_id) {
 
 function edit_item(item_id) {
 	$.ajax({
-		url: "order_menu/edit_item",
+		url: "waiter/order_menu/edit_item",
 		type: "post",
 		data: {
 			item_id: item_id,
@@ -68,14 +68,14 @@ function edit_item(item_id) {
 }
 
 function confirm_delete_item_popup(order_id, order_item_id) {
-	$.get("order_menu/confirm_delete_item_popup/" + order_id + '/' + order_item_id, function (data) {
+	$.get("waiter/order_menu/confirm_delete_item_popup/" + order_id + '/' + order_item_id, function (data) {
 		$("body").append(data);
 	})
 }
 
 function confirm_edit_item_popup(item_id) {
 	$.ajax({
-		url: "order_menu/confirm_edit_item_popup",
+		url: "waiter/	order_menu/confirm_edit_item_popup",
 		type: "post",
 		data: {
 			item_id: item_id

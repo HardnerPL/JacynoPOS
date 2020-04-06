@@ -4,7 +4,7 @@
 		<?php
 		foreach ($orders as $order) {
 			$data['order'] = $order;
-			$this->view('main_menu/order_list_row', $data); ?>
+			$this->view('waiter/main_menu/order_list_row', $data); ?>
 			<hr class="m-0">
 		<?php } ?>
 	</div>
