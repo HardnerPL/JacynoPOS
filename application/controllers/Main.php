@@ -21,17 +21,32 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = "POS";
-		$this->load->view('templates/header', $data);
+
 		if ($this->user_model->can_access('admin')) {
-			$this->load->view('waiter/main', $data);
+			redirect('waiter');
 		} else if ($this->user_model->can_access('waiter')) {
-			$this->load->view('waiter/main', $data);
+			redirect('waiter');
 		} else if ($this->user_model->can_access('kitchen')) {
-			$this->load->view('kitchen/main', $data);
+			redirect('kitchen');
 		} else {
 			redirect('login');
 		}
+	}
+
+	public function waiter() {
+		$data['title'] = "POS";
+		$data['scripts'] = "waiter/main_menu, waiter/item_menu, waiter/order_menu";
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('waiter/main', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function kitchen() {
+		$data['title'] = "POS";
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('kitchen/main', $data);
 		$this->load->view('templates/footer', $data);
 	}
 

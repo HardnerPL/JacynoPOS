@@ -1,3 +1,7 @@
+$(document).ready(function () {
+	load_main_menu();
+})
+
 function load_main_menu() {
 	$.get("waiter/main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
