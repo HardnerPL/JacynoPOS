@@ -76,7 +76,16 @@ class Main extends CI_Controller
 		$this->user_model->user_login();
 		$data['title'] = "Logowanie | POS";
 		$this->load->view('templates/header', $data);
-		$this->load->view('login', $data);
+		$this->load->view('user_login', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function pin_login()
+	{
+		$this->user_model->pin_login();
+		$data['title'] = "Logowanie | POS";
+		$this->load->view('templates/header', $data);
+		$this->load->view('pin_login', $data);
 		$this->load->view('templates/footer', $data);
 	}
 

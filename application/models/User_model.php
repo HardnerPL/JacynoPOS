@@ -41,6 +41,11 @@ class User_model extends CI_Model
 		} else return "USER NOT FOUND";
 	}
 
+	private function get_all_users() {
+		$query = $this->db->query("SELECT * FROM users");
+		return $query->result();
+	}
+
 	private function get_user_role($username)
 	{
 		$query = $this->db->query("SELECT user_role FROM users WHERE user_name = '$username'");
@@ -75,6 +80,22 @@ class User_model extends CI_Model
 				$this->session->username = $username;
 				$this->session->role = $this->get_user_role($username);
 				redirect('index');
+			}
+		}
+	}
+
+	public function pin_login() {
+		$pin = $this->input->post('pin');
+		if ($this->config->item('dev') && false) {
+			$this->session->role = 'admin';
+			redirect('index');
+		} else if (!empty($pin)) {
+			$users = $this->get_all_users();
+			foreach ($users as $user) {
+				if (password_verify($pin, $user->user_password)) {
+					$this->session->role = $user->user_role;
+					redirect('index');
+				}
 			}
 		}
 	}
