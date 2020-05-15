@@ -88,6 +88,12 @@ class Order_model extends CI_Model
 		return $order_items;
 	}
 
+	public function get_active_order_items() {
+		$query = $this->db->query("SELECT * FROM order_items WHERE item_status = 'new'");
+		$order_items = $query->result();
+		return $order_items;
+	}
+
 	public function get_order_item()
 	{
 		$order_id = $this->session->current_order;
