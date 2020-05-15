@@ -29,8 +29,8 @@ class Order_model extends CI_Model
 		$table = $this->input->post('table');
 		$time = date('H:i');
 		$this->db->query("
-                  INSERT INTO orders (order_table, order_time, order_status, order_printed)
-                              VALUES ('$table', '$time', 'open', 'false')
+                  INSERT INTO orders (order_table, order_time, order_status)
+                              VALUES ('$table', '$time', 'draft')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}
@@ -38,17 +38,11 @@ class Order_model extends CI_Model
 	public function add_item($item)
 	{
 		$order_id = $this->session->current_order;
-		echo $order_id;
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
-		$comment = $this->input->post('item_comment');
-		$query = $this->db->query("SELECT * FROM order_items 
-			WHERE order_id = $order_id AND item_id = $item_id");
-		if ($query->num_rows() > 0) {
-			$this->db->query("UPDATE order_items SET item_count = item_count + $item_count WHERE order_id = $order_id AND item_id = $item_id");
-		} else {
-			$this->db->query("INSERT INTO order_items (order_id, item_id, item_count, comment, delivered)
-                              VALUES ('$order_id', '$item_id', '$item_count', '$comment', 'false')
+		for ($i = $item_count; $i > 0; $i--) {
+			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
+                              VALUES ('$order_id', '$item_id', 'new')
         ");
 		}
 	}
@@ -59,7 +53,7 @@ class Order_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM order_items WHERE order_id = '{$this->session->current_order}'");
 		foreach ($query->result() as $item) {
 			$query = $this->db->query("SELECT item_price FROM items WHERE item_id = $item->item_id");
-			$price += $query->row()->item_price * $item->item_count;
+			$price += $query->row()->item_price;
 		}
 		return $price;
 	}
@@ -88,7 +82,7 @@ class Order_model extends CI_Model
 		foreach ($order_items as $item) {
 			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
 			$item->item_price = $query->row()->item_price;
-			$item->price = $item->item_price * $item->item_count;
+			$item->price = $item->item_price;
 			$item->item_name = $query->row()->item_name;
 		}
 		return $order_items;
@@ -107,9 +101,8 @@ class Order_model extends CI_Model
 
 	public function delete_order_item()
 	{
-		$order_id = $this->input->post('order_id');
-		$item_id = $this->input->post('item_id');
-		$this->db->query("DELETE FROM order_items WHERE order_id = $order_id AND item_id = $item_id");
+		$order_item_id = $this->input->post('order_item_id');
+		$this->db->query("DELETE FROM order_items WHERE order_item_id = $order_item_id");
 	}
 
 	public function edit_item()

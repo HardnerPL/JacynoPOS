@@ -33,10 +33,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="row h-25">
-		<div class="col-12 h-100 p-0">
-				<input type="text" class="form-control h-100 rounded-0 text-center" id="comment-input" placeholder="Komentarz">
-		</div>
+	<div class="row h-45">
+
 	</div>
 	<div class="row h-15">
 			<a onclick="add_item(<?= $item->item_id ?>)" href="#" class="btn btn-success rounded-0 w-100 h-100 center-content">Dodaj</a>

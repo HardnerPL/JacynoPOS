@@ -35,13 +35,12 @@ function load_edit_item_form(order_id, item_id) {
 	})
 }
 
-function delete_order_item(order_id, item_id) {
+function delete_order_item(order_item_id) {
 	$.ajax({
 		url: "waiter/order_menu/delete_order_item",
 		type: "post",
 		data: {
-			order_id: order_id,
-			item_id: item_id
+			order_item_id: order_item_id,
 		},
 		success: function (data) {
 			load_order_menu();

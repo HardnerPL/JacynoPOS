@@ -54,7 +54,6 @@ function add_item(item_id) {
 		data: {
 			item_id: item_id,
 			item_count: $("#count-input").val(),
-			item_comment: $("#comment-input").val()
 		},
 		dataType: "text",
 		success: function () {
