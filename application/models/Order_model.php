@@ -119,4 +119,8 @@ WHERE order_id = $order_id AND item_id = $item_id");
 	{
 		$this->db->query("UPDATE orders SET order_status = '$status' WHERE order_id = $order_id");
 	}
+
+	public function confirm_order($order_id) {
+		$this->set_order_status($order_id, "confirmed");
+	}
 }

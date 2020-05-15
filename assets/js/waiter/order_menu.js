@@ -65,6 +65,11 @@ function edit_item(item_id) {
 		}
 	})
 }
+function confirm_order(order_id) {
+	$.ajax({
+		url: "waiter/order_menu/confirm_order/" + order_id
+	})
+}
 
 function confirm_delete_item_popup(order_id, order_item_id) {
 	$.get("waiter/order_menu/confirm_delete_item_popup/" + order_id + '/' + order_item_id, function (data) {
@@ -74,7 +79,7 @@ function confirm_delete_item_popup(order_id, order_item_id) {
 
 function confirm_edit_item_popup(item_id) {
 	$.ajax({
-		url: "waiter/	order_menu/confirm_edit_item_popup",
+		url: "waiter/order_menu/confirm_edit_item_popup",
 		type: "post",
 		data: {
 			item_id: item_id
@@ -86,6 +91,12 @@ function confirm_edit_item_popup(item_id) {
 			$("#item_comment").html($("#comment-input").val());
 			$(".popup-bg").removeClass('d-none');
 		}
+	})
+}
+
+function confirm_order_popup(order_id) {
+	$.get("waiter/order_menu/confirm_order_popup/" + order_id, function (data) {
+		$("body").append(data);
 	})
 }
 
