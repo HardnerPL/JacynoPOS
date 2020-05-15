@@ -1,3 +1,7 @@
+$( document ).ready(function() {
+	square_buttons()
+});
+
 function load_last_page() {
 	switch (current_menu) {
 		case "order_menu":

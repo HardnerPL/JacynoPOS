@@ -62,7 +62,7 @@ class User_model extends CI_Model
 		return "EMPTY INPUT";
 	}
 
-	public function log_in()
+	public function user_login()
 	{
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');

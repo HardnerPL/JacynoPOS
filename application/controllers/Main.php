@@ -21,19 +21,32 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-
 		if ($this->user_model->can_access('admin')) {
-			redirect('waiter');
+			redirect('admin');
 		} else if ($this->user_model->can_access('waiter')) {
 			redirect('waiter');
 		} else if ($this->user_model->can_access('kitchen')) {
 			redirect('kitchen');
-		} else {
-			redirect('login');
+		} else if ($this->user_model->can_access('pizza')) {
+			redirect('pizza');
 		}
+
+		$data['title'] = "Home | POS";
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('home', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function admin() {
+    	redirect('waiter');
 	}
 
 	public function waiter() {
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('user_login');
+		}
+
 		$data['title'] = "POS";
 		$data['scripts'] = "waiter/main_menu, waiter/item_menu, waiter/order_menu";
 
@@ -42,7 +55,15 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
+	public function pizza() {
+    	redirect('kitchen');
+	}
+
 	public function kitchen() {
+		if (!$this->user_model->can_access('kitchen')) {
+			redirect('pin_login');
+		}
+
 		$data['title'] = "POS";
 
 		$this->load->view('templates/header', $data);
@@ -50,9 +71,9 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function login()
+	public function user_login()
 	{
-		$this->user_model->log_in();
+		$this->user_model->user_login();
 		$data['title'] = "Logowanie | POS";
 		$this->load->view('templates/header', $data);
 		$this->load->view('login', $data);
