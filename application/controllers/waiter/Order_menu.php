@@ -36,6 +36,10 @@ class Order_menu extends CI_Controller
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
+		if (!isset($order_id)) {
+			$order_id = $this->session->current_order;
+		}
+
 		$this->order_model->load_order($order_id);
 		$data['order_id'] = $order_id;
 		$data['order_items'] = $this->order_model->get_order_items();
