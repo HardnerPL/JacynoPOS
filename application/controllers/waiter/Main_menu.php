@@ -10,7 +10,7 @@ class Main_menu extends CI_Controller
 	public function load_main_menu()
 	{
 		if (!$this->user_model->can_access('waiter')) {
-			redirect('login');
+			redirect('index');
 		}
 		$data['orders'] = $this->order_model->get_orders();
 		$this->load->view('waiter/main_menu/top_menu');
@@ -21,7 +21,7 @@ class Main_menu extends CI_Controller
 
 	public function load_order_list_row($row_id) {
 		if (!$this->user_model->can_access('waiter')) {
-			redirect('login');
+			redirect('index');
 		}
 		$data['order'] = $this->order_model->get_order($row_id);
 		$this->load->view('waiter/main_menu/order_list_row', $data);
@@ -30,7 +30,7 @@ class Main_menu extends CI_Controller
 	public function add_order()
 	{
 		if (!$this->user_model->can_access('waiter')) {
-			redirect('login');
+			redirect('index');
 		}
 		$this->order_model->add_order();
 	}
