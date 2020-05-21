@@ -17,6 +17,7 @@ class Kitchen_main_menu extends CI_Controller
 
 		$this->load->view('kitchen/main_menu/top_menu');
 		$this->load->view('kitchen/main_menu/order_list', $data);
+		$this->load->view('kitchen/main_menu/right_menu');
 	}
 
 	public function load_order_list_row($row_id)
