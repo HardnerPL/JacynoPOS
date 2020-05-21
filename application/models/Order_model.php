@@ -91,6 +91,17 @@ class Order_model extends CI_Model
 	public function get_active_order_items() {
 		$query = $this->db->query("SELECT * FROM order_items WHERE item_status = 'confirmed'");
 		$order_items = $query->result();
+		$query = $this->db->query("SELECT * FROM orders WHERE order_status = 'confirmed'");
+		$orders = $query->result();
+		$query = $this->db->query("SELECT * FROM items WHERE item_id IN (SELECT item_id FROM order_items WHERE item_status = 'confirmed')");
+		$items = array();
+		foreach ($query->result() as $item) {
+			$items[$item->item_id] = $item;
+		}
+		foreach($order_items as $item) {
+			$item->item_name = $items[$item->item_id]->item_name;
+			$item->item_image = $items[$item->item_id]->item_img;
+		}
 		return $order_items;
 	}
 

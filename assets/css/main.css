@@ -1,5 +1,5 @@
 body, .container, .container-fluid {
-	height: 100%;
+	height: 100vh;
 	display: flex;
 	flex-flow: column;
 }
@@ -42,6 +42,10 @@ body, .container, .container-fluid {
 
 .btn-icon {
 	font-size: 8vw;
+}
+
+.vh-100 {
+	height: 100vh;
 }
 
 .vh-60 {
