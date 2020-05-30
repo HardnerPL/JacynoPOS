@@ -2,7 +2,7 @@
 	<div class="col-12 overflow-scroll h-100">
 		<?php
 		foreach ($order_items as $item) { ?>
-			<div class="row">
+			<div class="row" id="item-row-<?= $item->order_item_id?>">
 				<div class="col-2 p-0">
 					<img src="<?= $item->item_image ?>" alt="Image" width="100%" class="btn-square border">
 				</div>
@@ -23,7 +23,8 @@
 					<?= $item->item_comment ?>
 				</div>
 				<div class="col-2 p-0 border">
-					<a class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 btn-square">
+					<a onclick="item_ready_popup(<?= $item->order_item_id?>)"
+					   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 btn-square">
 						<i class="fas fa-check"></i>
 					</a>
 				</div>

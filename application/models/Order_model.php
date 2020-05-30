@@ -89,7 +89,7 @@ class Order_model extends CI_Model
 	}
 
 	public function get_active_order_items() {
-		$query = $this->db->query("SELECT * FROM order_items WHERE item_status = 'confirmed'");
+		$query = $this->db->query("SELECT * FROM order_items WHERE item_status = 'confirmed' OR item_status = 'ready'");
 		$order_items = $query->result();
 		$query = $this->db->query("SELECT * FROM orders WHERE order_status = 'confirmed'");
 		$orders = $query->result();
@@ -140,5 +140,9 @@ WHERE order_id = $order_id AND item_id = $item_id");
 	public function confirm_order($order_id) {
 		$this->set_order_status($order_id, "confirmed");
 		$this->db->query("UPDATE order_items SET item_status = 'confirmed' WHERE order_id = $order_id");
+	}
+
+	public function ready_item($order_item_id) {
+		$this->db->query("UPDATE order_items SET item_status = 'ready' WHERE order_item_id = $order_item_id");
 	}
 }
