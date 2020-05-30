@@ -28,6 +28,11 @@ function close_popup() {
 	$(".popup-bg").remove();
 }
 
+function logout() {
+	$.get('main/logout');
+	window.location.replace("/pos"); //DEV ONLY, REMOVE IN PRODUCTION!!!
+}
+
 function trigger_collapse(collapse_id) {
 	current_collapse_id = window.current_collapse_id;
 	if (current_collapse_id) $("#" + current_collapse_id).collapse('hide');

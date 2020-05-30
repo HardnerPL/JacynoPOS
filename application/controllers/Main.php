@@ -98,4 +98,8 @@ class Main extends CI_Controller
 		$this->load->view('register', $data);
 		$this->load->view('templates/footer', $data);
 	}
+
+	public function logout() {
+    	$this->user_model->logout();
+	}
 }

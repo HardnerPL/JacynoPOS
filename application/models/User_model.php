@@ -100,6 +100,11 @@ class User_model extends CI_Model
 		}
 	}
 
+	public function logout() {
+		$this->session->unset_userdata(role);
+		$this->session->unset_userdata(username);
+	}
+
 	public function can_access($role): bool
 	{
 		if (!empty($this->session->role) && ($this->session->role == $role || $this->session->role == 'admin')) {
