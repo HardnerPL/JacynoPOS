@@ -1,4 +1,4 @@
-<div class="row h-85">
+<div id="kitchen-order-list" class="row h-85">
 	<div class="col-12 overflow-scroll h-100">
 		<?php
 		foreach ($order_items as $item) { ?>
@@ -25,12 +25,12 @@
 				<div class="col-2 p-0 border">
 					<?php
 					if ($item->item_status == 'ready') { ?>
-						<a onclick="item_delivered_popup(<?= $item->order_item_id?>)"
+						<a id="btn-<?= $item->order_item_id ?>" onclick="item_delivered_popup(<?= $item->order_item_id?>)"
 						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 btn-square">
 							<i class="fas fa-check"></i>
 						</a>
 					<?php } else { ?>
-						<a onclick="item_ready_popup(<?= $item->order_item_id?>)"
+						<a id="btn-<?= $item->order_item_id ?>" onclick="item_ready_popup(<?= $item->order_item_id?>)"
 						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 btn-square">
 							<i class="fas fa-check"></i>
 						</a>

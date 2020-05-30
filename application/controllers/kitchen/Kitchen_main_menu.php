@@ -20,6 +20,14 @@ class Kitchen_main_menu extends CI_Controller
 		$this->load->view('kitchen/main_menu/right_menu');
 	}
 
+	public function order_list() {
+		if (!$this->user_model->can_access('kitchen')) {
+			redirect('index');
+		}
+		$data['order_items'] = $this->order_model->get_active_order_items();
+		$this->load->view('kitchen/main_menu/order_list', $data);
+	}
+
 	public function item_ready_popup($order_item_id) {
 	if (!$this->user_model->can_access('kitchen')) {
 		redirect('index');
