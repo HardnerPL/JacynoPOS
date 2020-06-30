@@ -30,7 +30,7 @@ class Order_model extends CI_Model
 		$time = date('H:i');
 		$this->db->query("
                   INSERT INTO orders (order_table, order_time, order_status)
-                              VALUES ('$table', '$time', 'draft')
+                              VALUES ('$table', '$time', 'new')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}
@@ -136,7 +136,7 @@ WHERE order_item_id = '$order_item_id'");
 
 	public function confirm_order($order_id) {
 		$this->set_order_status($order_id, "confirmed");
-		$this->db->query("UPDATE order_items SET item_status = 'confirmed' WHERE order_id = $order_id");
+		$this->db->query("UPDATE order_items SET item_status = 'confirmed' WHERE order_id = $order_id AND item_status = 'new'");
 	}
 
 	public function set_order_item_status($order_item_id, $status) {

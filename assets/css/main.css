@@ -9,8 +9,20 @@ body, .container, .container-fluid {
 	background-color: #8B0000;
 }
 
+.bg-muted {
+	background-color: lightgray;
+}
+
 .bg-light-green {
 	background-color: lightgreen;
+}
+
+.bg-light-blue {
+	background-color: lightskyblue;
+}
+
+.bg-light-yellow {
+	background-color: lightyellow;
 }
 
 .h-85 {

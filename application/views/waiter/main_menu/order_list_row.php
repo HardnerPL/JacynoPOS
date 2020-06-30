@@ -1,4 +1,16 @@
-<div id="order-row-<?= $order->order_id ?>" class="row text-center">
+<div id="order-row-<?= $order->order_id ?>" class="row text-center <?php
+	switch($order->order_status) {
+		case 'new':
+			echo 'bg-muted';
+			break;
+		case 'ready':
+			echo 'bg-light-yellow';
+			break;
+		case 'delivered':
+			echo 'bg-light-green';
+			break;
+	}
+?>">
 	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id ?></div>
 	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
 	<div class="col center-content" onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>

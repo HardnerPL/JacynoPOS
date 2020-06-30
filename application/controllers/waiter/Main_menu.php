@@ -19,11 +19,11 @@ class Main_menu extends CI_Controller
 		$this->load->view('waiter/main_menu/bottom_menu');
 	}
 
-	public function load_order_list_row($row_id) {
+	public function load_order_list_row($order_id) {
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$data['order'] = $this->order_model->get_order($row_id);
+		$data['order'] = $this->order_model->get_order($order_id);
 		$this->load->view('waiter/main_menu/order_list_row', $data);
 	}
 
