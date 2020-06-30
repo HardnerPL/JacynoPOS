@@ -93,7 +93,8 @@ class Order_model extends CI_Model
 		$order_items = $query->result();
 		$query = $this->db->query("SELECT * FROM orders WHERE order_status = 'confirmed'");
 		$orders = $query->result();
-		$query = $this->db->query("SELECT * FROM items WHERE item_id IN (SELECT item_id FROM order_items WHERE item_status = 'confirmed')");
+		$query = $this->db->query("SELECT * FROM items WHERE item_id IN (SELECT item_id FROM order_items 
+									WHERE item_status = 'confirmed' OR item_status = 'ready')");
 		$items = array();
 		foreach ($query->result() as $item) {
 			$items[$item->item_id] = $item;
