@@ -1,5 +1,6 @@
 body, .container, .container-fluid {
-	height: 100vh;
+	height: 100%;
+	overflow: hidden;
 	display: flex;
 	flex-flow: column;
 }
