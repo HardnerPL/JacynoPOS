@@ -66,12 +66,12 @@ class Order_menu extends CI_Controller
 		$this->load->view('waiter/order_menu/edit_item_form', $data);
 	}
 
-	public function confirm_edit_item_popup()
+	public function confirm_edit_item_popup($order_item_id)
 	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$data['item'] = $this->order_model->get_order_item();
+		$data['item'] = $this->order_model->get_order_item($order_item_id);
 		$this->load->view('waiter/order_menu/confirm_edit_item_popup', $data);
 	}
 
@@ -83,12 +83,21 @@ class Order_menu extends CI_Controller
 		$this->load->view('waiter/order_menu/confirm_order_popup', $data);
 	}
 
-	public function edit_item()
+	public function edit_item_popup($order_item_id) {
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_item_id'] = $order_item_id;
+		$data['item'] = $this->order_model->get_order_item($order_item_id);
+		$this->load->view('waiter/order_menu/edit_item_popup', $data);
+	}
+
+	public function edit_item($order_item_id)
 	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$this->order_model->edit_item();
+		$this->order_model->edit_item($order_item_id);
 	}
 
 	public function confirm_order($order_id) {
