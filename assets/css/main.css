@@ -6,23 +6,23 @@ body, .container, .container-fluid {
 }
 
 .bg-dark-red {
-	background-color: #8B0000;
+	background: #8B0000;
 }
 
 .bg-muted {
-	background-color: lightgray;
+	background: lightgray;
 }
 
 .bg-light-green {
-	background-color: lightgreen;
+	background: lightgreen;
 }
 
 .bg-light-blue {
-	background-color: lightskyblue;
+	background: lightskyblue;
 }
 
 .bg-light-yellow {
-	background-color: lightyellow;
+	background: yellow;
 }
 
 .h-85 {
