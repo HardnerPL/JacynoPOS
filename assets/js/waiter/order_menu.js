@@ -18,8 +18,10 @@ function load_order_menu(order_id) {
 
 function update_item_list() {
 	$.get("waiter/order_menu/update_item_list", function(data) {
+		var scrollTop = $("#order-menu-list").children().first().scrollTop();
 		$("#order-menu-list").replaceWith(data);
 		update_price();
+		$("#order-menu-list").children().first().scrollTop(scrollTop);
 	})
 }
 
