@@ -2,7 +2,7 @@ $(document).ready(function () {
 	load_main_menu();
 	window.setInterval(function() {
 		refresh_order_items();
-	}, 15000)
+	}, 5000)
 })
 
 function load_main_menu() {

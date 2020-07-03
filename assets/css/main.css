@@ -106,3 +106,116 @@ body, .container, .container-fluid {
 #container {
 	height: 100vh;
 }
+body, .container, .container-fluid {
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-flow: column;
+}
+
+.bg-dark-red {
+	background: #8B0000;
+}
+
+.bg-muted {
+	background: lightgray;
+}
+
+.bg-light-green {
+	background: lightgreen;
+}
+
+.bg-light-blue {
+	background: lightskyblue;
+}
+
+.bg-light-yellow {
+	background: yellow;
+}
+
+.h-85 {
+	height: 85%;
+}
+
+.h-70 {
+	height: 70%;
+}
+
+.h-60 {
+	height: 60%;
+}
+
+.h-45 {
+	height: 45%;
+}
+
+.h-20 {
+	height: 20%;
+}
+
+.h-15 {
+	height: 15%;
+}
+
+.h-10 {
+	height: 10%;
+}
+
+.h-5 {
+	height: 5%;
+}
+
+.btn-icon {
+	font-size: 8vw;
+}
+
+.vh-100 {
+	height: 100vh;
+}
+
+.vh-60 {
+	height: 60vh;
+}
+
+.overflow-scroll {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.overflow-hidden {
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+	background: transparent;
+}
+
+.center-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.h-auto {
+	flex-grow: 1;
+}
+
+.popup-bg {
+	display: flex;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup {
+	background-color: #fefefe;
+	border: 1px solid #888;
+}
+
+#container {
+	height: 100vh;
+}

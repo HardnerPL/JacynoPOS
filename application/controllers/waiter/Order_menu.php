@@ -42,11 +42,19 @@ class Order_menu extends CI_Controller
 
 		$this->order_model->load_order($order_id);
 		$data['order_id'] = $order_id;
-		$data['order_items'] = $this->order_model->get_order_items();
+		$data['order_items'] = $this->order_model->get_order_items('waiter');
 		$this->load->view('waiter/order_menu/navbar', $data);
 		$this->load->view('waiter/order_menu/order_menu', $data);
 		$this->load->view('waiter/order_menu/price', $data);
 		$this->load->view('waiter/order_menu/footer', $data);
+	}
+
+	public function update_item_list() {
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_items'] = $this->order_model->get_order_items('waiter');
+		$this->load->view('waiter/order_menu/order_menu', $data);
 	}
 
 	public function delete_order_item()

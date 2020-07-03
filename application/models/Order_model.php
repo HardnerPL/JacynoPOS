@@ -76,9 +76,13 @@ class Order_model extends CI_Model
 		}
 	}
 
-	public function get_order_items()
+	public function get_order_items($position)
 	{
-		$order_items = $this->db->query("SELECT * FROM order_items WHERE order_id = {$this->session->current_order}")->result();
+		$order_items = $this->db->query("SELECT * FROM order_items 
+		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
+		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
+		LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
+		WHERE order_id = {$this->session->current_order} AND position_name = '$position'")->result();
 		foreach ($order_items as $item) {
 			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
 			$item->item_price = $query->row()->item_price;
@@ -88,8 +92,13 @@ class Order_model extends CI_Model
 		return $order_items;
 	}
 
-	public function get_active_order_items() {
-		$query = $this->db->query("SELECT * FROM order_items WHERE item_status = 'confirmed' OR item_status = 'ready'");
+	public function get_active_order_items($position) {
+		$query = $this->db->query("SELECT * FROM order_items 
+		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
+		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
+		LEFT JOIN positions ON category_positions.pos_id = positions.position_id
+		LEFT JOIN orders ON order_items.order_id = orders.order_id
+		WHERE position_name = '$position' AND (item_status = 'confirmed' OR item_status = 'ready')");
 		$order_items = $query->result();
 		$query = $this->db->query("SELECT * FROM orders WHERE order_status = 'confirmed'");
 		$orders = $query->result();
@@ -136,7 +145,9 @@ WHERE order_item_id = '$order_item_id'");
 
 	public function confirm_order($order_id) {
 		$this->set_order_status($order_id, "confirmed");
-		$this->db->query("UPDATE order_items SET item_status = 'confirmed' WHERE order_id = $order_id AND item_status = 'new'");
+		$time = date("H:i");
+		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
+		WHERE order_id = $order_id AND item_status = 'new'");
 	}
 
 	public function set_order_item_status($order_item_id, $status) {
