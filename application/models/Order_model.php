@@ -161,6 +161,12 @@ WHERE order_item_id = '$order_item_id'");
 		WHERE order_id = $order_id AND item_status = 'new'");
 	}
 
+	public function close_order($order_id)
+	{
+		$this->set_order_status($order_id, "closed");
+		$this->db->query("UPDATE order_items SET item_status = 'closed' WHERE order_id = $order_id");
+	}
+
 	public function set_order_item_status($order_item_id, $status)
 	{
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
