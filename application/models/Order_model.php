@@ -176,4 +176,12 @@ WHERE order_item_id = '$order_item_id'");
 	{
 		$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = $order_item_id");
 	}
+
+	public function get_order_checkout($order_id)
+	{
+		return $this->db->query("SELECT item_code, COUNT(*) as item_count FROM order_items
+		LEFT JOIN items ON order_items.item_id = items.item_id
+		WHERE order_id = $order_id GROUP BY item_code
+		")->result();
+	}
 }

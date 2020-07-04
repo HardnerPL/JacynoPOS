@@ -45,6 +45,16 @@ class Main_menu extends CI_Controller
 		$this->load->view('waiter/main_menu/confirm_close_order_popup', $data);
 	}
 
+	public function checkout_order_popup($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['codes'] = $this->order_model->get_order_checkout($order_id);
+		$data['order_id'] = $order_id;
+		$this->load->view('waiter/main_menu/checkout_order_popup', $data);
+	}
+
 	public function close_order($order_id)
 	{
 		if (!$this->user_model->can_access('waiter')) {

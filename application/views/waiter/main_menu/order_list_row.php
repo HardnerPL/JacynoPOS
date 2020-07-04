@@ -25,7 +25,13 @@ switch ($order->order_status) {
 	</div>
 	<div class="col-12 collapse text-left" id=<?= 'order-info-' . $order->order_id ?>>
 		<div class="row no-gutters">
-			<div class="col-12">
+			<div class="col-6">
+				<a onclick="checkout_order_popup(<?= $order->order_id ?>)"
+				   class="btn btn-warning w-100 rounded-0 p-3">
+					<i class="fas fa-dollar-sign text-light"></i>
+				</a>
+			</div>
+			<div class="col-6">
 				<a onclick="confirm_close_order_popup(<?= $order->order_id ?>)"
 				   class="btn btn-danger w-100 rounded-0 p-3">
 					<i class="far fa-trash-alt text-light"></i>

@@ -44,3 +44,9 @@ function close_order(order_id) {
 	$.get("waiter/main_menu/close_order/" + order_id);
 	load_main_menu();
 }
+
+function checkout_order_popup(order_id) {
+	$.get("waiter/main_menu/checkout_order_popup/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
