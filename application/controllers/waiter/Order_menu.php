@@ -135,4 +135,12 @@ class Order_menu extends CI_Controller
 		}
 		$this->order_model->deliver_item($order_item_id);
 	}
+
+	public function delete_order_if_empty($order_id = NULL)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$this->order_model->delete_order_if_empty($order_id);
+	}
 }

@@ -184,4 +184,14 @@ WHERE order_item_id = '$order_item_id'");
 		WHERE order_id = $order_id GROUP BY item_code
 		")->result();
 	}
+
+	public function delete_order_if_empty($order_id = NULL)
+	{
+		if (!isset($order_id)) {
+			$order_id = $this->session->current_order;
+		}
+		if ($this->db->query("SELECT * FROM order_items WHERE order_id = $order_id")->num_rows() == 0) {
+			$this->db->query("DELETE FROM orders WHERE order_id = $order_id");
+		}
+	}
 }

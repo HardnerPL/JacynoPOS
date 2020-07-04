@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function () {
 	square_buttons()
 });
 
@@ -6,6 +6,7 @@ function load_last_page() {
 	switch (current_menu) {
 		case "order_menu":
 			window.current_menu = "main_menu";
+			$.get("waiter/order_menu/delete_order_if_empty");
 			load_main_menu();
 			break;
 		case "item_list":
