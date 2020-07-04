@@ -15,11 +15,12 @@ class Order_model extends CI_Model
 
 	public function get_orders()
 	{
-		$query = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'closed'");
-		return $query->result();
+		$orders = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'closed' ORDER BY order_id DESC")->result();
+		return $orders;
 	}
 
-	public function get_order($order_id) {
+	public function get_order($order_id)
+	{
 		$query = $this->db->query("SELECT * FROM orders WHERE order_id = $order_id");
 		return $query->row();
 	}
@@ -78,11 +79,19 @@ class Order_model extends CI_Model
 
 	public function get_order_items($position)
 	{
-		$order_items = $this->db->query("SELECT * FROM order_items 
-		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
-		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
-		LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
-		WHERE order_id = {$this->session->current_order} AND position_name = '$position'")->result();
+		if ($position == 'all') {
+			$order_items = $this->db->query("SELECT * FROM order_items 
+			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
+			LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
+			LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
+			WHERE order_id = {$this->session->current_order}")->result();
+		} else {
+			$order_items = $this->db->query("SELECT * FROM order_items 
+			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
+			LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
+			LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
+			WHERE order_id = {$this->session->current_order} AND position_name = '$position'")->result();
+		}
 		foreach ($order_items as $item) {
 			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
 			$item->item_price = $query->row()->item_price;
@@ -92,7 +101,8 @@ class Order_model extends CI_Model
 		return $order_items;
 	}
 
-	public function get_active_order_items($position) {
+	public function get_active_order_items($position)
+	{
 		$query = $this->db->query("SELECT * FROM order_items 
 		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
@@ -108,7 +118,7 @@ class Order_model extends CI_Model
 		foreach ($query->result() as $item) {
 			$items[$item->item_id] = $item;
 		}
-		foreach($order_items as $item) {
+		foreach ($order_items as $item) {
 			$item->item_name = $items[$item->item_id]->item_name;
 			$item->item_image = $items[$item->item_id]->item_img;
 		}
@@ -143,14 +153,21 @@ WHERE order_item_id = '$order_item_id'");
 		$this->db->query("UPDATE orders SET order_status = '$status' WHERE order_id = $order_id");
 	}
 
-	public function confirm_order($order_id) {
+	public function confirm_order($order_id)
+	{
 		$this->set_order_status($order_id, "confirmed");
 		$time = date("H:i");
 		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
 		WHERE order_id = $order_id AND item_status = 'new'");
 	}
 
-	public function set_order_item_status($order_item_id, $status) {
+	public function set_order_item_status($order_item_id, $status)
+	{
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
+	}
+
+	public function deliver_item($order_item_id)
+	{
+		$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = $order_item_id");
 	}
 }

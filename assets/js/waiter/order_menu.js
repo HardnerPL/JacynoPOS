@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	load_main_menu();
-	window.setInterval(function() {
+	window.setInterval(function () {
 		update_item_list();
 	}, 5000)
 })
@@ -17,7 +17,7 @@ function load_order_menu(order_id) {
 }
 
 function update_item_list() {
-	$.get("waiter/order_menu/update_item_list", function(data) {
+	$.get("waiter/order_menu/update_item_list", function (data) {
 		var scrollTop = $("#order-menu-list").children().first().scrollTop();
 		$("#order-menu-list").replaceWith(data);
 		update_price();
@@ -82,9 +82,9 @@ function confirm_delete_item_popup(order_id, order_item_id) {
 
 function confirm_edit_item_popup(order_item_id) {
 	$.get("waiter/order_menu/confirm_edit_item_popup/" + order_item_id, function (data) {
-			$("body").append(data)
-			$("#item_comment").html($("#comment-input").val());
-		})
+		$("body").append(data)
+		$("#item_comment").html($("#comment-input").val());
+	})
 }
 
 function confirm_order_popup(order_id) {
@@ -112,5 +112,14 @@ function edit_item(order_item_id) {
 	})
 }
 
-//TODO: Odświeżanie
+function confirm_item_delivery_popup(order_item_id) {
+	$.get("waiter/order_menu/confirm_item_delivery_popup/" + order_item_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function deliver_item(order_item_id) {
+	$.get("waiter/order_menu/deliver_item/" + order_item_id);
+	update_item_list();
+}
 

@@ -29,9 +29,17 @@
 				<div class="col-3 p-1 center-content">
 					<b><?= $item->price ?> zł</b>
 				</div>
+				<?php if ($item->item_status == 'confirmed' && $item->position_name == 'waiter') { ?>
+					<div class="col-2">
+						<a onclick="confirm_item_delivery_popup(<?= $item->order_item_id ?>)"
+						   class="text-light btn btn-success w-100 h-100 rounded-0 center-content">
+							<i class="fas fa-check"></i>
+						</a>
+					</div>
+				<?php } ?>
 				<div class="col-2">
-					<a onclick="confirm_delete_item_popup(<?= $item->order_item_id ?>)" href="#"
-					   class="btn btn-danger w-100 h-100 rounded-0 center-content">
+					<a onclick="confirm_delete_item_popup(<?= $item->order_item_id ?>)"
+					   class="text-light btn btn-danger w-100 h-100 rounded-0 center-content">
 						<i class="fas fa-trash-alt"></i>
 					</a>
 				</div>
