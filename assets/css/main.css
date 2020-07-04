@@ -106,6 +106,7 @@ body, .container, .container-fluid {
 #container {
 	height: 100vh;
 }
+
 body, .container, .container-fluid {
 	height: 100%;
 	overflow: hidden;
@@ -218,4 +219,8 @@ body, .container, .container-fluid {
 
 #container {
 	height: 100vh;
+}
+
+.btn-wrap {
+	white-space: normal;
 }
