@@ -6,7 +6,7 @@
  * Time: 9:27 PM
  */
 ?>
-<div id="item-menu-main" class="row h-85">
+<div id="item-menu-main" class="row h-85 overflow-scroll">
 	<div class="col-12 px-1">
 		<div class="row no-gutters">
 			<?php foreach ($categories as $category) { ?>
