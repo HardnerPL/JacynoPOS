@@ -1,4 +1,4 @@
-<div id="order-row-<?= $order->order_id ?>" class="row text-center <?php
+<div id="order-row-<?= $order->order_id . $order->order_status ?>" class="row text-center <?php
 switch ($order->order_status) {
 	case 'new':
 		echo 'bg-muted';

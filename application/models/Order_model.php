@@ -15,8 +15,50 @@ class Order_model extends CI_Model
 
 	public function get_orders()
 	{
-		$orders = $this->db->query("SELECT * FROM orders WHERE NOT order_status = 'closed' ORDER BY order_id DESC")->result();
-		return $orders;
+		$orders = $this->db
+			->query("
+				SELECT *
+				FROM orders
+				LEFT JOIN order_items ON order_items.order_id = orders.order_id
+				WHERE NOT order_status = 'closed'
+			")
+			->result();
+		$resultOrders = [];
+		$i = 0;
+		$len = count($orders);
+		foreach ($orders as $order) {
+			if (!isset($resultOrders[$order->order_id])) {
+				$resultOrders[$order->order_id] = $order;
+				$resultOrders[$order->order_id]->count = 0;
+			}
+			if (!isset($orders_statuses)) {
+				$orders_statuses = array();
+			}
+			if (!isset($orders_statuses[$order->order_id])) {
+				$orders_statuses[$order->order_id] = array();
+			}
+			if (!isset($orders_statuses[$order->order_id][$order->item_status])) {
+				$orders_statuses[$order->order_id][$order->item_status] = 1;
+				$orders_statuses[$order->order_id]['order_id'] = $order->order_id;
+			} else {
+				$orders_statuses[$order->order_id][$order->item_status]++;
+			}
+			$resultOrders[$order->order_id]->count += 1;
+			$i++;
+		}
+		foreach ($orders_statuses as $order_statuses) {
+			if (isset($order_statuses['ready'])) {
+				$resultOrders[$order_statuses['order_id']]->order_status = 'ready';
+			} else if (isset($order_statuses['new'])) {
+				$resultOrders[$order_statuses['order_id']]->order_status = 'new';
+			} else if (isset($order_statuses['delivered']) &&
+				$order_statuses['delivered'] == $resultOrders[$order_statuses['order_id']]->count) {
+				$resultOrders[$order_statuses['order_id']]->order_status = 'delivered';
+			} else {
+				$resultOrders[$order_statuses['order_id']]->order_status = 'confirmed';
+			}
+		}
+		return $resultOrders;
 	}
 
 	public function get_order($order_id)
