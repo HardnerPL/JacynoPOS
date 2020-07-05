@@ -1,27 +1,25 @@
-<div id="kitchen-order-list" class="row h-85">
-	<div class="col-12 overflow-scroll h-100">
-		<?php
-		foreach ($order_items as $item) { ?>
-			<div class="row border h-25 <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
-				 id="item-row-<?= $item->order_item_id ?>">
-				<div class="col-2 p-0">
-					<img src="<?= $item->item_image ?>" alt="Image" width="100%" class="">
-				</div>
-				<div class="col-2 p-0 border-right border-left">
+<div id="kitchen-order-list" class="row h-85 overflow-scroll">
+	<?php
+	$i = 0;
+	foreach ($order_items as $item) { ?>
+		<div class="col-6 h-20 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
+			 id="item-row-<?= $item->order_item_id ?>">
+			<div class="row no-gutters h-100">
+				<div class="col-3 p-0 border-right border-left">
 					<div class="row no-gutters h-50 border-bottom">
 						<div class="col-12 center-content">
-							<h1><?= $item->item_time ?></h1>
+							<h5><?= $item->item_time ?></h5>
 						</div>
 					</div>
 					<div class="row no-gutters h-50">
 						<div class="col-12 center-content">
-							<h1><?= $item->order_table ?></h1>
+							<h5><?= $item->order_table ?></h5>
 						</div>
 					</div>
 				</div>
 				<div class="col p-2 border-right">
-					<h1><?= $item->item_name ?></h1>
-					<h4 class="font-weight-normal"><?= $item->item_comment ?></h4>
+					<h2><?= $item->item_name ?></h2>
+					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
 				</div>
 				<div class="col-2 p-0">
 					<?php
@@ -39,7 +37,7 @@
 					<?php } ?>
 				</div>
 			</div>
-		<?php } ?>
-	</div>
+		</div>
+	<?php } ?>
 </div>
 </div>
