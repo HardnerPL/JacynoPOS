@@ -119,7 +119,8 @@ function confirm_item_delivery_popup(order_item_id) {
 }
 
 function deliver_item(order_item_id) {
-	$.get("waiter/order_menu/deliver_item/" + order_item_id);
-	update_item_list();
+	$.get("waiter/order_menu/deliver_item/" + order_item_id, function (data) {
+		update_item_list();
+	})
 }
 
