@@ -15,10 +15,12 @@ class Category_model extends CI_Model
 
 	public function get_all_categories()
 	{
-		return $this->db->query("SELECT * FROM categories")->result();
+		return $this->db->query("SELECT * FROM categories 
+		WHERE category_id IN (SELECT child_cat_id FROM category_categories WHERE parent_cat_id = 0)")->result();
 	}
 
-	public function get_subcategories($category_id) {
+	public function get_subcategories($category_id)
+	{
 		return $this->db->query("SELECT * FROM subcategories WHERE category_id = $category_id")->result();
 	}
 }
