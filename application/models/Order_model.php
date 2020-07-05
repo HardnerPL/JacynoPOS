@@ -46,16 +46,18 @@ class Order_model extends CI_Model
 			$resultOrders[$order->order_id]->count += 1;
 			$i++;
 		}
-		foreach ($orders_statuses as $order_statuses) {
-			if (isset($order_statuses['ready'])) {
-				$resultOrders[$order_statuses['order_id']]->order_status = 'ready';
-			} else if (isset($order_statuses['new'])) {
-				$resultOrders[$order_statuses['order_id']]->order_status = 'new';
-			} else if (isset($order_statuses['delivered']) &&
-				$order_statuses['delivered'] == $resultOrders[$order_statuses['order_id']]->count) {
-				$resultOrders[$order_statuses['order_id']]->order_status = 'delivered';
-			} else {
-				$resultOrders[$order_statuses['order_id']]->order_status = 'confirmed';
+		if (isset($orders_statuses)) {
+			foreach ($orders_statuses as $order_statuses) {
+				if (isset($order_statuses['ready'])) {
+					$resultOrders[$order_statuses['order_id']]->order_status = 'ready';
+				} else if (isset($order_statuses['new'])) {
+					$resultOrders[$order_statuses['order_id']]->order_status = 'new';
+				} else if (isset($order_statuses['delivered']) &&
+					$order_statuses['delivered'] == $resultOrders[$order_statuses['order_id']]->count) {
+					$resultOrders[$order_statuses['order_id']]->order_status = 'delivered';
+				} else {
+					$resultOrders[$order_statuses['order_id']]->order_status = 'confirmed';
+				}
 			}
 		}
 		return $resultOrders;
