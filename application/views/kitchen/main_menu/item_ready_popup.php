@@ -1,10 +1,14 @@
 <div class="popup-bg center-content">
-	<div class="popup p-4">
-		<div>Czy na pewno chcesz zatwierdzić to danie?</div>
-		<div class="text-center text-light mt-3">
-			<a onclick="item_ready(<?= $order_item_id ?>); close_popup()"
-			   class="btn btn-primary mr-2">Tak</a>
-			<a onclick="close_popup()" class="btn btn-danger">Nie</a>
+	<div class="popup">
+		<h1 class="p-4">Czy to danie jest gotowe?</h1>
+		<div class="row no-gutters text-light mt-5">
+			<div class="col-6">
+				<a onclick="item_ready(<?= $order_item_id ?>); close_popup()"
+				   class="p-4 btn btn-primary w-100 h-100 rounded-0"><h3>Tak</h3></a>
+			</div>
+			<div class="col-6">
+				<a onclick="close_popup()" class="p-4 btn btn-danger w-100 h-100 rounded-0"><h3>Nie</h3></a>
+			</div>
 		</div>
 	</div>
 </div>
