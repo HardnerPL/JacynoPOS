@@ -13,7 +13,7 @@
 					</div>
 					<div class="row no-gutters h-50">
 						<div class="col-12 center-content">
-							<h5><?= $item->order_table ?></h5>
+							<h5><?= $item->order_id % 100 ?></h5>
 						</div>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-<div id="order-row-<?= $order->order_id . $order->order_status ?>" class="row text-center <?php
+<div id="order-row-<?= $order->order_id ?>" class="row text-center <?php
 switch ($order->order_status) {
 	case 'new':
 		echo 'bg-muted';
@@ -12,7 +12,7 @@ switch ($order->order_status) {
 }
 ?>">
 	<div class="col center-content"
-		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id ?></div>
+		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id % 100 ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
 	<div class="col center-content"
