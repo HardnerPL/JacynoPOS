@@ -28,7 +28,7 @@
 					if ($item->item_status == 'ready') { ?>
 						<a id="btn-<?= $item->order_item_id ?>"
 						   onclick="item_delivered_popup(<?= $item->order_item_id ?>)"
-						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0">
+						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
 							<i class="fas fa-check"></i>
 						</a>
 					<?php } else { ?>
