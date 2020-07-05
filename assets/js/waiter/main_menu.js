@@ -26,6 +26,7 @@ function add_order() {
 function load_main_menu_row(row_id) {
 	$.get("waiter/main_menu/load_order_list_row/" + row_id, function (data) {
 		$("#order-row-" + row_id).replaceWith(data);
+		square_buttons();
 	})
 }
 
@@ -48,5 +49,34 @@ function close_order(order_id) {
 function checkout_order_popup(order_id) {
 	$.get("waiter/main_menu/checkout_order_popup/" + order_id, function (data) {
 		$("body").append(data);
+	})
+}
+
+function edit_order_popup(order_id) {
+	$.get("waiter/main_menu/edit_order_popup/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function confirm_edit_order_popup(order_id) {
+	$.get("waiter/main_menu/confirm_edit_order_popup/" + order_id, function (data) {
+		$("#edit_order_popup").addClass("d-none");
+		$("body").append(data);
+		$("#comment").html($("#edit-comment-input").val())
+		$("#table").html($("#edit-table-input").val())
+	})
+}
+
+function edit_order(order_id) {
+	$.ajax({
+		url: "waiter/main_menu/edit_order/" + order_id,
+		type: "post",
+		data: {
+			order_comment: $("#edit-comment-input").val(),
+			order_table: $("#edit-table-input").val()
+		},
+		success: function () {
+			load_main_menu_row(order_id);
+		}
 	})
 }

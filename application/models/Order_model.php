@@ -17,7 +17,7 @@ class Order_model extends CI_Model
 	{
 		$orders = $this->db
 			->query("
-				SELECT orders.order_id, order_table, order_time, item_status
+				SELECT orders.order_id, order_table, order_comment, order_time, item_status
 				FROM orders
 				LEFT JOIN order_items ON order_items.order_id = orders.order_id
 				WHERE NOT order_status = 'closed'
@@ -239,5 +239,13 @@ WHERE order_item_id = '$order_item_id'");
 		if ($this->db->query("SELECT * FROM order_items WHERE order_id = $order_id")->num_rows() == 0) {
 			$this->db->query("DELETE FROM orders WHERE order_id = $order_id");
 		}
+	}
+
+	public function edit_order($order_id)
+	{
+		$order_comment = $this->input->post('order_comment');
+		$order_table = $this->input->post('order_table');
+		$this->db->query("UPDATE orders SET order_comment = '$order_comment', order_table = '$order_table' 
+		WHERE order_id = $order_id");
 	}
 }

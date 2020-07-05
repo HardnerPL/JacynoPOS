@@ -62,4 +62,31 @@ class Main_menu extends CI_Controller
 		}
 		$this->order_model->close_order($order_id);
 	}
+
+	public function edit_order_popup($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order'] = $this->order_model->get_order($order_id);
+		$data['order_id'] = $order_id;
+		$this->load->view('waiter/main_menu/edit_order_popup', $data);
+	}
+
+	public function confirm_edit_order_popup($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_id'] = $order_id;
+		$this->load->view('waiter/main_menu/confirm_edit_order_popup', $data);
+	}
+
+	public function edit_order($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$this->order_model->edit_order($order_id);
+	}
 }
