@@ -6,6 +6,8 @@ function load_main_menu() {
 	$.get("waiter/main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
 		square_buttons();
+		clearInterval(window.refresh_interval);
+		window.refresh_interval = window.setInterval(load_main_menu, 5000)
 	})
 }
 

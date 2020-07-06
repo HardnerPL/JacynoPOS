@@ -5,6 +5,7 @@ function load_item_menu() {
 			window.current_menu = "item_menu";
 			$("#container").html(data);
 			square_buttons();
+			clearInterval(window.refresh_interval);
 		}
 	});
 }

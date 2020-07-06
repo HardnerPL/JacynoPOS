@@ -1,10 +1,3 @@
-$(document).ready(function () {
-	load_main_menu();
-	window.setInterval(function () {
-		update_item_list();
-	}, 5000)
-})
-
 function load_order_menu(order_id) {
 	if (!order_id) order_id = "";
 	$.ajax({
@@ -12,6 +5,8 @@ function load_order_menu(order_id) {
 		success: function (data) {
 			$("#container").html(data);
 			window.current_menu = "order_menu";
+			clearInterval(window.refresh_interval);
+			window.refresh_interval = window.setInterval(update_item_list, 5000)
 		}
 	})
 }
