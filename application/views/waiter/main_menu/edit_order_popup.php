@@ -1,5 +1,5 @@
 <div id="edit_order_popup" class="popup-bg center-content">
-	<div class="popup">
+	<div class="popup w-100">
 		<div class="p-4">
 			<h2 class="mb-2">Zamówienie <?= $order->order_id % 100 ?></h2>
 			<div class="form-group">
@@ -16,10 +16,10 @@
 		<div class="row no-gutters text-light">
 			<div class="col-6">
 				<a onclick="confirm_edit_order_popup(<?= $order_id ?>)"
-				   class="p-2 btn btn-primary w-100 h-100 rounded-0"><h5>Tak</h5></a>
+				   class="p-2 btn btn-primary w-100 rounded-0"><h5>Tak</h5></a>
 			</div>
 			<div class="col-6">
-				<a onclick="close_popup()" class="p-2 btn btn-danger w-100 h-100 rounded-0"><h5>Anuluj</h5></a>
+				<a onclick="close_popup()" class="p-2 btn btn-danger w-100 rounded-0"><h5>Anuluj</h5></a>
 			</div>
 		</div>
 	</div>

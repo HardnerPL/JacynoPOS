@@ -7,7 +7,7 @@ function load_main_menu() {
 		$("#container").html(data);
 		square_buttons();
 		clearInterval(window.refresh_interval);
-		window.refresh_interval = window.setInterval(load_main_menu, 5000)
+		window.refresh_interval = window.setInterval(load_main_menu, 10000)
 	})
 }
 
