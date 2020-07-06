@@ -225,10 +225,21 @@ WHERE order_item_id = '$order_item_id'");
 
 	public function get_order_checkout($order_id)
 	{
-		return $this->db->query("SELECT item_code, COUNT(*) as item_count FROM order_items
+		$codes = $this->db->query("SELECT codes.code_id, code_value, code_price, code_name, code_unique FROM order_items
 		LEFT JOIN items ON order_items.item_id = items.item_id
-		WHERE order_id = $order_id GROUP BY item_code
+		LEFT JOIN codes ON codes.code_id = items.code_id
+		WHERE order_id = $order_id ORDER BY codes.code_value
 		")->result();
+		$result_codes = array();
+		foreach ($codes as $code) {
+			if (!isset($result_codes[$code->code_id])) {
+				$code->code_count = 1;
+				$result_codes[$code->code_id] = $code;
+			} else {
+				$result_codes[$code->code_id]->code_count++;
+			}
+		}
+		return $result_codes;
 	}
 
 	public function delete_order_if_empty($order_id = NULL)

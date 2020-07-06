@@ -1,5 +1,5 @@
 <div class="popup-bg center-content">
-	<div class="popup">
+	<div class="popup w-100">
 		<div class="p-4 text-center">
 			<div class="mb-1">
 				<b>Kody do zamówienia <?= $order_id ?></b>
@@ -7,8 +7,21 @@
 			<div class="row">
 				<?php
 				foreach ($codes as $code) { ?>
-					<div class="col-12 text-center">
-						<?= $code->item_count . " x " . $code->item_code . " KOD" ?>
+					<div class="col-6">
+						<b>
+							<?= $code->code_count . " x " . $code->code_name . " " . $code->code_price ?> zł
+						</b>
+					</div>
+					<div class="col-6">
+						<?php
+						if ($code->code_unique) {
+							echo $code->code_count . " x "
+								. $code->code_value . " KOD";
+						} else {
+							echo $code->code_count . " x "
+								. $code->code_value . " KOD " . $code->code_price . " OK";
+						}
+						?>
 					</div>
 				<?php } ?>
 			</div>
