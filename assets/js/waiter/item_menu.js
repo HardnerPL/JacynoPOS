@@ -48,13 +48,34 @@ function load_item_form(item_id) {
 	})
 }
 
+function add_bundle() {
+	if ($("#to-go-checkbox").prop("checked")) {
+		add_item_to_bundle(/* to-go-id here? */);
+	}
+	$.ajax({
+		url: "waiter/item_menu/add_bundle",
+		type: "post",
+		data: {
+			bundle_count: $("#count-input").val()
+		},
+		dataType: "text",
+		success: function () {
+			load_order_menu();
+		}
+	})
+}
+
+function add_item_to_bundle() {
+
+}
+
 function add_item(item_id) {
 	$.ajax({
 		url: "waiter/item_menu/add_item",
 		type: "post",
 		data: {
 			item_id: item_id,
-			item_count: $("#count-input").val(),
+			item_count: $("#count-input").val()
 		},
 		dataType: "text",
 		success: function () {

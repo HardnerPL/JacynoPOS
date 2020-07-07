@@ -85,10 +85,18 @@ class Order_model extends CI_Model
 		$order_id = $this->session->current_order;
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
+		$item_to_go = $this->input->post('to_go');
+		$to_go_id = 50;
 		for ($i = $item_count; $i > 0; $i--) {
-			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
+			if ($item_to_go) {
+				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, item_comment)
+                              VALUES ('$order_id', '$item_id', 'new', ''), ('$order_id', '$to_go_id', 'new', 'Wynos')
+        ");
+			} else {
+				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
                               VALUES ('$order_id', '$item_id', 'new')
         ");
+			}
 		}
 	}
 
@@ -128,7 +136,7 @@ class Order_model extends CI_Model
 			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 			LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 			LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
-			WHERE order_id = {$this->session->current_order}")->result();
+			WHERE order_id = {$this->session->current_order} AND NOT category_items.cat_id = 0")->result();
 		} else {
 			$order_items = $this->db->query("SELECT * FROM order_items 
 			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
