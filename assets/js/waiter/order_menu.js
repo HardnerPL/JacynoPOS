@@ -99,7 +99,8 @@ function edit_item(order_item_id) {
 		url: "waiter/order_menu/edit_item/" + order_item_id,
 		type: "post",
 		data: {
-			item_comment: $("#comment-input").val()
+			item_comment: $("#comment-input").val(),
+			item_to_go: $("#to-go-checkbox").prop("checked")
 		},
 		success: function (data) {
 			update_item_list();

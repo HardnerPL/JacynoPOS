@@ -18,7 +18,12 @@
 					</div>
 				</div>
 				<div class="col p-2 border-right">
-					<h2><?= $item->item_name ?></h2>
+					<h2><?php
+						echo $item->item_name;
+						if (isset($item->to_go_id) && !empty($item->to_go_id)) {
+							echo " (Wynos)";
+						}
+						?></h2>
 					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
 				</div>
 				<div class="col-2 p-0">
