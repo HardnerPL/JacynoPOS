@@ -44,5 +44,29 @@
 			</div>
 		</div>
 	<?php } ?>
+	<div class="col-12 <?php
+	$count = count($order_items);
+	//TODO: get count from controller
+	switch ($count) {
+		case 1:
+		case 2:
+			echo 'h-80';
+			break;
+		case 3:
+		case 4:
+			echo 'h-60';
+			break;
+		case 5:
+		case 6:
+			echo 'h-40';
+			break;
+		case 7:
+		case 8:
+			echo 'h-20';
+			break;
+		default:
+			'd-none';
+	}
+	?>"></div>
 </div>
 </div>

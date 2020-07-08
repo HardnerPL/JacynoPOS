@@ -29,6 +29,10 @@ body, .container, .container-fluid {
 	height: 85%;
 }
 
+.h-80 {
+	height: 80%;
+}
+
 .h-70 {
 	height: 70%;
 }
@@ -39,6 +43,10 @@ body, .container, .container-fluid {
 
 .h-45 {
 	height: 45%;
+}
+
+.h-40 {
+	height: 40%;
 }
 
 .h-20 {
@@ -223,4 +231,8 @@ body, .container, .container-fluid {
 
 .btn-wrap {
 	white-space: normal;
+}
+
+.flex-grow {
+	flex-grow: 1;
 }
