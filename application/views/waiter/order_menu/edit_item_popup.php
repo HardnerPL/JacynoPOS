@@ -4,7 +4,7 @@
 			<h2 class=""><?= $item->item_name ?></h2>
 			<input type="text" class="form-control rounded-0 text-center" id="comment-input"
 				   placeholder="Komentarz" value="<?= $item->item_comment ?>">
-			<?php if ($item->item_type == 'pizza') { ?>
+			<?php if (isset($item->item_to_go_id)) { ?>
 				<div class="text-center mt-2">
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="to-go-checkbox"
