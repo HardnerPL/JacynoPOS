@@ -1,0 +1,1756 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.9.1
+- https://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Generation Time: Jan 16, 2021 at 10:38 PM
+- Server version: 10.4.8-MariaDB
+- PHP Version: 7.3.11
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="pos" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="bundles">
+                CREATE TABLE `bundles` (
+                  `bundle_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `bundle_name` varchar(32) DEFAULT NULL,
+                  `bundle_type` varchar(16) DEFAULT NULL,
+                  `bundle_menu_id` int(4) DEFAULT NULL,
+                  PRIMARY KEY (`bundle_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="bundle_items">
+                CREATE TABLE `bundle_items` (
+                  `bundle_item_id` int(8) NOT NULL AUTO_INCREMENT,
+                  `bundle_id` int(8) NOT NULL,
+                  `item_id` int(4) NOT NULL,
+                  PRIMARY KEY (`bundle_item_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="bundle_menus">
+                CREATE TABLE `bundle_menus` (
+                  `bundle_menu_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `target_bundle_menu` int(4) NOT NULL,
+                  PRIMARY KEY (`bundle_menu_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="bundle_menu_items">
+                CREATE TABLE `bundle_menu_items` (
+                  `bundle_menu_item_id` int(8) NOT NULL,
+                  `bundle_menu_id` int(4) NOT NULL,
+                  `item_id` int(4) NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="categories">
+                CREATE TABLE `categories` (
+                  `category_id` int(2) NOT NULL AUTO_INCREMENT,
+                  `category_name` varchar(64) NOT NULL,
+                  PRIMARY KEY (`category_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+            </pma:table>
+            <pma:table name="category_bundles">
+                CREATE TABLE `category_bundles` (
+                  `id` int(8) NOT NULL AUTO_INCREMENT,
+                  `cat_id` int(8) NOT NULL,
+                  `bundle_id` int(8) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="category_categories">
+                CREATE TABLE `category_categories` (
+                  `id` int(8) NOT NULL AUTO_INCREMENT,
+                  `parent_cat_id` int(8) NOT NULL,
+                  `child_cat_id` int(8) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="category_items">
+                CREATE TABLE `category_items` (
+                  `id` int(8) NOT NULL AUTO_INCREMENT,
+                  `cat_id` int(8) NOT NULL,
+                  `item_id` int(8) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+            </pma:table>
+            <pma:table name="category_positions">
+                CREATE TABLE `category_positions` (
+                  `category_position_id` int(4) NOT NULL AUTO_INCREMENT,
+                  `cat_id` int(4) NOT NULL,
+                  `pos_id` int(4) NOT NULL,
+                  PRIMARY KEY (`category_position_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="codes">
+                CREATE TABLE `codes` (
+                  `code_id` int(11) NOT NULL AUTO_INCREMENT,
+                  `code_value` int(4) NOT NULL,
+                  `code_name` varchar(32) DEFAULT NULL,
+                  `code_price` float DEFAULT NULL,
+                  `code_unique` tinyint(1) NOT NULL DEFAULT 1,
+                  PRIMARY KEY (`code_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="items">
+                CREATE TABLE `items` (
+                  `item_id` int(2) NOT NULL AUTO_INCREMENT,
+                  `code_id` int(4) NOT NULL,
+                  `item_name` varchar(64) NOT NULL,
+                  `item_type` varchar(16) DEFAULT NULL,
+                  `item_img` varchar(64) DEFAULT NULL,
+                  `item_price` float NOT NULL,
+                  `item_to_go_id` int(4) DEFAULT NULL,
+                  PRIMARY KEY (`item_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
+            </pma:table>
+            <pma:table name="item_codes">
+                CREATE TABLE `item_codes` (
+                  `item_code_id` int(4) NOT NULL AUTO_INCREMENT,
+                  `code_id` int(4) NOT NULL,
+                  `item_id` int(4) DEFAULT NULL,
+                  PRIMARY KEY (`item_code_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="orders">
+                CREATE TABLE `orders` (
+                  `order_id` int(8) NOT NULL AUTO_INCREMENT,
+                  `order_table` varchar(16) NOT NULL,
+                  `order_comment` text DEFAULT NULL,
+                  `order_time` varchar(16) NOT NULL,
+                  `order_status` varchar(16) NOT NULL,
+                  PRIMARY KEY (`order_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="order_bundles">
+                CREATE TABLE `order_bundles` (
+                  `id` int(8) NOT NULL AUTO_INCREMENT,
+                  `order_id` int(8) NOT NULL,
+                  `bundle_id` int(8) NOT NULL,
+                  `bundle_comment` text DEFAULT NULL,
+                  `bundle_status` varchar(32) NOT NULL,
+                  `bundle_time` varchar(8) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="order_items">
+                CREATE TABLE `order_items` (
+                  `order_item_id` int(8) NOT NULL AUTO_INCREMENT,
+                  `order_id` int(8) NOT NULL,
+                  `item_id` int(4) NOT NULL,
+                  `item_comment` text NOT NULL,
+                  `item_status` varchar(32) NOT NULL,
+                  `to_go_id` int(8) DEFAULT NULL,
+                  `item_time` varchar(16) NOT NULL,
+                  PRIMARY KEY (`order_item_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="positions">
+                CREATE TABLE `positions` (
+                  `position_id` int(4) NOT NULL AUTO_INCREMENT,
+                  `position_name` varchar(8) NOT NULL,
+                  PRIMARY KEY (`position_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+            <pma:table name="users">
+                CREATE TABLE `users` (
+                  `user_id` int(2) NOT NULL AUTO_INCREMENT,
+                  `user_name` varchar(32) NOT NULL,
+                  `user_password` varchar(256) NOT NULL,
+                  `user_role` varchar(16) NOT NULL,
+                  PRIMARY KEY (`user_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'pos'
+    -->
+    <database name="pos">
+        <!-- Table bundles -->
+        <table name="bundles">
+            <column name="bundle_id">1</column>
+            <column name="bundle_name">Margherita</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">2</column>
+            <column name="bundle_name">Funghi</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">3</column>
+            <column name="bundle_name">Salami</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">4</column>
+            <column name="bundle_name">Capricciosa</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">5</column>
+            <column name="bundle_name">Hawaii</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">6</column>
+            <column name="bundle_name">4 sery</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">7</column>
+            <column name="bundle_name">Viola</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">8</column>
+            <column name="bundle_name">Parma</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <table name="bundles">
+            <column name="bundle_id">9</column>
+            <column name="bundle_name">Firmowa</column>
+            <column name="bundle_type">wynos</column>
+            <column name="bundle_menu_id">1</column>
+        </table>
+        <!-- Table bundle_items -->
+        <!-- Table bundle_menus -->
+        <table name="bundle_menus">
+            <column name="bundle_menu_id">1</column>
+            <column name="target_bundle_menu">0</column>
+        </table>
+        <!-- Table bundle_menu_items -->
+        <!-- Table categories -->
+        <table name="categories">
+            <column name="category_id">1</column>
+            <column name="category_name">Pizza</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">2</column>
+            <column name="category_name">Napoje</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">3</column>
+            <column name="category_name">Piwo</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">4</column>
+            <column name="category_name">Tymbark</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">5</column>
+            <column name="category_name">Sok Cappy</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">6</column>
+            <column name="category_name">Fuze Tea</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">7</column>
+            <column name="category_name">Kropla Beskidu</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">8</column>
+            <column name="category_name">Kawa</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">9</column>
+            <column name="category_name">Herbata</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">10</column>
+            <column name="category_name">Lech</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">11</column>
+            <column name="category_name">Książęce</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">12</column>
+            <column name="category_name">Zestawy obiadowe</column>
+        </table>
+        <table name="categories">
+            <column name="category_id">13</column>
+            <column name="category_name">Zupy</column>
+        </table>
+        <!-- Table category_bundles -->
+        <!-- Table category_categories -->
+        <table name="category_categories">
+            <column name="id">1</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">4</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">2</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">5</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">3</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">6</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">4</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">7</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">5</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">8</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">6</column>
+            <column name="parent_cat_id">2</column>
+            <column name="child_cat_id">9</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">7</column>
+            <column name="parent_cat_id">3</column>
+            <column name="child_cat_id">10</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">8</column>
+            <column name="parent_cat_id">3</column>
+            <column name="child_cat_id">11</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">9</column>
+            <column name="parent_cat_id">0</column>
+            <column name="child_cat_id">1</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">10</column>
+            <column name="parent_cat_id">0</column>
+            <column name="child_cat_id">2</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">11</column>
+            <column name="parent_cat_id">0</column>
+            <column name="child_cat_id">3</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">12</column>
+            <column name="parent_cat_id">0</column>
+            <column name="child_cat_id">12</column>
+        </table>
+        <table name="category_categories">
+            <column name="id">13</column>
+            <column name="parent_cat_id">0</column>
+            <column name="child_cat_id">13</column>
+        </table>
+        <!-- Table category_items -->
+        <table name="category_items">
+            <column name="id">1</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">1</column>
+        </table>
+        <table name="category_items">
+            <column name="id">2</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">2</column>
+        </table>
+        <table name="category_items">
+            <column name="id">3</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">3</column>
+        </table>
+        <table name="category_items">
+            <column name="id">4</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">4</column>
+        </table>
+        <table name="category_items">
+            <column name="id">5</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">5</column>
+        </table>
+        <table name="category_items">
+            <column name="id">6</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">6</column>
+        </table>
+        <table name="category_items">
+            <column name="id">7</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">7</column>
+        </table>
+        <table name="category_items">
+            <column name="id">8</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">8</column>
+        </table>
+        <table name="category_items">
+            <column name="id">9</column>
+            <column name="cat_id">1</column>
+            <column name="item_id">9</column>
+        </table>
+        <table name="category_items">
+            <column name="id">10</column>
+            <column name="cat_id">8</column>
+            <column name="item_id">63</column>
+        </table>
+        <table name="category_items">
+            <column name="id">11</column>
+            <column name="cat_id">8</column>
+            <column name="item_id">64</column>
+        </table>
+        <table name="category_items">
+            <column name="id">12</column>
+            <column name="cat_id">8</column>
+            <column name="item_id">65</column>
+        </table>
+        <table name="category_items">
+            <column name="id">13</column>
+            <column name="cat_id">9</column>
+            <column name="item_id">66</column>
+        </table>
+        <table name="category_items">
+            <column name="id">14</column>
+            <column name="cat_id">9</column>
+            <column name="item_id">67</column>
+        </table>
+        <table name="category_items">
+            <column name="id">15</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">68</column>
+        </table>
+        <table name="category_items">
+            <column name="id">16</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">69</column>
+        </table>
+        <table name="category_items">
+            <column name="id">17</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">70</column>
+        </table>
+        <table name="category_items">
+            <column name="id">18</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">71</column>
+        </table>
+        <table name="category_items">
+            <column name="id">19</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">72</column>
+        </table>
+        <table name="category_items">
+            <column name="id">20</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">73</column>
+        </table>
+        <table name="category_items">
+            <column name="id">21</column>
+            <column name="cat_id">2</column>
+            <column name="item_id">74</column>
+        </table>
+        <table name="category_items">
+            <column name="id">22</column>
+            <column name="cat_id">3</column>
+            <column name="item_id">91</column>
+        </table>
+        <table name="category_items">
+            <column name="id">23</column>
+            <column name="cat_id">3</column>
+            <column name="item_id">92</column>
+        </table>
+        <table name="category_items">
+            <column name="id">24</column>
+            <column name="cat_id">3</column>
+            <column name="item_id">93</column>
+        </table>
+        <table name="category_items">
+            <column name="id">25</column>
+            <column name="cat_id">10</column>
+            <column name="item_id">94</column>
+        </table>
+        <table name="category_items">
+            <column name="id">26</column>
+            <column name="cat_id">3</column>
+            <column name="item_id">95</column>
+        </table>
+        <table name="category_items">
+            <column name="id">27</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">96</column>
+        </table>
+        <table name="category_items">
+            <column name="id">28</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">97</column>
+        </table>
+        <table name="category_items">
+            <column name="id">29</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">98</column>
+        </table>
+        <table name="category_items">
+            <column name="id">30</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">99</column>
+        </table>
+        <table name="category_items">
+            <column name="id">31</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">100</column>
+        </table>
+        <table name="category_items">
+            <column name="id">32</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">101</column>
+        </table>
+        <table name="category_items">
+            <column name="id">33</column>
+            <column name="cat_id">11</column>
+            <column name="item_id">102</column>
+        </table>
+        <table name="category_items">
+            <column name="id">34</column>
+            <column name="cat_id">10</column>
+            <column name="item_id">103</column>
+        </table>
+        <table name="category_items">
+            <column name="id">35</column>
+            <column name="cat_id">10</column>
+            <column name="item_id">104</column>
+        </table>
+        <table name="category_items">
+            <column name="id">36</column>
+            <column name="cat_id">10</column>
+            <column name="item_id">105</column>
+        </table>
+        <table name="category_items">
+            <column name="id">37</column>
+            <column name="cat_id">10</column>
+            <column name="item_id">106</column>
+        </table>
+        <table name="category_items">
+            <column name="id">38</column>
+            <column name="cat_id">0</column>
+            <column name="item_id">50</column>
+        </table>
+        <table name="category_items">
+            <column name="id">39</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">107</column>
+        </table>
+        <table name="category_items">
+            <column name="id">40</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">108</column>
+        </table>
+        <table name="category_items">
+            <column name="id">41</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">109</column>
+        </table>
+        <table name="category_items">
+            <column name="id">42</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">110</column>
+        </table>
+        <table name="category_items">
+            <column name="id">43</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">111</column>
+        </table>
+        <table name="category_items">
+            <column name="id">44</column>
+            <column name="cat_id">4</column>
+            <column name="item_id">112</column>
+        </table>
+        <table name="category_items">
+            <column name="id">45</column>
+            <column name="cat_id">6</column>
+            <column name="item_id">113</column>
+        </table>
+        <table name="category_items">
+            <column name="id">46</column>
+            <column name="cat_id">6</column>
+            <column name="item_id">114</column>
+        </table>
+        <table name="category_items">
+            <column name="id">47</column>
+            <column name="cat_id">6</column>
+            <column name="item_id">115</column>
+        </table>
+        <table name="category_items">
+            <column name="id">51</column>
+            <column name="cat_id">5</column>
+            <column name="item_id">116</column>
+        </table>
+        <table name="category_items">
+            <column name="id">52</column>
+            <column name="cat_id">5</column>
+            <column name="item_id">117</column>
+        </table>
+        <table name="category_items">
+            <column name="id">53</column>
+            <column name="cat_id">5</column>
+            <column name="item_id">118</column>
+        </table>
+        <table name="category_items">
+            <column name="id">54</column>
+            <column name="cat_id">7</column>
+            <column name="item_id">119</column>
+        </table>
+        <table name="category_items">
+            <column name="id">55</column>
+            <column name="cat_id">7</column>
+            <column name="item_id">120</column>
+        </table>
+        <table name="category_items">
+            <column name="id">56</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">20</column>
+        </table>
+        <table name="category_items">
+            <column name="id">57</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">21</column>
+        </table>
+        <table name="category_items">
+            <column name="id">58</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">22</column>
+        </table>
+        <table name="category_items">
+            <column name="id">59</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">23</column>
+        </table>
+        <table name="category_items">
+            <column name="id">60</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">24</column>
+        </table>
+        <table name="category_items">
+            <column name="id">61</column>
+            <column name="cat_id">12</column>
+            <column name="item_id">25</column>
+        </table>
+        <table name="category_items">
+            <column name="id">62</column>
+            <column name="cat_id">13</column>
+            <column name="item_id">40</column>
+        </table>
+        <table name="category_items">
+            <column name="id">63</column>
+            <column name="cat_id">13</column>
+            <column name="item_id">41</column>
+        </table>
+        <table name="category_items">
+            <column name="id">64</column>
+            <column name="cat_id">13</column>
+            <column name="item_id">42</column>
+        </table>
+        <!-- Table category_positions -->
+        <table name="category_positions">
+            <column name="category_position_id">2</column>
+            <column name="cat_id">1</column>
+            <column name="pos_id">3</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">3</column>
+            <column name="cat_id">2</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">4</column>
+            <column name="cat_id">3</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">5</column>
+            <column name="cat_id">4</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">6</column>
+            <column name="cat_id">5</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">7</column>
+            <column name="cat_id">6</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">8</column>
+            <column name="cat_id">7</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">9</column>
+            <column name="cat_id">8</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">10</column>
+            <column name="cat_id">9</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">11</column>
+            <column name="cat_id">10</column>
+            <column name="pos_id">1</column>
+        </table>
+        <table name="category_positions">
+            <column name="category_position_id">12</column>
+            <column name="cat_id">11</column>
+            <column name="pos_id">1</column>
+        </table>
+        <!-- Table codes -->
+        <table name="codes">
+            <column name="code_id">1</column>
+            <column name="code_value">30</column>
+            <column name="code_name">Herbata</column>
+            <column name="code_price">5</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">2</column>
+            <column name="code_value">31</column>
+            <column name="code_name">Kawa</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">3</column>
+            <column name="code_value">32</column>
+            <column name="code_name">Napoje</column>
+            <column name="code_price">4</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">4</column>
+            <column name="code_value">33</column>
+            <column name="code_name">Tymbark/Woda</column>
+            <column name="code_price">3</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">5</column>
+            <column name="code_value">34</column>
+            <column name="code_name">Cappy</column>
+            <column name="code_price">NULL</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">6</column>
+            <column name="code_value">39</column>
+            <column name="code_name">Karton</column>
+            <column name="code_price">1</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">7</column>
+            <column name="code_value">41</column>
+            <column name="code_name">Margherita</column>
+            <column name="code_price">18</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">8</column>
+            <column name="code_value">42</column>
+            <column name="code_name">Funghi</column>
+            <column name="code_price">20</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">9</column>
+            <column name="code_value">43</column>
+            <column name="code_name">Salami</column>
+            <column name="code_price">22</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">10</column>
+            <column name="code_value">44</column>
+            <column name="code_name">Capricciosa</column>
+            <column name="code_price">23</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">11</column>
+            <column name="code_value">45</column>
+            <column name="code_name">Hawaii</column>
+            <column name="code_price">23</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">12</column>
+            <column name="code_value">46</column>
+            <column name="code_name">4 sery</column>
+            <column name="code_price">24</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">13</column>
+            <column name="code_value">49</column>
+            <column name="code_name">Viola</column>
+            <column name="code_price">26</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">14</column>
+            <column name="code_value">50</column>
+            <column name="code_name">Firmowa</column>
+            <column name="code_price">26</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">15</column>
+            <column name="code_value">52</column>
+            <column name="code_name">Parma</column>
+            <column name="code_price">32</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">16</column>
+            <column name="code_value">61</column>
+            <column name="code_name">Tyskie 300 ml</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">17</column>
+            <column name="code_value">62</column>
+            <column name="code_name">Tyskie 500 ml</column>
+            <column name="code_price">8</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">18</column>
+            <column name="code_value">63</column>
+            <column name="code_name">Brok</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">19</column>
+            <column name="code_value">64</column>
+            <column name="code_name">Lech</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">20</column>
+            <column name="code_value">65</column>
+            <column name="code_name">Tyskie</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">21</column>
+            <column name="code_value">66</column>
+            <column name="code_name">Książęce Złote Pszeniczne</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">22</column>
+            <column name="code_value">67</column>
+            <column name="code_name">Książęce Ciemne Łagodne</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">23</column>
+            <column name="code_value">68</column>
+            <column name="code_name">Książęce Czerwony Lager</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">24</column>
+            <column name="code_value">69</column>
+            <column name="code_name">Książęce Weizen</column>
+            <column name="code_price">9</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">25</column>
+            <column name="code_value">70</column>
+            <column name="code_name">Książęce Porter</column>
+            <column name="code_price">9</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">26</column>
+            <column name="code_value">71</column>
+            <column name="code_name">Książęce IPA</column>
+            <column name="code_price">9</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">27</column>
+            <column name="code_value">72</column>
+            <column name="code_name">Książęce Irish ALE</column>
+            <column name="code_price">9</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">28</column>
+            <column name="code_value">73</column>
+            <column name="code_name">Lech Free</column>
+            <column name="code_price">5</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">29</column>
+            <column name="code_value">74</column>
+            <column name="code_name">Lech Free Smakowy</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">1</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">30</column>
+            <column name="code_value">30</column>
+            <column name="code_name">Herbata</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">31</column>
+            <column name="code_value">31</column>
+            <column name="code_name">Kawa</column>
+            <column name="code_price">7</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">32</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zupa</column>
+            <column name="code_price">5</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">33</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zupa</column>
+            <column name="code_price">6</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">34</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zestaw obiadowy</column>
+            <column name="code_price">5</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">35</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zestaw obiadowy</column>
+            <column name="code_price">22</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">36</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zestaw obiadowy</column>
+            <column name="code_price">24</column>
+            <column name="code_unique">0</column>
+        </table>
+        <table name="codes">
+            <column name="code_id">37</column>
+            <column name="code_value">21</column>
+            <column name="code_name">Zestaw obiadowy</column>
+            <column name="code_price">25</column>
+            <column name="code_unique">0</column>
+        </table>
+        <!-- Table items -->
+        <table name="items">
+            <column name="item_id">1</column>
+            <column name="code_id">7</column>
+            <column name="item_name">Margherita</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">18</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">2</column>
+            <column name="code_id">8</column>
+            <column name="item_name">Funghi</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">20</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">3</column>
+            <column name="code_id">9</column>
+            <column name="item_name">Salami</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">22</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">4</column>
+            <column name="code_id">10</column>
+            <column name="item_name">Capricciosa</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">23</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">5</column>
+            <column name="code_id">11</column>
+            <column name="item_name">Hawaii</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">23</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">6</column>
+            <column name="code_id">12</column>
+            <column name="item_name">4 sery</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">24</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">7</column>
+            <column name="code_id">13</column>
+            <column name="item_name">Viola</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">26</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">8</column>
+            <column name="code_id">15</column>
+            <column name="item_name">Parma</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">32</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">9</column>
+            <column name="code_id">14</column>
+            <column name="item_name">Firmowa</column>
+            <column name="item_type">pizza</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">26</column>
+            <column name="item_to_go_id">50</column>
+        </table>
+        <table name="items">
+            <column name="item_id">20</column>
+            <column name="code_id">34</column>
+            <column name="item_name">Frytki</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">5</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">21</column>
+            <column name="code_id">35</column>
+            <column name="item_name">Pierś panierowana</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">22</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">22</column>
+            <column name="code_id">35</column>
+            <column name="item_name">Pierś grillowana</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">22</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">23</column>
+            <column name="code_id">35</column>
+            <column name="item_name">Schabowy</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">22</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">24</column>
+            <column name="code_id">36</column>
+            <column name="item_name">Karkówka grillowana</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">24</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">25</column>
+            <column name="code_id">37</column>
+            <column name="item_name">Karkówka panierowana</column>
+            <column name="item_type">obiad</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">25</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">40</column>
+            <column name="code_id">32</column>
+            <column name="item_name">Rosół</column>
+            <column name="item_type">zupa</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">5</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">41</column>
+            <column name="code_id">33</column>
+            <column name="item_name">Pomidorowa</column>
+            <column name="item_type">zupa</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">42</column>
+            <column name="code_id">33</column>
+            <column name="item_name">Zupa dnia</column>
+            <column name="item_type">zupa</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">51</column>
+        </table>
+        <table name="items">
+            <column name="item_id">50</column>
+            <column name="code_id">6</column>
+            <column name="item_name">Karton</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">1</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">51</column>
+            <column name="code_id">0</column>
+            <column name="item_name">Karton obiadowy</column>
+            <column name="item_type">opakowanie</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">0</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">63</column>
+            <column name="code_id">2</column>
+            <column name="item_name">Espresso</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">64</column>
+            <column name="code_id">2</column>
+            <column name="item_name">Kawa czarna</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">65</column>
+            <column name="code_id">31</column>
+            <column name="item_name">Kawa z mlekiem</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">66</column>
+            <column name="code_id">1</column>
+            <column name="item_name">Herbata czarna</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">5</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">67</column>
+            <column name="code_id">30</column>
+            <column name="item_name">Herbata owocowa</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">68</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Coca-Cola</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">69</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Fanta</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">70</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Sprite</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">91</column>
+            <column name="code_id">16</column>
+            <column name="item_name">Tyskie 300 ml</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">92</column>
+            <column name="code_id">17</column>
+            <column name="item_name">Tyskie 500 ml</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">8</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">93</column>
+            <column name="code_id">18</column>
+            <column name="item_name">Brok</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">94</column>
+            <column name="code_id">19</column>
+            <column name="item_name">Lech</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">95</column>
+            <column name="code_id">20</column>
+            <column name="item_name">Tyskie</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">96</column>
+            <column name="code_id">21</column>
+            <column name="item_name">Książęce Złote Pszeniczne</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">97</column>
+            <column name="code_id">22</column>
+            <column name="item_name">Książęce Ciemne Łagodne</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">98</column>
+            <column name="code_id">23</column>
+            <column name="item_name">Książęce Czerwony Lager</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">7</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">99</column>
+            <column name="code_id">24</column>
+            <column name="item_name">Książęce Weizen</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">9</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">100</column>
+            <column name="code_id">25</column>
+            <column name="item_name">Książęce Porter</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">9</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">101</column>
+            <column name="code_id">26</column>
+            <column name="item_name">Książęce IPA</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">9</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">102</column>
+            <column name="code_id">27</column>
+            <column name="item_name">Książęce Irish ALE</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">9</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">103</column>
+            <column name="code_id">28</column>
+            <column name="item_name">Lech Free</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">5</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">104</column>
+            <column name="code_id">29</column>
+            <column name="item_name">Lech Free Limonka i Mięta</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">105</column>
+            <column name="code_id">29</column>
+            <column name="item_name">Lech Free Granat i Acai</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">106</column>
+            <column name="code_id">29</column>
+            <column name="item_name">Lech Free Pomelo i Grejpfrut</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">6</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">107</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Jabłko-mięta</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">108</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Jabłko-wiśnia</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">109</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Pomarańcza-brzoskwinia</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">110</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Jabłko-arbuz</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">111</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Jabłko-kiwi</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">112</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Tymbark Jabłko-brzoskwinia</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">113</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Fuze Tea Zielona herbata</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">114</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Fuze Tea Cytrynowa</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">115</column>
+            <column name="code_id">3</column>
+            <column name="item_name">Fuze Tea Brzoskwinia</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">116</column>
+            <column name="code_id">5</column>
+            <column name="item_name">Cappy Pomarańcza</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">117</column>
+            <column name="code_id">5</column>
+            <column name="item_name">Cappy Czarna Porzeczka</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">118</column>
+            <column name="code_id">5</column>
+            <column name="item_name">Cappy Jabłko</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">4</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">119</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Delice Gazowana</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <table name="items">
+            <column name="item_id">120</column>
+            <column name="code_id">4</column>
+            <column name="item_name">Delice Niegazowana</column>
+            <column name="item_type">NULL</column>
+            <column name="item_img">NULL</column>
+            <column name="item_price">3</column>
+            <column name="item_to_go_id">NULL</column>
+        </table>
+        <!-- Table item_codes -->
+        <table name="item_codes">
+            <column name="item_code_id">64</column>
+            <column name="code_id">1</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">65</column>
+            <column name="code_id">2</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">66</column>
+            <column name="code_id">3</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">67</column>
+            <column name="code_id">4</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">68</column>
+            <column name="code_id">5</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">69</column>
+            <column name="code_id">6</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">70</column>
+            <column name="code_id">7</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">71</column>
+            <column name="code_id">8</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">72</column>
+            <column name="code_id">9</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">73</column>
+            <column name="code_id">10</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">74</column>
+            <column name="code_id">11</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">75</column>
+            <column name="code_id">12</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">76</column>
+            <column name="code_id">13</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">77</column>
+            <column name="code_id">14</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">78</column>
+            <column name="code_id">15</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">79</column>
+            <column name="code_id">16</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">80</column>
+            <column name="code_id">17</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">81</column>
+            <column name="code_id">18</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">82</column>
+            <column name="code_id">19</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">83</column>
+            <column name="code_id">20</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">84</column>
+            <column name="code_id">21</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">85</column>
+            <column name="code_id">22</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">86</column>
+            <column name="code_id">23</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">87</column>
+            <column name="code_id">24</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">88</column>
+            <column name="code_id">25</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">89</column>
+            <column name="code_id">26</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">90</column>
+            <column name="code_id">27</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">91</column>
+            <column name="code_id">28</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">92</column>
+            <column name="code_id">29</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">93</column>
+            <column name="code_id">30</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <table name="item_codes">
+            <column name="item_code_id">94</column>
+            <column name="code_id">31</column>
+            <column name="item_id">NULL</column>
+        </table>
+        <!-- Table orders -->
+        <table name="orders">
+            <column name="order_id">2</column>
+            <column name="order_table">0</column>
+            <column name="order_comment">NULL</column>
+            <column name="order_time">19:52</column>
+            <column name="order_status">confirmed</column>
+        </table>
+        <table name="orders">
+            <column name="order_id">3</column>
+            <column name="order_table">11</column>
+            <column name="order_comment">NULL</column>
+            <column name="order_time">22:38</column>
+            <column name="order_status">confirmed</column>
+        </table>
+        <!-- Table order_bundles -->
+        <!-- Table order_items -->
+        <table name="order_items">
+            <column name="order_item_id">4</column>
+            <column name="order_id">2</column>
+            <column name="item_id">2</column>
+            <column name="item_comment">Pół jalapeno</column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">5</column>
+            <column name="item_time">19:54</column>
+        </table>
+        <table name="order_items">
+            <column name="order_item_id">5</column>
+            <column name="order_id">2</column>
+            <column name="item_id">50</column>
+            <column name="item_comment"></column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">NULL</column>
+            <column name="item_time">19:54</column>
+        </table>
+        <table name="order_items">
+            <column name="order_item_id">6</column>
+            <column name="order_id">3</column>
+            <column name="item_id">51</column>
+            <column name="item_comment"></column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">NULL</column>
+            <column name="item_time">22:38</column>
+        </table>
+        <table name="order_items">
+            <column name="order_item_id">7</column>
+            <column name="order_id">3</column>
+            <column name="item_id">41</column>
+            <column name="item_comment"></column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">6</column>
+            <column name="item_time">22:38</column>
+        </table>
+        <table name="order_items">
+            <column name="order_item_id">8</column>
+            <column name="order_id">3</column>
+            <column name="item_id">51</column>
+            <column name="item_comment"></column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">NULL</column>
+            <column name="item_time">22:38</column>
+        </table>
+        <table name="order_items">
+            <column name="order_item_id">9</column>
+            <column name="order_id">3</column>
+            <column name="item_id">41</column>
+            <column name="item_comment"></column>
+            <column name="item_status">confirmed</column>
+            <column name="to_go_id">8</column>
+            <column name="item_time">22:38</column>
+        </table>
+        <!-- Table positions -->
+        <table name="positions">
+            <column name="position_id">1</column>
+            <column name="position_name">waiter</column>
+        </table>
+        <table name="positions">
+            <column name="position_id">2</column>
+            <column name="position_name">kitchen</column>
+        </table>
+        <table name="positions">
+            <column name="position_id">3</column>
+            <column name="position_name">pizza</column>
+        </table>
+        <!-- Table users -->
+        <table name="users">
+            <column name="user_id">1</column>
+            <column name="user_name">ame180</column>
+            <column name="user_password">$2y$10$i5LlPVQholOXsoO6Du.dqe4h38RRDxFGDib2e0BzS99thrCmAG73e</column>
+            <column name="user_role">admin</column>
+        </table>
+        <table name="users">
+            <column name="user_id">4</column>
+            <column name="user_name">kitchen</column>
+            <column name="user_password">$2y$10$1g9JJslttRHUKQAwNRKFfe5ThMQssK1.XrDk3hjoiB7B3MwB1KDzq</column>
+            <column name="user_role">kitchen</column>
+        </table>
+    </database>
+</pma_xml_export>
