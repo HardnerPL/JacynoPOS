@@ -8,20 +8,20 @@
 
 class Main extends CI_Controller
 {
-    
-    /**
-     * @var User_model
-     */
-    public $user_model;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+	/**
+	 * @var User_model
+	 */
+	public $user_model;
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
 
 	public function index()
 	{
-		if ($this->user_model->can_access('admin')) {
+		/* if ($this->user_model->can_access('admin')) {
 			redirect('admin');
 		} else if ($this->user_model->can_access('waiter')) {
 			redirect('waiter');
@@ -29,7 +29,7 @@ class Main extends CI_Controller
 			redirect('kitchen');
 		} else if ($this->user_model->can_access('pizza')) {
 			redirect('pizza');
-		}
+		} */
 
 		$data['title'] = "Home | POS";
 
@@ -38,11 +38,13 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function admin() {
-    	redirect('waiter');
+	public function admin()
+	{
+		redirect('waiter');
 	}
 
-	public function waiter() {
+	public function waiter()
+	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('user_login');
 		}
@@ -55,11 +57,13 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function pizza() {
-    	redirect('kitchen');
+	public function pizza()
+	{
+		redirect('kitchen');
 	}
 
-	public function kitchen() {
+	public function kitchen()
+	{
 		if (!$this->user_model->can_access('kitchen')) {
 			redirect('pin_login');
 		}
@@ -99,7 +103,8 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function logout() {
-    	$this->user_model->logout();
+	public function logout()
+	{
+		$this->user_model->logout();
 	}
 }
