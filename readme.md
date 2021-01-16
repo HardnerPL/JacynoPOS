@@ -4,6 +4,8 @@ POS is a point of sale system for restaurants aimed at working with small device
 
 ## Getting Started
 
+**NOTE: This readme file is not updated. For latest stable version and up-to-date information, check out release branch.**
+
 The application is still in early works and is not functional. It might have a lot of errors and glitches as well, or might not work at all.
 
 ### Installing
