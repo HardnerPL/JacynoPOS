@@ -4,7 +4,9 @@ POS is a point of sale system for restaurants aimed at working with small device
 
 ## Getting Started (as of 1/16/2021)
 
-The application is still in works and does not include all of the functionalities I want it to, but depending on needs, it could be enough for certain restaurants to work with. There are still a lot of UI/UX improvements to make, as well as adding some functionalities to deal with more cases more efficiently (for example, choosing a bundle, and then choosing items separately, like what you may see ordering at McDonalds or KFC, as well as the whole app being more JS reliant, so it does not stop working if you lose wi-fi for a second, ending on a possible entire rewrite and redesign). Still, for the most part, the whole 'foodchain' from beginning to end is implemented and functional.
+The application is still in works and does not include all of the functionalities I want it to, but depending on needs, it could be enough for certain restaurants to work with. Also, this is the first 'release' version which is just a slightly edited copy of master. *I would not consider it stable*, so you might encounter problems, *for the most part* it should be fully functional. (future releases will be stable)
+
+There are still a lot of UI/UX improvements to make, as well as adding some functionalities to deal with more cases more efficiently (for example, choosing a bundle, and then choosing items separately, like what you may see ordering at McDonalds or KFC, as well as the whole app being more JS reliant, so it does not stop working if you lose wi-fi for a second, ending on a possible entire rewrite and redesign). Still, for the most part, the whole 'foodchain' from beginning to end is implemented and functional.
 
 ### Installing
 
