@@ -9,12 +9,12 @@
 				<div class="col-2 p-0">
 					<div class="row no-gutters h-50 border">
 						<div class="col-12 center-content">
-							<b><?= $item->order_id ?></b>
+							<b><?= $item->item_time ?></b>
 						</div>
 					</div>
 					<div class="row no-gutters h-50 border">
 						<div class="col-12 center-content">
-							<b><?= $item->item_time ?></b>
+							<b><?= $item->order_table ?></b>
 						</div>
 					</div>
 				</div>

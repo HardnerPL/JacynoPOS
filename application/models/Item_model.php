@@ -13,9 +13,16 @@ class Item_model extends CI_Model
 		parent::__construct();
 	}
 
+	public function get_category_categories($category_id): array
+	{
+		return $this->db->query("SELECT * FROM categories WHERE category_id 
+		IN (SELECT child_cat_id FROM category_categories WHERE parent_cat_id = $category_id)")->result();
+	}
+
 	public function get_category_items($category_id): array
 	{
-		return $this->db->query("SELECT * FROM items WHERE item_category = $category_id")->result();
+		return $this->db->query("SELECT * FROM items WHERE item_id 
+		IN (SELECT item_id FROM category_items WHERE cat_id = $category_id)")->result();
 	}
 
 	public function get_item($item_id)

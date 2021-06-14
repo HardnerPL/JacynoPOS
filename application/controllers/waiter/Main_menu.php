@@ -19,11 +19,12 @@ class Main_menu extends CI_Controller
 		$this->load->view('waiter/main_menu/bottom_menu');
 	}
 
-	public function load_order_list_row($row_id) {
+	public function load_order_list_row($order_id)
+	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$data['order'] = $this->order_model->get_order($row_id);
+		$data['order'] = $this->order_model->get_order($order_id);
 		$this->load->view('waiter/main_menu/order_list_row', $data);
 	}
 
@@ -33,5 +34,22 @@ class Main_menu extends CI_Controller
 			redirect('index');
 		}
 		$this->order_model->add_order();
+	}
+
+	public function confirm_close_order_popup($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_id'] = $order_id;
+		$this->load->view('waiter/main_menu/confirm_close_order_popup', $data);
+	}
+
+	public function close_order($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$this->order_model->close_order($order_id);
 	}
 }

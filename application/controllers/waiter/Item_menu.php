@@ -31,7 +31,9 @@ class Item_menu extends CI_Controller
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$data['items'] = $this->item_model->get_category_items($this->input->post('category_id'));
+		$cat_id = $this->input->post('category_id');
+		$data['categories'] = $this->item_model->get_category_categories($cat_id);
+		$data['items'] = $this->item_model->get_category_items($cat_id);
 		$this->load->view('waiter/item_menu/item_list', $data);
 	}
 

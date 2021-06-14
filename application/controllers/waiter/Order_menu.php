@@ -42,11 +42,20 @@ class Order_menu extends CI_Controller
 
 		$this->order_model->load_order($order_id);
 		$data['order_id'] = $order_id;
-		$data['order_items'] = $this->order_model->get_order_items();
+		$data['order_items'] = $this->order_model->get_order_items('all');
 		$this->load->view('waiter/order_menu/navbar', $data);
 		$this->load->view('waiter/order_menu/order_menu', $data);
 		$this->load->view('waiter/order_menu/price', $data);
 		$this->load->view('waiter/order_menu/footer', $data);
+	}
+
+	public function update_item_list()
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_items'] = $this->order_model->get_order_items('all');
+		$this->load->view('waiter/order_menu/order_menu', $data);
 	}
 
 	public function delete_order_item()
@@ -66,16 +75,17 @@ class Order_menu extends CI_Controller
 		$this->load->view('waiter/order_menu/edit_item_form', $data);
 	}
 
-	public function confirm_edit_item_popup()
+	public function confirm_edit_item_popup($order_item_id)
 	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$data['item'] = $this->order_model->get_order_item();
+		$data['item'] = $this->order_model->get_order_item($order_item_id);
 		$this->load->view('waiter/order_menu/confirm_edit_item_popup', $data);
 	}
 
-	public function confirm_order_popup($order_id) {
+	public function confirm_order_popup($order_id)
+	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
@@ -83,18 +93,46 @@ class Order_menu extends CI_Controller
 		$this->load->view('waiter/order_menu/confirm_order_popup', $data);
 	}
 
-	public function edit_item()
+	public function edit_item_popup($order_item_id)
 	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$this->order_model->edit_item();
+		$data['order_item_id'] = $order_item_id;
+		$data['item'] = $this->order_model->get_order_item($order_item_id);
+		$this->load->view('waiter/order_menu/edit_item_popup', $data);
 	}
 
-	public function confirm_order($order_id) {
+	public function confirm_item_delivery_popup($order_item_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['order_item_id'] = $order_item_id;
+		$this->load->view('waiter/order_menu/confirm_item_delivery_popup', $data);
+	}
+
+	public function edit_item($order_item_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$this->order_model->edit_item($order_item_id);
+	}
+
+	public function confirm_order($order_id)
+	{
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
 		$this->order_model->confirm_order($order_id);
+	}
+
+	public function deliver_item($order_item_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$this->order_model->deliver_item($order_item_id);
 	}
 }

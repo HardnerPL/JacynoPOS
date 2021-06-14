@@ -33,3 +33,14 @@ function delete_main_menu_row(row_id) {
 	$("#order-row-" + row_id).next("hr").remove();
 	$("#order-row-" + row_id).remove();
 }
+
+function confirm_close_order_popup(order_id) {
+	$.get("waiter/main_menu/confirm_close_order_popup/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function close_order(order_id) {
+	$.get("waiter/main_menu/close_order/" + order_id);
+	load_main_menu();
+}

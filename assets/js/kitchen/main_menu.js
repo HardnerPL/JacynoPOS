@@ -2,7 +2,7 @@ $(document).ready(function () {
 	load_main_menu();
 	window.setInterval(function() {
 		refresh_order_items();
-	}, 15000)
+	}, 5000)
 })
 
 function load_main_menu() {
@@ -14,8 +14,10 @@ function load_main_menu() {
 
 function refresh_order_items() {
 	$.get("kitchen/kitchen_main_menu/order_list", function (data) {
+		var scrollTop = $("#kitchen-order-list").children().first().scrollTop();
 		$("#kitchen-order-list").replaceWith(data);
 		square_buttons();
+		$("#kitchen-order-list").children().first().scrollTop(scrollTop);
 	})
 }
 
