@@ -22,7 +22,12 @@
 			} ?>">
 				<div class="col p-1 h-100 overflow-hidden" onclick="edit_item_popup(<?= $item->order_item_id ?>)">
 					<div>
-						<div><b><?= $item->item_name ?></b></div>
+						<div><b><?php
+								echo $item->item_name;
+								if (isset($item->to_go_id) && !empty($item->to_go_id)) {
+									echo " (Wynos)";
+								}
+								?></b></div>
 						<small><?= $item->item_comment ?></small>
 					</div>
 				</div>

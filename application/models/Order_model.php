@@ -85,12 +85,15 @@ class Order_model extends CI_Model
 		$order_id = $this->session->current_order;
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
-		$item_to_go = $this->input->post('to_go');
-		$to_go_id = 50;
+		$item_to_go = $this->input->post('item_to_go');
+		$item_to_go_id = $item->item_to_go_id;
 		for ($i = $item_count; $i > 0; $i--) {
-			if ($item_to_go) {
-				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, item_comment)
-                              VALUES ('$order_id', '$item_id', 'new', ''), ('$order_id', '$to_go_id', 'new', 'Wynos')
+			if ($item_to_go == 'true') {
+				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
+                              VALUES ('$order_id', '$item_to_go_id', 'new')");
+				$to_go_id = $this->db->insert_id();
+				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id)
+                              VALUES ('$order_id', '$item_id', 'new', $to_go_id)
         ");
 			} else {
 				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
@@ -103,10 +106,10 @@ class Order_model extends CI_Model
 	public function get_current_price(): float
 	{
 		$price = 0.00;
-		$query = $this->db->query("SELECT * FROM order_items WHERE order_id = '{$this->session->current_order}'");
+		$query = $this->db->query("SELECT item_price FROM order_items LEFT JOIN items ON order_items.item_id = items.item_id
+		WHERE order_id = '{$this->session->current_order}'");
 		foreach ($query->result() as $item) {
-			$query = $this->db->query("SELECT item_price FROM items WHERE item_id = $item->item_id");
-			$price += $query->row()->item_price;
+			$price += $item->item_price;
 		}
 		return $price;
 	}
@@ -182,24 +185,38 @@ class Order_model extends CI_Model
 	public function get_order_item($order_item_id)
 	{
 		$order_id = $this->session->current_order;
-		$order_item = $this->db->query("SELECT * FROM order_items WHERE order_item_id = $order_item_id")->row();
-		$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = {$order_item->item_id}");
-		$order_item->item_price = $query->row()->item_price;
-		$order_item->item_name = $query->row()->item_name;
+		$order_item = $this->db->query("SELECT * FROM order_items LEFT JOIN items
+		ON order_items.item_id = items.item_id WHERE order_item_id = $order_item_id")->row();
 		return $order_item;
 	}
 
 	public function delete_order_item()
 	{
 		$order_item_id = $this->input->post('order_item_id');
+		$item = $this->get_order_item($order_item_id);
+		if (isset($item->to_go_id)) {
+			$this->db->query("DELETE FROM order_items WHERE order_item_id = {$item->to_go_id}");
+		}
 		$this->db->query("DELETE FROM order_items WHERE order_item_id = $order_item_id");
 	}
 
 	public function edit_item($order_item_id)
 	{
 		$item_comment = urldecode($this->input->post('item_comment'));
-		$this->db->query("UPDATE order_items SET item_comment = '$item_comment' 
-WHERE order_item_id = '$order_item_id'");
+		$item_to_go = $this->input->post('item_to_go');
+		$item = $this->get_order_item($order_item_id);
+		if ($item_to_go == 'true' && !isset($item->to_go_id)) {
+			$this->db->query("INSERT INTO order_items (item_id, order_id, item_status) 
+				VALUES ({$item->item_to_go_id}, {$item->order_id},'{$item->item_status}')
+				");
+			$to_go_id = $this->db->insert_id();
+			$this->db->query("UPDATE order_items SET item_comment = '$item_comment', to_go_id = $to_go_id WHERE order_item_id = $order_item_id");
+		} else if ($item_to_go == 'false' && isset($item->to_go_id)) {
+			$this->db->query("DELETE FROM order_items WHERE order_item_id = {$item->to_go_id}");
+			$this->db->query("UPDATE order_items SET item_comment = '$item_comment', to_go_id = NULL WHERE order_item_id = $order_item_id");
+		} else {
+			$this->db->query("UPDATE order_items SET item_comment = '$item_comment' WHERE order_item_id = $order_item_id");
+		}
 	}
 
 	public function set_order_status($order_id, $status)
@@ -223,11 +240,19 @@ WHERE order_item_id = '$order_item_id'");
 
 	public function set_order_item_status($order_item_id, $status)
 	{
+		$item = $this->get_order_item($order_item_id);
+		if (isset($item->to_go_id)) {
+			$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = {$item->to_go_id}");
+		}
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
 	}
 
 	public function deliver_item($order_item_id)
 	{
+		$item = $this->get_order_item($order_item_id);
+		if (isset($item->to_go_id)) {
+			$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = {$item->to_go_id}");
+		}
 		$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = $order_item_id");
 	}
 

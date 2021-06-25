@@ -37,6 +37,16 @@
 		</div>
 	</div>
 	<div class="row h-45">
+		<?php if (isset($item->item_to_go_id)) { ?>
+			<div class="col-12 h-100 center-content">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="to-go-checkbox">
+					<label class="form-check-label" for="to-go-checkbox">
+						Wynos
+					</label>
+				</div>
+			</div>
+		<?php } ?>
 	</div>
 	<div class="row h-15">
 		<a onclick="add_item(<?= $item->item_id ?>)" href="#"

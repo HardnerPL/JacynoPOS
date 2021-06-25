@@ -41,7 +41,8 @@ class User_model extends CI_Model
 		} else return "USER NOT FOUND";
 	}
 
-	private function get_all_users() {
+	private function get_all_users()
+	{
 		$query = $this->db->query("SELECT * FROM users");
 		return $query->result();
 	}
@@ -84,11 +85,12 @@ class User_model extends CI_Model
 		}
 	}
 
-	public function pin_login() {
+	public function pin_login()
+	{
 		$pin = $this->input->post('pin');
-		if ($this->config->item('dev') && false) {
+		if ($this->config->item('dev')) {
 			$this->session->role = 'admin';
-			redirect('index');
+			redirect('kitchen');
 		} else if (!empty($pin)) {
 			$users = $this->get_all_users();
 			foreach ($users as $user) {
@@ -100,7 +102,8 @@ class User_model extends CI_Model
 		}
 	}
 
-	public function logout() {
+	public function logout()
+	{
 		$this->session->unset_userdata(role);
 		$this->session->unset_userdata(username);
 	}

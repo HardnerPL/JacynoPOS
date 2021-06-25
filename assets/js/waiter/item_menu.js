@@ -75,7 +75,8 @@ function add_item(item_id) {
 		type: "post",
 		data: {
 			item_id: item_id,
-			item_count: $("#count-input").val()
+			item_count: $("#count-input").val(),
+			item_to_go: $("#to-go-checkbox").prop("checked")
 		},
 		dataType: "text",
 		success: function () {

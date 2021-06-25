@@ -18,7 +18,12 @@
 					</div>
 				</div>
 				<div class="col p-2 border-right">
-					<h2><?= $item->item_name ?></h2>
+					<h2><?php
+						echo $item->item_name;
+						if (isset($item->to_go_id) && !empty($item->to_go_id)) {
+							echo " (Wynos)";
+						}
+						?></h2>
 					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
 				</div>
 				<div class="col-2 p-0">
@@ -39,5 +44,29 @@
 			</div>
 		</div>
 	<?php } ?>
+	<div class="col-12 <?php
+	$count = count($order_items);
+	//TODO: get count from controller
+	switch ($count) {
+		case 1:
+		case 2:
+			echo 'h-80';
+			break;
+		case 3:
+		case 4:
+			echo 'h-60';
+			break;
+		case 5:
+		case 6:
+			echo 'h-40';
+			break;
+		case 7:
+		case 8:
+			echo 'h-20';
+			break;
+		default:
+			'd-none';
+	}
+	?>"></div>
 </div>
 </div>
