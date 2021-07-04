@@ -246,5 +246,13 @@ body, .container, .container-fluid {
 }
 
 .kitchen-tile {
-	height: 150px;
+	height: 100px;
+}
+
+.kitchen-tile .title {
+	font-size: 20px;
+}
+
+.kitchen-tile .comment {
+	font-size: 12px;
 }

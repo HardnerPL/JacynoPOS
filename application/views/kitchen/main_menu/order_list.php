@@ -2,7 +2,7 @@
 	<?php
 	$i = 0;
 	foreach ($order_items as $item) { ?>
-		<div class="kitchen-tile col-4 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
+		<div class="kitchen-tile col-3 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
 			 id="item-row-<?= $item->order_item_id ?>">
 			<div class="row no-gutters h-100">
 				<div class="col-3 p-0 border-right border-left">
@@ -18,12 +18,12 @@
 					</div>
 				</div>
 				<div class="col p-2 border-right">
-					<h2><?php
+					<div class="title"><?php
 						echo $item->item_name;
 						if (isset($item->to_go_id) && !empty($item->to_go_id)) {
 							echo " (Wynos)";
 						}
-						?></h2>
+						?></div>
 					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
 				</div>
 				<div class="btn-box col-2 p-0">
