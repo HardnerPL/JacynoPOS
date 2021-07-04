@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property Order_model order_model
+ */
 class Kitchen_main_menu extends CI_Controller
 {
 	public function __construct()
@@ -13,7 +16,7 @@ class Kitchen_main_menu extends CI_Controller
 			redirect('index');
 		}
 
-		$data['order_items'] = $this->order_model->get_active_order_items('pizza');
+		$data['order_items'] = $this->order_model->get_active_order_items('kitchen');
 
 		$this->load->view('kitchen/main_menu/top_menu');
 		$this->load->view('kitchen/main_menu/order_list', $data);
@@ -24,7 +27,7 @@ class Kitchen_main_menu extends CI_Controller
 		if (!$this->user_model->can_access('kitchen')) {
 			redirect('index');
 		}
-		$data['order_items'] = $this->order_model->get_active_order_items('pizza');
+		$data['order_items'] = $this->order_model->get_active_order_items('kitchen');
 		$this->load->view('kitchen/main_menu/order_list', $data);
 	}
 
