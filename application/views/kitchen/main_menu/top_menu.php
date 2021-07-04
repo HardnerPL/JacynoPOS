@@ -1,5 +1,5 @@
 <div class="row vh-100">
-	<div class="col-9">
+	<div class="col-12">
 		<div class="row h-15">
 			<div class="col-3 h-100 p-0">
 				<a href="#" onclick="load_last_page()"

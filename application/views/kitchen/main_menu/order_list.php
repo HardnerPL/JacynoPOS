@@ -1,8 +1,8 @@
-<div id="kitchen-order-list" class="row h-85 overflow-scroll">
+<div id="kitchen-order-list" class="row overflow-scroll">
 	<?php
 	$i = 0;
 	foreach ($order_items as $item) { ?>
-		<div class="col-6 h-20 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
+		<div class="kitchen-tile col-4 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
 			 id="item-row-<?= $item->order_item_id ?>">
 			<div class="row no-gutters h-100">
 				<div class="col-3 p-0 border-right border-left">
@@ -26,47 +26,34 @@
 						?></h2>
 					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
 				</div>
-				<div class="col-2 p-0">
+				<div class="btn-box col-2 p-0">
 					<?php
 					if ($item->item_status == 'ready') { ?>
 						<a id="btn-<?= $item->order_item_id ?>"
 						   onclick="item_delivered_popup(<?= $item->order_item_id ?>)"
-						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
+						   class="delivered-btn btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
 							<i class="fas fa-check"></i>
 						</a>
 					<?php } else { ?>
 						<a id="btn-<?= $item->order_item_id ?>" onclick="item_ready_popup(<?= $item->order_item_id ?>)"
-						   class="btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
+						   class="ready-btn btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
 							<i class="fas fa-check"></i>
 						</a>
+						<div class="ready-select w-100 h-100 center-content d-none">
+							<input id="ready-select-<?= $item->order_item_id ?>" type="checkbox" class="form-check-input m-0 w-100 h-100">
+						</div>
 					<?php } ?>
 				</div>
 			</div>
 		</div>
 	<?php } ?>
-	<div class="col-12 <?php
-	$count = count($order_items);
-	//TODO: get count from controller
-	switch ($count) {
-		case 1:
-		case 2:
-			echo 'h-80';
-			break;
-		case 3:
-		case 4:
-			echo 'h-60';
-			break;
-		case 5:
-		case 6:
-			echo 'h-40';
-			break;
-		case 7:
-		case 8:
-			echo 'h-20';
-			break;
-		default:
-			'd-none';
-	}
-	?>"></div>
+</div>
+<div id="select-controls" class="fixed-bottom row no-gutters d-none">
+	<div class="col-6">
+		<div class="btn btn-primary center-content w-100 h-100 rounded-0">Tak</div>
+	</div>
+	<div class="col-6">
+		<div onclick="hide_selects()" class="btn btn-danger center-content w-100 h-100 rounded-0">Nie</div>
+	</div>
 </div>
 </div>

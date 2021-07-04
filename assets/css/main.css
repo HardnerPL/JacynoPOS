@@ -229,10 +229,22 @@ body, .container, .container-fluid {
 	height: 100vh;
 }
 
+#select-controls {
+	height: 80px;
+}
+
+#select-controls .btn {
+	font-size: 30px;
+}
+
 .btn-wrap {
 	white-space: normal;
 }
 
 .flex-grow {
 	flex-grow: 1;
+}
+
+.kitchen-tile {
+	height: 150px;
 }
