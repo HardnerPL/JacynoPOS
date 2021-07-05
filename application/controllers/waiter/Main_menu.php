@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @property Order_model order_model
+ * @property User_model user_model
+ * @property CI_Loader load
+ */
 class Main_menu extends CI_Controller
 {
 	public function __construct()

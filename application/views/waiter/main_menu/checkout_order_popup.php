@@ -6,27 +6,27 @@
 			</div>
 			<div class="row">
 				<?php
-				foreach ($codes as $code) {
-					if (isset($code->code_value)) {
+				foreach ($codes as $key => $code) { ?>
+					<div class="col-6">
+						<b>
+							<?= $code->count . " x " . $code->name . " " . $code->price ?> zł
+						</b>
+					</div>
+					<div class="col-6">
+						<?php
+						$string = '';
+						if ($code->count > 1) {
+							$string .= $code->count . ' x ';
+						}
+						$string .= $key . ' KOD';
+						if ($code->dynamic_price == true) {
+							$string .= ' ' . $code->price . " OK";
+						}
+
+						echo $string;
 						?>
-						<div class="col-6">
-							<b>
-								<?= $code->code_count . " x " . $code->code_name . " " . $code->code_price ?> zł
-							</b>
-						</div>
-						<div class="col-6">
-							<?php
-							if ($code->code_unique) {
-								echo $code->code_count . " x "
-									. $code->code_value . " KOD";
-							} else {
-								echo $code->code_count . " x "
-									. $code->code_value . " KOD " . $code->code_price . " OK";
-							}
-							?>
-						</div>
-					<?php }
-				} ?>
+					</div>
+				<?php } ?>
 			</div>
 		</div>
 		<div class="row no-gutters">
