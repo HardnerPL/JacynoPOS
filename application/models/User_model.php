@@ -4,6 +4,7 @@
  * User: Hardner07@gmail.com
  * Date: 6/9/2019
  * Time: 9:29 PM
+ * @property CI_Session session
  */
 
 class User_model extends CI_Model
@@ -68,33 +69,14 @@ class User_model extends CI_Model
 		return "EMPTY INPUT";
 	}
 
-	public function user_login()
-	{
-		$username = $this->input->post('username');
-		$password = $this->input->post('password');
-		if (!empty($username) && !empty($password) && $this->config->item('dev') && $username == $password) {
-			$this->session->username = 'dev';
-			$this->session->role = 'admin';
-			redirect('index');
-		} else if (!empty($username) && !empty($password)) {
-			if (password_verify($password, $this->get_user_hash($username))) {
-				$this->session->username = $username;
-				$this->session->role = $this->get_user_role($username);
-				redirect('index');
-			}
-		}
-	}
-
-	public function pin_login()
+	public function login()
 	{
 		$pin = $this->input->post('pin');
-		if ($this->config->item('dev')) {
-			$this->session->role = 'admin';
-			redirect('kitchen');
-		} else if (!empty($pin)) {
+		if (!empty($pin)) {
 			$users = $this->get_all_users();
 			foreach ($users as $user) {
 				if (password_verify($pin, $user->user_password)) {
+					$this->session->username = $user->user_name;
 					$this->session->role = $user->user_role;
 					redirect('index');
 				}
@@ -104,8 +86,8 @@ class User_model extends CI_Model
 
 	public function logout()
 	{
-		$this->session->unset_userdata(role);
-		$this->session->unset_userdata(username);
+		$this->session->unset_userdata('role');
+		$this->session->unset_userdata('username');
 	}
 
 	public function can_access($role): bool

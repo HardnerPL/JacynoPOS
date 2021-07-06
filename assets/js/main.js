@@ -55,3 +55,13 @@ function change_item_count(value) {
 		$("#count-input").val(input + value);
 	}
 }
+
+function appendPin(num) {
+	pinInput = $('#pin');
+	pinInput.val(pinInput.val() + num);
+}
+
+function undoPin() {
+	pinInput = $('#pin');
+	pinInput.val(pinInput.val().slice(0, -1));
+}

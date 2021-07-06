@@ -4,16 +4,13 @@
  * User: Hardner07@gmail.com
  * Date: 6/9/2019
  * Time: 8:31 PM
+ * @property CI_Loader load
+ * @property CI_Session session
+ * @property User_model user_model
  */
 
 class Main extends CI_Controller
 {
-
-	/**
-	 * @var User_model
-	 */
-	public $user_model;
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,16 +18,9 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		/* if ($this->user_model->can_access('admin')) {
-			redirect('admin');
-		} else if ($this->user_model->can_access('waiter')) {
-			redirect('waiter');
-		} else if ($this->user_model->can_access('kitchen')) {
-			redirect('kitchen');
-		} else if ($this->user_model->can_access('pizza')) {
-			redirect('pizza');
-		} */
-
+		if (!$this->session->role) {
+			redirect('login');
+		}
 		$data['title'] = "Home | POS";
 
 		$this->load->view('templates/header', $data);
@@ -46,7 +36,7 @@ class Main extends CI_Controller
 	public function waiter()
 	{
 		if (!$this->user_model->can_access('waiter')) {
-			redirect('user_login');
+			redirect('login');
 		}
 
 		$data['title'] = "POS";
@@ -65,7 +55,7 @@ class Main extends CI_Controller
 	public function kitchen()
 	{
 		if (!$this->user_model->can_access('kitchen')) {
-			redirect('pin_login');
+			redirect('login');
 		}
 
 		$data['title'] = "POS";
@@ -76,21 +66,12 @@ class Main extends CI_Controller
 		$this->load->view('templates/footer', $data);
 	}
 
-	public function user_login()
+	public function login()
 	{
-		$this->user_model->user_login();
+		$this->user_model->login();
 		$data['title'] = "Logowanie | POS";
 		$this->load->view('templates/header', $data);
-		$this->load->view('user_login', $data);
-		$this->load->view('templates/footer', $data);
-	}
-
-	public function pin_login()
-	{
-		$this->user_model->pin_login();
-		$data['title'] = "Logowanie | POS";
-		$this->load->view('templates/header', $data);
-		$this->load->view('pin_login', $data);
+		$this->load->view('login', $data);
 		$this->load->view('templates/footer', $data);
 	}
 
