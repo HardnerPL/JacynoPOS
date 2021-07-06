@@ -258,21 +258,22 @@ class Order_model extends CI_Model
 
 	public function get_order_checkout($order_id)
 	{
-		$items = $this->db->query("SELECT i.code_id, i.item_name, i.item_price, c.code_price FROM order_items AS o
+		$items = $this->db->query("SELECT i.item_id, i.code_id, i.item_name, i.item_price, c.code_price FROM order_items AS o
 		LEFT JOIN items AS i ON o.item_id = i.item_id
 		LEFT JOIN codes AS c ON c.code_id = i.code_id
 		WHERE order_id = $order_id ORDER BY i.code_id
 		")->result();
 		$codes = [];
 		foreach ($items as $item) {
-			if (!isset($codes[$item->code_id]) || $codes[$item->code_id]->name != $item->item_name) {
-				$codes[$item->code_id] = new stdClass();
-				$codes[$item->code_id]->count = 1;
-				$codes[$item->code_id]->name = $item->item_name;
-				$codes[$item->code_id]->price = $item->item_price;
-				$codes[$item->code_id]->dynamic_price = $item->code_price;
+			if (!isset($codes[$item->item_id])) {
+				$codes[$item->item_id] = new stdClass();
+				$codes[$item->item_id]->code = $item->code_id;
+				$codes[$item->item_id]->count = 1;
+				$codes[$item->item_id]->name = $item->item_name;
+				$codes[$item->item_id]->price = $item->item_price;
+				$codes[$item->item_id]->dynamic_price = $item->code_price;
 			} else {
-				$codes[$item->code_id]->count++;
+				$codes[$item->item_id]->count++;
 			}
 		}
 

@@ -6,7 +6,7 @@
 			</div>
 			<div class="row">
 				<?php
-				foreach ($codes as $key => $code) { ?>
+				foreach ($codes as $code) { ?>
 					<div class="col-6">
 						<b>
 							<?= $code->count . " x " . $code->name . " " . $code->price ?> zł
@@ -18,7 +18,7 @@
 						if ($code->count > 1) {
 							$string .= $code->count . ' x ';
 						}
-						$string .= $key . ' KOD';
+						$string .= $code->code . ' KOD';
 						if ($code->dynamic_price == true) {
 							$string .= ' ' . $code->price . " OK";
 						}
