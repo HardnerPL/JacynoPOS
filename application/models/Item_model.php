@@ -22,7 +22,8 @@ class Item_model extends CI_Model
 	public function get_category_items($category_id): array
 	{
 		return $this->db->query("SELECT * FROM items WHERE item_id 
-		IN (SELECT item_id FROM category_items WHERE cat_id = $category_id)")->result();
+		IN (SELECT item_id FROM category_items WHERE cat_id = $category_id)
+		AND active = 1")->result();
 	}
 
 	public function get_item($item_id)
