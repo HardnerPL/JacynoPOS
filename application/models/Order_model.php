@@ -164,6 +164,7 @@ class Order_model extends CI_Model
 		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 		LEFT JOIN positions ON category_positions.pos_id = positions.position_id
 		LEFT JOIN orders ON order_items.order_id = orders.order_id
+		LEFT JOIN categories ON category_items.cat_id = categories.category_id
 		WHERE position_name = '$position' AND (item_status = 'confirmed' OR item_status = 'ready')
 		ORDER BY orders.order_id, 
 		    CASE items.item_type

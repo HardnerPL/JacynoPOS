@@ -2,7 +2,14 @@
 	<?php
 	$i = 0;
 	foreach ($order_items as $item) { ?>
-		<div class="kitchen-tile col-3 p-0 border-right border-bottom <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
+		<div class="kitchen-tile col-3 p-0 border-right border-bottom
+			<?php
+				if ($item->item_status == 'ready') {
+					echo 'bg-light-green';
+				} else if ($item->category_name == 'Pizza') {
+					echo 'bg-light-orange';
+				}
+				?>"
 			 id="item-row-<?= $item->order_item_id ?>"
 			 onclick="<?php echo $item->item_status == 'ready' ? "item_delivered_popup($item->order_item_id)" : "item_ready_popup($item->order_item_id)" ?>">
 			<div class="row no-gutters h-100">

@@ -17,6 +17,10 @@ body, .container, .container-fluid {
 	background: lightgreen;
 }
 
+.bg-light-orange {
+	background: #ffeccf;
+}
+
 .bg-light-blue {
 	background: lightskyblue;
 }
