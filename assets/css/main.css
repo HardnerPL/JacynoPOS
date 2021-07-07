@@ -256,3 +256,7 @@ body, .container, .container-fluid {
 .kitchen-tile .comment {
 	font-size: 12px;
 }
+
+.flex-1 {
+	flex: 1;
+}

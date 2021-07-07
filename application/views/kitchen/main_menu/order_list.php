@@ -5,15 +5,16 @@
 		<div class="kitchen-tile col-3 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
 			 id="item-row-<?= $item->order_item_id ?>">
 			<div class="row no-gutters h-100">
-				<div class="col-3 p-0 border-right border-left">
-					<div class="row no-gutters h-50 border-bottom">
-						<div class="col-12 center-content">
-							<h5><?= $item->item_time ?></h5>
+				<div class="col-3 p-0 border-right border-left center-content">
+					<div class="d-flex flex-column h-100">
+						<div class="center-content flex-1 border-bottom">
+							<b><?= $item->item_time ?></b>
 						</div>
-					</div>
-					<div class="row no-gutters h-50">
-						<div class="col-12 center-content">
-							<h5><?= $item->order_id % 100 ?></h5>
+						<div class="center-content flex-1 border-bottom">
+							<b><?= $item->order_table ?></b>
+						</div>
+						<div class="center-content flex-1">
+							<b>#<?= $item->order_id % 100 ?></b>
 						</div>
 					</div>
 				</div>
