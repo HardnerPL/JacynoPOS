@@ -2,10 +2,11 @@
 	<?php
 	$i = 0;
 	foreach ($order_items as $item) { ?>
-		<div class="kitchen-tile col-3 p-0 border <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
-			 id="item-row-<?= $item->order_item_id ?>">
+		<div class="kitchen-tile col-3 p-0 border-right border-bottom <?php if ($item->item_status == 'ready') echo 'bg-light-green' ?>"
+			 id="item-row-<?= $item->order_item_id ?>"
+			 onclick="<?php echo $item->item_status == 'ready' ? "item_delivered_popup($item->order_item_id)" : "item_ready_popup($item->order_item_id)" ?>">
 			<div class="row no-gutters h-100">
-				<div class="col-3 p-0 border-right border-left center-content">
+				<div class="col-3 p-0 border-right center-content">
 					<div class="d-flex flex-column h-100">
 						<div class="center-content flex-1 border-bottom">
 							<b><?= $item->item_time ?></b>
@@ -18,7 +19,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col p-2 border-right">
+				<div class="col p-2">
 					<div class="title"><?php
 						echo $item->item_name;
 						if (isset($item->to_go_id) && !empty($item->to_go_id)) {
@@ -26,24 +27,6 @@
 						}
 						?></div>
 					<h6 class="font-weight-normal"><?= $item->item_comment ?></h6>
-				</div>
-				<div class="btn-box col-2 p-0">
-					<?php
-					if ($item->item_status == 'ready') { ?>
-						<a id="btn-<?= $item->order_item_id ?>"
-						   onclick="item_delivered_popup(<?= $item->order_item_id ?>)"
-						   class="delivered-btn btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
-							<i class="fas fa-check"></i>
-						</a>
-					<?php } else { ?>
-						<a id="btn-<?= $item->order_item_id ?>" onclick="item_ready_popup(<?= $item->order_item_id ?>)"
-						   class="ready-btn btn p-0 m-0 btn-success text-light w-100 center-content rounded-0 h-100">
-							<i class="fas fa-check"></i>
-						</a>
-						<div class="ready-select w-100 h-100 center-content d-none">
-							<input id="ready-select-<?= $item->order_item_id ?>" type="checkbox" class="form-check-input m-0 w-100 h-100">
-						</div>
-					<?php } ?>
 				</div>
 			</div>
 		</div>
