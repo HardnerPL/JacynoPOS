@@ -2,6 +2,8 @@
 
 /**
  * @property Order_model order_model
+ * @property User_model user_model
+ * @property CI_Loader load
  */
 class Kitchen_main_menu extends CI_Controller
 {

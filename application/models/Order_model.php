@@ -158,13 +158,18 @@ class Order_model extends CI_Model
 
 	public function get_active_order_items($position)
 	{
-		$query = $this->db->query("SELECT * FROM order_items 
+		$query = $this->db->query("SELECT * FROM order_items
+    	LEFT JOIN items ON order_items.item_id = items.item_id
 		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 		LEFT JOIN positions ON category_positions.pos_id = positions.position_id
 		LEFT JOIN orders ON order_items.order_id = orders.order_id
 		WHERE position_name = '$position' AND (item_status = 'confirmed' OR item_status = 'ready')
-		ORDER BY orders.order_id
+		ORDER BY orders.order_id, 
+		    CASE items.item_type
+			WHEN 'zupa' THEN 1
+			WHEN 'obiad' THEN 2
+			ELSE 3 END
 		");
 		$order_items = $query->result();
 		$query = $this->db->query("SELECT * FROM orders WHERE order_status = 'confirmed'");
