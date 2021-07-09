@@ -303,4 +303,14 @@ class Order_model extends CI_Model
 		$this->db->query("UPDATE orders SET order_comment = '$order_comment', order_table = '$order_table' 
 		WHERE order_id = $order_id");
 	}
+
+	public function group_items_by_order(array $items): array
+	{
+		$orders = [];
+		foreach ($items as $item) {
+			$orders[$item->order_id][] = $item;
+		}
+
+		return $orders;
+	}
 }

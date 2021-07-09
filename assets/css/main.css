@@ -5,6 +5,10 @@ body, .container, .container-fluid {
 	flex-flow: column;
 }
 
+.bg-light-purple {
+	background: #ffedfe;
+}
+
 .bg-dark-red {
 	background: #8B0000;
 }
@@ -67,6 +71,10 @@ body, .container, .container-fluid {
 
 .h-5 {
 	height: 5%;
+}
+
+.thick-border-right {
+	border-right: 8px solid black;
 }
 
 .btn-icon {
