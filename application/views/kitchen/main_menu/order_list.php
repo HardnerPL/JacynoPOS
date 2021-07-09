@@ -20,7 +20,8 @@
 			}
 			?>"
 				 id="item-row-<?= $item->order_item_id ?>"
-				 onclick="<?php echo $item->item_status == 'ready' ? "item_delivered_popup($item->order_item_id)" : "item_ready_popup($item->order_item_id)" ?>">
+				 onclick="<?php echo $item->item_status == 'ready' ? "item_delivered_popup($item->order_item_id)" : "item_ready_popup($item->order_item_id)" ?>"
+				data-category="<?php echo $item->category_name ?>" <?php if (!empty($item->late)) echo 'data-late="true"'?>>
 				<div class="row no-gutters h-100">
 					<div class="col-3 p-0 border-right center-content">
 						<div class="d-flex flex-column h-100">

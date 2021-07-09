@@ -3,7 +3,10 @@ $(document).ready(function () {
 	window.selectMode = false;
 	window.setInterval(function () {
 		refresh_order_items();
-	}, 5000)
+	}, 5000);
+	window.setInterval(function () {
+		flash_late();
+	}, 800)
 })
 
 function load_main_menu() {
@@ -71,4 +74,12 @@ function hide_selects() {
 	$('#select-controls').addClass('d-none');
 	$('.ready-btn').removeClass('d-none');
 	$('.ready-select').addClass('d-none');
+}
+
+function flash_late() {
+	let soups = $('*[data-late="true"]');
+	soups.each(function () {
+		if ($(this).hasClass('bg-late')) $(this).removeClass('bg-late');
+		else $(this).addClass('bg-late');
+	});
 }

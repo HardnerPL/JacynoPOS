@@ -5,6 +5,10 @@ body, .container, .container-fluid {
 	flex-flow: column;
 }
 
+.bg-late {
+	background: #ffbaba !important;
+}
+
 .bg-light-purple {
 	background: #ffedfe;
 }

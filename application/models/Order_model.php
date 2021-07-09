@@ -4,6 +4,8 @@
  * User: Hardner07@gmail.com
  * Date: 6/21/2019
  * Time: 9:45 PM
+ * @property CI_Config config
+ * @property CI_DB_query_builder db
  */
 
 class Order_model extends CI_Model
@@ -177,13 +179,17 @@ class Order_model extends CI_Model
 		$orders = $query->result();
 		$query = $this->db->query("SELECT * FROM items WHERE item_id IN (SELECT item_id FROM order_items 
 									WHERE item_status = 'confirmed' OR item_status = 'ready')");
-		$items = array();
+		$items = [];
 		foreach ($query->result() as $item) {
 			$items[$item->item_id] = $item;
 		}
 		foreach ($order_items as $item) {
 			$item->item_name = $items[$item->item_id]->item_name;
 			$item->item_image = $items[$item->item_id]->item_img;
+
+			if((time() - strtotime($item->item_time)) / 60 > $this->config->item('late_soup_time') && 'Zupy' == $item->category_name) {
+				$item->late = true;
+			}
 		}
 		return $order_items;
 	}
