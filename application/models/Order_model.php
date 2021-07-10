@@ -90,10 +90,16 @@ class Order_model extends CI_Model
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
 		$item_to_go = $this->input->post('item_to_go');
-		$item_to_go_id = $item->item_to_go_id;
+
+		if ('true' == $item_to_go) {
+			$to_go_id = $item->item_to_go_id;
+		} else {
+			$to_go_id = 'null';
+		}
+
 		for ($i = $item_count; $i > 0; $i--) {
 			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id)
-                              VALUES ('$order_id', '$item_id', 'new', $item_to_go_id)");
+                              VALUES ('$order_id', '$item_id', 'new', $to_go_id)");
 		}
 	}
 
