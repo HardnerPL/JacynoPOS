@@ -139,12 +139,4 @@ class Order_menu extends CI_Controller
 		}
 		$this->order_model->set_order_item_status($order_item_id, 'delivered');
 	}
-
-	public function delete_order_if_empty($order_id = NULL)
-	{
-		if (!$this->user_model->can_access('waiter')) {
-			redirect('index');
-		}
-		$this->order_model->delete_order_if_empty($order_id);
-	}
 }

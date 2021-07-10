@@ -284,16 +284,6 @@ class Order_model extends CI_Model
 		return $codes;
 	}
 
-	public function delete_order_if_empty($order_id = NULL)
-	{
-		if (!isset($order_id)) {
-			$order_id = $this->session->current_order;
-		}
-		if ($this->db->query("SELECT * FROM order_items WHERE order_id = $order_id")->num_rows() == 0) {
-			$this->db->query("DELETE FROM orders WHERE order_id = $order_id");
-		}
-	}
-
 	public function edit_order($order_id)
 	{
 		$order_comment = $this->input->post('order_comment');
