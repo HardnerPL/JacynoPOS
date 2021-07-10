@@ -250,22 +250,34 @@ class Order_model extends CI_Model
 
 	public function get_order_checkout($order_id)
 	{
-		$items = $this->db->query("SELECT i.item_id, i.code_id, i.item_name, i.item_price, c.code_price FROM order_items AS o
+		$items = $this->db->query("SELECT * FROM order_items AS o
 		LEFT JOIN items AS i ON o.item_id = i.item_id
 		LEFT JOIN codes AS c ON c.code_id = i.code_id
+		LEFT JOIN packagings as p ON o.to_go_id = p.packaging_id
 		WHERE order_id = $order_id ORDER BY i.code_id
 		")->result();
 		$codes = [];
 		foreach ($items as $item) {
-			if (!isset($codes[$item->item_id])) {
-				$codes[$item->item_id] = new stdClass();
-				$codes[$item->item_id]->code = $item->code_id;
-				$codes[$item->item_id]->count = 1;
-				$codes[$item->item_id]->name = $item->item_name;
-				$codes[$item->item_id]->price = $item->item_price;
-				$codes[$item->item_id]->dynamic_price = $item->code_price;
+			if ($item->to_go_id && $item->packaging_price > 0) {
+				if ($item->packaging_code) {
+					// TODO: Implement support for packagings with codes
+				} else {
+					$item->item_name .= ' (Wynos)';
+					$item->item_price += $item->packaging_price;
+				}
+			}
+
+			$key = $item->item_id . $item->item_price;
+
+			if (!isset($codes[$key])) {
+				$codes[$key] = new stdClass();
+				$codes[$key]->code = $item->code_id;
+				$codes[$key]->count = 1;
+				$codes[$key]->name = $item->item_name;
+				$codes[$key]->price = $item->item_price;
+				$codes[$key]->dynamic_price = $item->code_price;
 			} else {
-				$codes[$item->item_id]->count++;
+				$codes[$key]->count++;
 			}
 		}
 
