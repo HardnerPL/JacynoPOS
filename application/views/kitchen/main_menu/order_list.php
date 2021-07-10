@@ -49,13 +49,13 @@
 			</div>
 		<?php }
 	} ?>
-</div>
-<div id="select-controls" class="fixed-bottom row no-gutters d-none">
-	<div class="col-6">
-		<div class="btn btn-primary center-content w-100 h-100 rounded-0">Tak</div>
-	</div>
-	<div class="col-6">
-		<div onclick="hide_selects()" class="btn btn-danger center-content w-100 h-100 rounded-0">Nie</div>
+	<div id="select-controls" class="fixed-bottom row no-gutters d-none">
+		<div class="col-6">
+			<div class="btn btn-primary center-content w-100 h-100 rounded-0">Tak</div>
+		</div>
+		<div class="col-6">
+			<div onclick="hide_selects()" class="btn btn-danger center-content w-100 h-100 rounded-0">Nie</div>
+		</div>
 	</div>
 </div>
 </div>
