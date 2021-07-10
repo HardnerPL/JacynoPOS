@@ -250,7 +250,7 @@ class Order_model extends CI_Model
 
 	public function get_order_checkout($order_id)
 	{
-		$items = $this->db->query("SELECT * FROM order_items AS o
+		$items = $this->db->query("SELECT i.*, o.*, p.*, c.code_price, code_price FROM order_items AS o
 		LEFT JOIN items AS i ON o.item_id = i.item_id
 		LEFT JOIN codes AS c ON c.code_id = i.code_id
 		LEFT JOIN packagings as p ON o.to_go_id = p.packaging_id
