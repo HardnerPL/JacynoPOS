@@ -8,12 +8,12 @@
 ?>
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/bootstrap.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="assets/js/main.js?v=1"></script>
 <?php
 	if (isset($scripts)) {
 		$scripts = array_map('trim', explode(',', $scripts));
 		foreach ($scripts as $script) {
-			echo "<script src='" . base_url() . "assets/js/" . $script .".js'></script>";
+			echo "<script src='" . base_url() . "assets/js/" . $script .".js?v=1'></script>";
 		}
 	}
 ?>
