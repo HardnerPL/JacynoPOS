@@ -4,6 +4,10 @@
  * User: Hardner07@gmail.com
  * Date: 6/26/2019
  * Time: 12:48 PM
+ * @property Order_model order_model
+ * @property User_model user_model
+ * @property CI_Loader load
+ * @property CI_Session session
  */
 
 class Order_menu extends CI_Controller
@@ -133,7 +137,7 @@ class Order_menu extends CI_Controller
 		if (!$this->user_model->can_access('waiter')) {
 			redirect('index');
 		}
-		$this->order_model->deliver_item($order_item_id);
+		$this->order_model->set_order_item_status($order_item_id, 'delivered');
 	}
 
 	public function delete_order_if_empty($order_id = NULL)

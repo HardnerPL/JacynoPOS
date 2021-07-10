@@ -6,6 +6,7 @@
  * Time: 9:45 PM
  * @property CI_Config config
  * @property CI_DB_query_builder db
+ * @property CI_Session session
  */
 
 class Order_model extends CI_Model
@@ -187,7 +188,7 @@ class Order_model extends CI_Model
 			$item->item_name = $items[$item->item_id]->item_name;
 			$item->item_image = $items[$item->item_id]->item_img;
 
-			if((time() - strtotime($item->item_time)) / 60 > $this->config->item('late_soup_time') && 'Zupy' == $item->category_name) {
+			if ((time() - strtotime($item->item_time)) / 60 > $this->config->item('late_soup_time') && 'Zupy' == $item->category_name) {
 				$item->late = true;
 			}
 		}
@@ -253,19 +254,12 @@ class Order_model extends CI_Model
 	public function set_order_item_status($order_item_id, $status)
 	{
 		$item = $this->get_order_item($order_item_id);
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status)
+			VALUES ($order_item_id, '$item->item_status', '$status')");
 		if (isset($item->to_go_id)) {
 			$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = {$item->to_go_id}");
 		}
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
-	}
-
-	public function deliver_item($order_item_id)
-	{
-		$item = $this->get_order_item($order_item_id);
-		if (isset($item->to_go_id)) {
-			$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = {$item->to_go_id}");
-		}
-		$this->db->query("UPDATE order_items SET item_status = 'delivered' WHERE order_item_id = $order_item_id");
 	}
 
 	public function get_order_checkout($order_id)
