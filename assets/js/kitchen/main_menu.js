@@ -40,7 +40,7 @@ function item_ready_popup(order_item_id) {
 function item_ready(order_item_id) {
 	$.get("kitchen/kitchen_main_menu/item_ready/" + order_item_id, function () {
 		$("#item-row-" + order_item_id).addClass('bg-light-green');
-		$("#btn-" + order_item_id).attr('onclick',
+		$("#item-row-" + order_item_id).attr('onclick',
 			'item_delivered_popup(' + order_item_id + ')');
 	})
 }
