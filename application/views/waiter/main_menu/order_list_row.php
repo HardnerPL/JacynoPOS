@@ -11,17 +11,30 @@ switch ($order->order_status) {
 		break;
 }
 ?>">
-	<div class="col center-content"
+	<div class="col center-content py-3"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id % 100 ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>
-	<div class="col">
-		<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#"
-		   class="btn btn-primary btn-square w-100 rounded-0 p-0 center-content">
-			<i class="far fa-sticky-note"></i>
-		</a>
+	<div class="col-4">
+		<div class="row no-gutters h-100">
+			<div class="col h-100">
+				<?php if (!$order->order_utensils) { ?>
+					<a id="deliver-utensils-btn-<?php echo $order->order_id ?>"
+					   onclick="deliver_utensils_popup(<?= $order->order_id ?>)" href="#"
+					   class="btn btn-success w-100 h-100 rounded-0 p-0 center-content">
+						<i class="fas fa-utensils"></i>
+					</a>
+				<?php } ?>
+			</div>
+			<div class="col h-100">
+				<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#"
+				   class="btn btn-primary w-100 h-100 rounded-0 p-0 center-content">
+					<i class="far fa-sticky-note"></i>
+				</a>
+			</div>
+		</div>
 	</div>
 	<div class="col-12 collapse text-left border-top border" id=<?= 'order-info-' . $order->order_id ?>>
 		<div class="p-2">

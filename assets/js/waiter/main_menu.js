@@ -82,3 +82,15 @@ function edit_order(order_id) {
 		}
 	})
 }
+
+function deliver_utensils_popup(order_id) {
+	$.get("waiter/main_menu/confirm_utensils_delivery_popup/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
+
+function deliver_utensils(order_id) {
+	$.get("waiter/main_menu/deliver_utensils/" + order_id);
+	close_popup();
+	$('#deliver-utensils-btn-' + order_id).remove();
+}

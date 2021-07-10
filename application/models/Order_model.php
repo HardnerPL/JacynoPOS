@@ -21,7 +21,7 @@ class Order_model extends CI_Model
 	{
 		$orders = $this->db
 			->query("
-				SELECT orders.order_id, order_table, order_comment, order_time, item_status
+				SELECT orders.order_id, order_table, order_comment, order_time, item_status, order_utensils
 				FROM orders
 				LEFT JOIN order_items ON order_items.order_id = orders.order_id
 				WHERE NOT order_status = 'closed'
@@ -300,5 +300,10 @@ class Order_model extends CI_Model
 		}
 
 		return $orders;
+	}
+
+	public function deliver_utensils($order_id)
+	{
+		$this->db->query("UPDATE orders SET order_utensils = 1 WHERE order_id = $order_id");
 	}
 }

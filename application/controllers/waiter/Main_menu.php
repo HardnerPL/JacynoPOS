@@ -94,4 +94,23 @@ class Main_menu extends CI_Controller
 		}
 		$this->order_model->edit_order($order_id);
 	}
+
+	public function confirm_utensils_delivery_popup($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+		$data['message'] = 'Czy potwierdzasz wydanie sztućców?';
+		$data['yes'] = "deliver_utensils($order_id)";
+		$this->load->view('waiter/popup', $data);
+	}
+
+	public function deliver_utensils($order_id)
+	{
+		if (!$this->user_model->can_access('waiter')) {
+			redirect('index');
+		}
+
+		$this->order_model->deliver_utensils($order_id);
+	}
 }
