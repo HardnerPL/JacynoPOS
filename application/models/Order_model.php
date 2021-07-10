@@ -7,6 +7,7 @@
  * @property CI_Config config
  * @property CI_DB_query_builder db
  * @property CI_Session session
+ * @property CI_Input input
  */
 
 class Order_model extends CI_Model
@@ -91,18 +92,8 @@ class Order_model extends CI_Model
 		$item_to_go = $this->input->post('item_to_go');
 		$item_to_go_id = $item->item_to_go_id;
 		for ($i = $item_count; $i > 0; $i--) {
-			if ($item_to_go == 'true') {
-				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
-                              VALUES ('$order_id', '$item_to_go_id', 'new')");
-				$to_go_id = $this->db->insert_id();
-				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id)
-                              VALUES ('$order_id', '$item_id', 'new', $to_go_id)
-        ");
-			} else {
-				$this->db->query("INSERT INTO order_items (order_id, item_id, item_status)
-                              VALUES ('$order_id', '$item_id', 'new')
-        ");
-			}
+			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id)
+                              VALUES ('$order_id', '$item_id', 'new', $item_to_go_id)");
 		}
 	}
 
@@ -207,29 +198,21 @@ class Order_model extends CI_Model
 	{
 		$order_item_id = $this->input->post('order_item_id');
 		$item = $this->get_order_item($order_item_id);
-		if (isset($item->to_go_id)) {
-			$this->db->query("DELETE FROM order_items WHERE order_item_id = {$item->to_go_id}");
-		}
 		$this->db->query("DELETE FROM order_items WHERE order_item_id = $order_item_id");
 	}
 
 	public function edit_item($order_item_id)
 	{
 		$item_comment = urldecode($this->input->post('item_comment'));
-		$item_to_go = $this->input->post('item_to_go');
 		$item = $this->get_order_item($order_item_id);
-		if ($item_to_go == 'true' && !isset($item->to_go_id)) {
-			$this->db->query("INSERT INTO order_items (item_id, order_id, item_status) 
-				VALUES ({$item->item_to_go_id}, {$item->order_id},'{$item->item_status}')
-				");
-			$to_go_id = $this->db->insert_id();
-			$this->db->query("UPDATE order_items SET item_comment = '$item_comment', to_go_id = $to_go_id WHERE order_item_id = $order_item_id");
-		} else if ($item_to_go == 'false' && isset($item->to_go_id)) {
-			$this->db->query("DELETE FROM order_items WHERE order_item_id = {$item->to_go_id}");
-			$this->db->query("UPDATE order_items SET item_comment = '$item_comment', to_go_id = NULL WHERE order_item_id = $order_item_id");
+
+		if ('true' == $this->input->post('item_to_go')) {
+			$to_go_id = $item->item_to_go_id;
 		} else {
-			$this->db->query("UPDATE order_items SET item_comment = '$item_comment' WHERE order_item_id = $order_item_id");
+			$to_go_id = 'null';
 		}
+
+		$this->db->query("UPDATE order_items SET item_comment = '$item_comment', to_go_id = $to_go_id WHERE order_item_id = $order_item_id");
 	}
 
 	public function set_order_status($order_id, $status)
@@ -256,9 +239,6 @@ class Order_model extends CI_Model
 		$item = $this->get_order_item($order_item_id);
 		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status)
 			VALUES ($order_item_id, '$item->item_status', '$status')");
-		if (isset($item->to_go_id)) {
-			$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = {$item->to_go_id}");
-		}
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
 	}
 

@@ -24,7 +24,7 @@
 					<div>
 						<div><b><?php
 								echo $item->item_name;
-								if (isset($item->to_go_id) && !empty($item->to_go_id)) {
+								if (isset($item->to_go_id)) {
 									echo " (Wynos)";
 								}
 								?></b></div>
