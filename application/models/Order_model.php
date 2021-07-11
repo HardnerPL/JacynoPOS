@@ -109,7 +109,7 @@ class Order_model extends CI_Model
 	{
 		$price = 0.00;
 		$query = $this->db->query("SELECT item_price FROM order_items LEFT JOIN items ON order_items.item_id = items.item_id
-		WHERE order_id = '{$this->session->current_order}'");
+		WHERE order_id = '{$this->session->current_order}' AND NOT item_status = 'deleted'");
 		foreach ($query->result() as $item) {
 			$price += $item->item_price;
 		}
