@@ -230,6 +230,9 @@ class Order_model extends CI_Model
 	{
 		$this->set_order_status($order_id, "confirmed");
 		$time = date("H:i");
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status)
+			SELECT order_item_id, 'new', 'confirmed' FROM order_items 
+			WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
 		WHERE order_id = $order_id AND item_status = 'new'");
 	}
