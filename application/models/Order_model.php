@@ -87,6 +87,7 @@ class Order_model extends CI_Model
 
 	public function add_item($item)
 	{
+		$owner = $this->session->userdata('username');
 		$order_id = $this->session->current_order;
 		$item_id = $item->item_id;
 		$item_count = $this->input->post('item_count');
@@ -99,8 +100,8 @@ class Order_model extends CI_Model
 		}
 
 		for ($i = $item_count; $i > 0; $i--) {
-			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id)
-                              VALUES ('$order_id', '$item_id', 'new', $to_go_id)");
+			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id, order_item_owner)
+                              VALUES ('$order_id', '$item_id', 'new', $to_go_id, '$owner')");
 		}
 	}
 
