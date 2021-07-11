@@ -204,8 +204,11 @@ class Order_model extends CI_Model
 
 	public function delete_order_item()
 	{
+		$owner = $this->session->userdata('username');
 		$order_item_id = $this->input->post('order_item_id');
 		$item = $this->get_order_item($order_item_id);
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
+			VALUES ($order_item_id, '$item->item_status', 'deleted', '$owner')");
 		$this->db->query("DELETE FROM order_items WHERE order_item_id = $order_item_id");
 	}
 
