@@ -18,9 +18,14 @@ class Main extends CI_Controller
 
 	public function index()
 	{
-		if (!$this->session->role) {
+		if (!$this->session->has_userdata('role')) {
 			redirect('login');
+		} else if ($this->session->userdata('role') == 'waiter') {
+			redirect('waiter');
+		} else if ($this->session->userdata('role') == 'kitchen') {
+			redirect('kitchen');
 		}
+
 		$data['title'] = "Home | POS";
 
 		$this->load->view('templates/header', $data);
@@ -45,11 +50,6 @@ class Main extends CI_Controller
 		$this->load->view('templates/header', $data);
 		$this->load->view('waiter/main', $data);
 		$this->load->view('templates/footer', $data);
-	}
-
-	public function pizza()
-	{
-		redirect('kitchen');
 	}
 
 	public function kitchen()
