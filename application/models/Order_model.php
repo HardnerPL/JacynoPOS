@@ -141,13 +141,15 @@ class Order_model extends CI_Model
 			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 			LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 			LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
-			WHERE order_id = {$this->session->current_order} AND NOT category_items.cat_id = 0")->result();
+			WHERE order_id = {$this->session->current_order} AND NOT category_items.cat_id = 0
+			AND NOT item_status = 'deleted'")->result();
 		} else {
 			$order_items = $this->db->query("SELECT * FROM order_items 
 			LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 			LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 			LEFT JOIN positions ON category_positions.pos_id = positions.position_id 
-			WHERE order_id = {$this->session->current_order} AND position_name = '$position'")->result();
+			WHERE order_id = {$this->session->current_order} AND position_name = '$position'
+			AND NOT item_status = 'deleted'")->result();
 		}
 		foreach ($order_items as $item) {
 			$query = $this->db->query("SELECT item_price, item_name FROM items WHERE item_id = $item->item_id");
@@ -204,12 +206,8 @@ class Order_model extends CI_Model
 
 	public function delete_order_item()
 	{
-		$owner = $this->session->userdata('username');
 		$order_item_id = $this->input->post('order_item_id');
-		$item = $this->get_order_item($order_item_id);
-		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
-			VALUES ($order_item_id, '$item->item_status', 'deleted', '$owner')");
-		$this->db->query("DELETE FROM order_items WHERE order_item_id = $order_item_id");
+		$this->set_order_item_status($order_item_id, 'deleted');
 	}
 
 	public function edit_item($order_item_id)
@@ -246,7 +244,7 @@ class Order_model extends CI_Model
 	public function close_order($order_id)
 	{
 		$this->set_order_status($order_id, "closed");
-		$this->db->query("UPDATE order_items SET item_status = 'closed' WHERE order_id = $order_id");
+		$this->db->query("UPDATE order_items SET item_status = 'closed' WHERE order_id = $order_id AND NOT item_status = 'deleted'");
 	}
 
 	public function set_order_item_status($order_item_id, $status)
@@ -264,7 +262,7 @@ class Order_model extends CI_Model
 		LEFT JOIN items AS i ON o.item_id = i.item_id
 		LEFT JOIN codes AS c ON c.code_id = i.code_id
 		LEFT JOIN packagings as p ON o.to_go_id = p.packaging_id
-		WHERE order_id = $order_id ORDER BY i.code_id
+		WHERE order_id = $order_id AND NOT o.item_status = 'deleted' ORDER BY i.code_id
 		")->result();
 		$codes = [];
 		foreach ($items as $item) {
