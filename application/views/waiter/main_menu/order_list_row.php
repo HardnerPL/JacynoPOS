@@ -11,14 +11,14 @@ switch ($order->order_status) {
 		break;
 }
 ?>">
-	<div class="col center-content py-3"
+	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id % 100 ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>
 	<div class="col-4">
-		<div class="row no-gutters h-100">
+		<div class="row waiter-actions-row no-gutters">
 			<div class="col h-100">
 				<?php if (!$order->order_utensils) { ?>
 					<a id="deliver-utensils-btn-<?php echo $order->order_id ?>"

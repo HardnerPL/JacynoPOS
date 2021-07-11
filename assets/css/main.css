@@ -276,3 +276,7 @@ body, .container, .container-fluid {
 .flex-1 {
 	flex: 1;
 }
+
+.waiter-actions-row {
+	height: 50px;
+}
