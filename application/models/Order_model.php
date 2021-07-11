@@ -75,11 +75,12 @@ class Order_model extends CI_Model
 
 	public function add_order()
 	{
+		$owner = $this->session->userdata('username');
 		$table = $this->input->post('table');
 		$time = date('H:i');
 		$this->db->query("
-                  INSERT INTO orders (order_table, order_time, order_status)
-                              VALUES ('$table', '$time', 'new')
+                  INSERT INTO orders (order_table, order_time, order_status, order_owner)
+                              VALUES ('$table', '$time', 'new', '$owner')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}
