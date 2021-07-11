@@ -228,10 +228,11 @@ class Order_model extends CI_Model
 
 	public function confirm_order($order_id)
 	{
+		$owner = $this->session->userdata('username');
 		$this->set_order_status($order_id, "confirmed");
 		$time = date("H:i");
-		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status)
-			SELECT order_item_id, 'new', 'confirmed' FROM order_items 
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
+			SELECT order_item_id, 'new', 'confirmed', '$owner' FROM order_items 
 			WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
 		WHERE order_id = $order_id AND item_status = 'new'");
@@ -245,9 +246,10 @@ class Order_model extends CI_Model
 
 	public function set_order_item_status($order_item_id, $status)
 	{
+		$owner = $this->session->userdata('username');
 		$item = $this->get_order_item($order_item_id);
-		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status)
-			VALUES ($order_item_id, '$item->item_status', '$status')");
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
+			VALUES ($order_item_id, '$item->item_status', '$status', '$owner')");
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
 	}
 
