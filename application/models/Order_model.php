@@ -244,8 +244,13 @@ class Order_model extends CI_Model
 
 	public function close_order($order_id)
 	{
+		$owner = $this->session->userdata('username');
 		$this->set_order_status($order_id, "closed");
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner) 
+ 			SELECT order_item_id, item_status, 'deleted', '$owner' FROM order_items WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'deleted' WHERE order_id = $order_id AND item_status = 'new'");
+		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner) 
+ 			SELECT order_item_id, item_status, 'closed', '$owner' FROM order_items WHERE order_id = $order_id AND NOT item_status = 'deleted'");
 		$this->db->query("UPDATE order_items SET item_status = 'closed' WHERE order_id = $order_id AND NOT item_status = 'deleted'");
 	}
 
