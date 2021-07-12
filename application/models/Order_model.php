@@ -162,15 +162,16 @@ class Order_model extends CI_Model
 
 	public function get_active_order_items($position)
 	{
-		$query = $this->db->query("SELECT * FROM order_items
+		$query = $this->db->query("SELECT *, ois.created_at AS kitchen_time FROM order_items
     	LEFT JOIN items ON order_items.item_id = items.item_id
 		LEFT JOIN category_items ON order_items.item_id = category_items.item_id 
 		LEFT JOIN category_positions ON category_items.cat_id = category_positions.cat_id
 		LEFT JOIN positions ON category_positions.pos_id = positions.position_id
 		LEFT JOIN orders ON order_items.order_id = orders.order_id
 		LEFT JOIN categories ON category_items.cat_id = categories.category_id
-		WHERE position_name = '$position' AND (item_status = 'confirmed' OR item_status = 'ready')
-		ORDER BY orders.order_id, 
+		LEFT JOIN order_item_statuses ois on order_items.order_item_id = ois.order_item_id
+		WHERE position_name = '$position' AND (item_status = 'confirmed' OR item_status = 'ready') AND ois.new_status = 'confirmed'
+		ORDER BY ois.created_at, order_items.order_id,
 		    CASE items.item_type
 			WHEN 'zupa' THEN 1
 			WHEN 'obiad' THEN 2
@@ -298,16 +299,6 @@ class Order_model extends CI_Model
 		$order_table = $this->input->post('order_table');
 		$this->db->query("UPDATE orders SET order_comment = '$order_comment', order_table = '$order_table' 
 		WHERE order_id = $order_id");
-	}
-
-	public function group_items_by_order(array $items): array
-	{
-		$orders = [];
-		foreach ($items as $item) {
-			$orders[$item->order_id][] = $item;
-		}
-
-		return $orders;
 	}
 
 	public function deliver_utensils($order_id)

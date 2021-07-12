@@ -18,8 +18,7 @@ class Kitchen_main_menu extends CI_Controller
 
 	public function load_main_menu()
 	{
-		$order_items = $this->order_model->get_active_order_items('kitchen');
-		$data['orders'] = $this->order_model->group_items_by_order($order_items);
+		$data['order_items'] = $this->order_model->get_active_order_items('kitchen');
 
 		$this->load->view('kitchen/main_menu/top_menu');
 		$this->load->view('kitchen/main_menu/order_list', $data);
@@ -28,8 +27,7 @@ class Kitchen_main_menu extends CI_Controller
 
 	public function order_list()
 	{
-		$order_items = $this->order_model->get_active_order_items('kitchen');
-		$data['orders'] = $this->order_model->group_items_by_order($order_items);
+		$data['order_items'] = $this->order_model->get_active_order_items('kitchen');
 
 		$this->load->view('kitchen/main_menu/order_list', $data);
 	}

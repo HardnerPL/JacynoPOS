@@ -77,8 +77,8 @@ body, .container, .container-fluid {
 	height: 5%;
 }
 
-.thick-border-right {
-	border-right: 8px solid black;
+.thick-border-left {
+	border-left: 8px solid black;
 }
 
 .btn-icon {
