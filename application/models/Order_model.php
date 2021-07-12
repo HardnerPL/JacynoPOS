@@ -245,6 +245,7 @@ class Order_model extends CI_Model
 	public function close_order($order_id)
 	{
 		$this->set_order_status($order_id, "closed");
+		$this->db->query("UPDATE order_items SET item_status = 'deleted' WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'closed' WHERE order_id = $order_id AND NOT item_status = 'deleted'");
 	}
 
