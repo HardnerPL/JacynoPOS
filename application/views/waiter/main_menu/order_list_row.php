@@ -16,7 +16,7 @@ switch ($order->order_status) {
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
 	<div class="col center-content"
-		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_time ?></div>
+		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= date('H:i', strtotime($order->order_datetime)) ?></div>
 	<div class="col-4">
 		<div class="row waiter-actions-row no-gutters">
 			<div class="col h-100">

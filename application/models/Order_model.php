@@ -34,10 +34,9 @@ class Order_model extends CI_Model
 	{
 		$owner = $this->session->userdata('username');
 		$table = $this->input->post('table');
-		$time = date('H:i');
 		$this->db->query("
-                  INSERT INTO orders (order_table, order_time, order_status, order_owner)
-                              VALUES ('$table', '$time', 'new', '$owner')
+                  INSERT INTO orders (order_table, order_status, order_owner)
+                              VALUES ('$table', 'new', '$owner')
         ");
 		$this->session->current_order = $this->db->insert_id();
 	}
@@ -148,7 +147,7 @@ class Order_model extends CI_Model
 			$item->item_name = $items[$item->item_id]->item_name;
 			$item->item_image = $items[$item->item_id]->item_img;
 
-			if ((time() - strtotime($item->item_time)) / 60 > $this->config->item('late_soup_time') && 'Zupy' == $item->category_name) {
+			if ((time() - strtotime($item->item_datetime)) / 60 > $this->config->item('late_soup_time') && 'Zupy' == $item->category_name) {
 				$item->late = true;
 			}
 		}
@@ -195,8 +194,8 @@ class Order_model extends CI_Model
 		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
 			SELECT order_item_id, 'new', 'confirmed', '$owner' FROM order_items 
 			WHERE order_id = $order_id AND item_status = 'new'");
-		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
-		WHERE order_id = $order_id AND item_status = 'new'");
+		$this->db->query("UPDATE order_items SET item_status = 'confirmed' 
+			WHERE order_id = $order_id AND item_status = 'new'");
 		$this->update_order_status($order_id);
 	}
 
