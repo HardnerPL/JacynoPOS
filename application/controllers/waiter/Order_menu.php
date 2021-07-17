@@ -41,7 +41,7 @@ class Order_menu extends CI_Controller
 
 		$this->order_model->load_order($order_id);
 		$data['order_id'] = $order_id;
-		$data['order_items'] = $this->order_model->get_order_items('all');
+		$data['order_items'] = $this->order_model->get_current_order_items('all');
 		$this->load->view('waiter/order_menu/navbar', $data);
 		$this->load->view('waiter/order_menu/order_menu', $data);
 		$this->load->view('waiter/order_menu/price', $data);
@@ -50,7 +50,7 @@ class Order_menu extends CI_Controller
 
 	public function update_item_list()
 	{
-		$data['order_items'] = $this->order_model->get_order_items('all');
+		$data['order_items'] = $this->order_model->get_current_order_items('all');
 		$this->load->view('waiter/order_menu/order_menu', $data);
 	}
 

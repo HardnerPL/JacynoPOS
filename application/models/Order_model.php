@@ -17,54 +17,11 @@ class Order_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function get_orders()
+	public function get_open_orders()
 	{
-		$orders = $this->db
-			->query("
-				SELECT orders.order_id, order_table, order_comment, order_time, item_status, order_utensils
-				FROM orders
-				LEFT JOIN order_items ON order_items.order_id = orders.order_id
-				WHERE NOT order_status = 'closed'
-			")
+		return $this->db
+			->query("SELECT * FROM orders WHERE NOT order_status = 'closed'")
 			->result();
-		$resultOrders = [];
-		$i = 0;
-		$len = count($orders);
-		foreach ($orders as $order) {
-			if (!isset($resultOrders[$order->order_id])) {
-				$resultOrders[$order->order_id] = $order;
-				$resultOrders[$order->order_id]->count = 0;
-			}
-			if (!isset($orders_statuses)) {
-				$orders_statuses = array();
-			}
-			if (!isset($orders_statuses[$order->order_id])) {
-				$orders_statuses[$order->order_id] = array();
-			}
-			if (!isset($orders_statuses[$order->order_id][$order->item_status])) {
-				$orders_statuses[$order->order_id][$order->item_status] = 1;
-				$orders_statuses[$order->order_id]['order_id'] = $order->order_id;
-			} else {
-				$orders_statuses[$order->order_id][$order->item_status]++;
-			}
-			$resultOrders[$order->order_id]->count += 1;
-			$i++;
-		}
-		if (isset($orders_statuses)) {
-			foreach ($orders_statuses as $order_statuses) {
-				if (isset($order_statuses['ready'])) {
-					$resultOrders[$order_statuses['order_id']]->order_status = 'ready';
-				} else if (isset($order_statuses['new'])) {
-					$resultOrders[$order_statuses['order_id']]->order_status = 'new';
-				} else if (isset($order_statuses['delivered']) &&
-					$order_statuses['delivered'] == $resultOrders[$order_statuses['order_id']]->count) {
-					$resultOrders[$order_statuses['order_id']]->order_status = 'delivered';
-				} else {
-					$resultOrders[$order_statuses['order_id']]->order_status = 'confirmed';
-				}
-			}
-		}
-		return $resultOrders;
 	}
 
 	public function get_order($order_id)
@@ -103,6 +60,7 @@ class Order_model extends CI_Model
 			$this->db->query("INSERT INTO order_items (order_id, item_id, item_status, to_go_id, order_item_owner)
                               VALUES ('$order_id', '$item_id', 'new', $to_go_id, '$owner')");
 		}
+		$this->update_order_status($order_id);
 	}
 
 	public function get_current_price(): float
@@ -134,7 +92,7 @@ class Order_model extends CI_Model
 		}
 	}
 
-	public function get_order_items($position)
+	public function get_current_order_items($position)
 	{
 		if ($position == 'all') {
 			$order_items = $this->db->query("SELECT * FROM order_items 
@@ -233,19 +191,19 @@ class Order_model extends CI_Model
 	public function confirm_order($order_id)
 	{
 		$owner = $this->session->userdata('username');
-		$this->set_order_status($order_id, "confirmed");
 		$time = date("H:i");
 		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
 			SELECT order_item_id, 'new', 'confirmed', '$owner' FROM order_items 
 			WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'confirmed', item_time = '$time'
 		WHERE order_id = $order_id AND item_status = 'new'");
+		$this->update_order_status($order_id);
 	}
 
 	public function close_order($order_id)
 	{
 		$owner = $this->session->userdata('username');
-		$this->set_order_status($order_id, "closed");
+		$this->set_order_status($order_id, 'closed');
 		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner) 
  			SELECT order_item_id, item_status, 'deleted', '$owner' FROM order_items WHERE order_id = $order_id AND item_status = 'new'");
 		$this->db->query("UPDATE order_items SET item_status = 'deleted' WHERE order_id = $order_id AND item_status = 'new'");
@@ -261,6 +219,7 @@ class Order_model extends CI_Model
 		$this->db->query("INSERT INTO order_item_statuses (order_item_id, old_status, new_status, status_owner)
 			VALUES ($order_item_id, '$item->item_status', '$status', '$owner')");
 		$this->db->query("UPDATE order_items SET item_status = '$status' WHERE order_item_id = $order_item_id");
+		$this->update_order_status($item->order_id);
 	}
 
 	public function get_order_checkout($order_id)
@@ -310,5 +269,39 @@ class Order_model extends CI_Model
 	public function deliver_utensils($order_id)
 	{
 		$this->db->query("UPDATE orders SET order_utensils = 1 WHERE order_id = $order_id");
+	}
+
+	private function update_order_status($order_id)
+	{
+		$items = $this->get_order_items($order_id);
+		$order = $this->get_order($order_id);
+
+		$statuses = [];
+		foreach ($items as $item) {
+			$statuses[$item->item_status] = true;
+		}
+
+		if (isset($statuses['ready'])) {
+			$status = 'ready';
+		} else if (isset($statuses['new'])) {
+			$status = 'new';
+		} else if (isset($statuses['confirmed'])) {
+			$status = 'confirmed';
+		} else if (isset($statuses['delivered'])) {
+			$status = 'delivered';
+		} else {
+			$status = 'new';
+		}
+
+		if ($order->order_status != $status) {
+			$this->db->query("UPDATE orders SET order_status = '$status' WHERE order_id = $order_id");
+		}
+	}
+
+	private function get_order_items($order_id)
+	{
+		return $this->db
+			->query("SELECT * FROM order_items WHERE order_id = $order_id")
+			->result();
 	}
 }

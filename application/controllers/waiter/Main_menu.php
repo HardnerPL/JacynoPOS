@@ -18,7 +18,7 @@ class Main_menu extends CI_Controller
 
 	public function load_main_menu()
 	{
-		$data['orders'] = $this->order_model->get_orders();
+		$data['orders'] = $this->order_model->get_open_orders();
 		$this->load->view('waiter/main_menu/top_menu');
 		$this->load->view('waiter/main_menu/order_list_header');
 		$this->load->view('waiter/main_menu/order_list', $data);
