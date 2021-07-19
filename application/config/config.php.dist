@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $config['late_soup_time'] = 5;
+$config['tables'] = ['Wynos', 1, 2, 3, 4, 5, 6, 10, 11, 12, 13, 14, 15, 16, 20, 21];
 
 /*
 |--------------------------------------------------------------------------

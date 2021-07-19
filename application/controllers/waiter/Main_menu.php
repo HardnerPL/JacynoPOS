@@ -4,6 +4,7 @@
  * @property Order_model order_model
  * @property User_model user_model
  * @property CI_Loader load
+ * @property CI_Config config
  */
 class Main_menu extends CI_Controller
 {
@@ -19,10 +20,11 @@ class Main_menu extends CI_Controller
 	public function load_main_menu()
 	{
 		$data['orders'] = $this->order_model->get_open_orders();
+		$data['tables'] = $this->config->item('tables');
 		$this->load->view('waiter/main_menu/top_menu');
 		$this->load->view('waiter/main_menu/order_list_header');
 		$this->load->view('waiter/main_menu/order_list', $data);
-		$this->load->view('waiter/main_menu/bottom_menu');
+		$this->load->view('waiter/main_menu/bottom_menu', $data);
 	}
 
 	public function load_order_list_row($order_id)
