@@ -1,5 +1,9 @@
+<html>
 <?php $this->load->view('admin/templates/header'); ?>
 
-<?php $content ?>
+<body>
+<?php echo $content ?>
+</body>
 
 <?php $this->load->view('admin/templates/scripts'); ?>
+</html>
