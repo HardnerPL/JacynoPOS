@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  php:
+    build: .
+    working_dir: /var/www/html/pos
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html/pos/
+    links:
+      - mysql
+    networks:
+      - default
+    entrypoint: "/bin/bash /scripts/entrypoint.sh"
+    env_file:
+      - .env
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    volumes:
+      - ./infrastructure/docker/dump:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    networks:
+      - default
+
+volumes:
+  db_data:
