@@ -11,12 +11,16 @@ switch ($order->order_status) {
 		break;
 }
 ?>">
-	<div class="col center-content"
-		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id % 100 ?></div>
-	<div class="col center-content"
-		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_table ?></div>
-	<div class="col center-content"
+	<div class="col-3 center-content"
+		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= $order->order_id % 100 . ' / ' . $order->order_table ?></div>
+	<div class="col-2 center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= date('H:i', strtotime($order->order_datetime)) ?></div>
+	<div class="col center-content">
+		<span class="fa-stack fa-1x">
+			<i class="fas fa-circle fa-stack-2x <?= $order->drinks_delivered ? 'text-success' : 'text-danger' ?>"></i>
+			<i class="fas fa-wine-glass fa-stack-1x text-light"></i>
+		</span>
+	</div>
 	<div class="col-4">
 		<div class="row waiter-actions-row no-gutters">
 			<div class="col h-100">

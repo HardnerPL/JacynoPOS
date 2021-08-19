@@ -20,7 +20,10 @@ class Order_model extends CI_Model
 	public function get_open_orders()
 	{
 		return $this->db
-			->query("SELECT * FROM orders WHERE NOT order_status = 'closed'")
+			->query("SELECT *, NOT EXISTS(SELECT * FROM order_items oi 
+       			LEFT JOIN items i on oi.item_id = i.item_id
+       			WHERE oi.order_id = o.order_id AND i.item_type = 'drink' AND oi.item_status = 'confirmed')
+       			AS drinks_delivered FROM orders o WHERE NOT order_status = 'closed'")
 			->result();
 	}
 
