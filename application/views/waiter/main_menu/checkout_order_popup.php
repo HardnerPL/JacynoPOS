@@ -30,12 +30,14 @@
 			</div>
 		</div>
 		<div class="row no-gutters">
-			<div class="col-6">
+			<div class="col">
 				<a onclick="close_popup()" class="btn btn-danger w-100 rounded-0 text-light">Anuluj</a>
 			</div>
-			<div class="col-6">
-				<a onclick="checkout_order(<?= $order_id ?>)" class="btn btn-success w-100 rounded-0 text-light">Opłacono</a>
-			</div>
+			<?php if (!$order->order_paid) { ?>
+				<div class="col">
+					<a onclick="checkout_order(<?= $order_id ?>)" class="btn btn-success w-100 rounded-0 text-light">Opłacono</a>
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 </div>

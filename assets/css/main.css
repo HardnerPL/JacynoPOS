@@ -281,6 +281,10 @@ body, .container, .container-fluid {
 	height: 50px;
 }
 
+.btn-grey {
+	background-color: grey;
+}
+
 #main-menu-table {
 	font-size: 14px;
 }

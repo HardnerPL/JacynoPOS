@@ -21,13 +21,15 @@ switch ($order->order_status) {
 			<i class="fas fa-circle fa-stack-2x <?= $order->drinks_delivered ? 'text-success' : 'text-danger' ?>"></i>
 			<i class="fas fa-wine-glass fa-stack-1x text-light"></i>
 		</span>
-		<span class="fa-stack fa-1x">
-			<i class="fas fa-circle fa-stack-2x <?= $order->order_paid ? 'text-success' : 'text-danger' ?>"></i>
-			<i class="fas fa-dollar-sign fa-stack-1x text-light"></i>
-		</span>
 	</div>
-	<div class="col-3">
+	<div class="col-5">
 		<div class="row waiter-actions-row no-gutters">
+			<div class="col h-100">
+				<a onclick="checkout_order_popup(<?= $order->order_id ?>)"
+				   class="btn <?= $order->order_paid ? 'btn-warning' : 'btn-grey' ?> w-100 h-100 rounded-0 p-0 center-content">
+					<i class="fas fa-dollar-sign text-light"></i>
+				</a>
+			</div>
 			<div class="col h-100">
 				<?php if (!$order->order_utensils) { ?>
 					<a id="deliver-utensils-btn-<?php echo $order->order_id ?>"
@@ -50,19 +52,13 @@ switch ($order->order_status) {
 			<?= $order->order_comment ?>
 		</div>
 		<div class="row no-gutters">
-			<div class="col-4">
+			<div class="col">
 				<a onclick="edit_order_popup(<?= $order->order_id ?>)"
 				   class="btn btn-success w-100 rounded-0 p-3">
 					<i class="far fa-edit text-light"></i>
 				</a>
 			</div>
-			<div class="col-4">
-				<a onclick="checkout_order_popup(<?= $order->order_id ?>)"
-				   class="btn btn-warning w-100 rounded-0 p-3">
-					<i class="fas fa-dollar-sign text-light"></i>
-				</a>
-			</div>
-			<div class="col-4">
+			<div class="col">
 				<a onclick="confirm_close_order_popup(<?= $order->order_id ?>)"
 				   class="btn btn-danger w-100 rounded-0 p-3">
 					<i class="far fa-trash-alt text-light"></i>

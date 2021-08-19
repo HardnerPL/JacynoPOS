@@ -47,6 +47,7 @@ class Main_menu extends CI_Controller
 	public function checkout_order_popup($order_id)
 	{
 		$data['codes'] = $this->order_model->get_order_checkout($order_id);
+		$data['order'] = $this->order_model->get_order($order_id);
 		$data['order_id'] = $order_id;
 		$this->load->view('waiter/main_menu/checkout_order_popup', $data);
 	}

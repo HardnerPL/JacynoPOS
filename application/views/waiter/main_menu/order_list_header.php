@@ -8,7 +8,7 @@
 	<div class="col center-content">
 		Statusy
 	</div>
-	<div class="col-3 center-content">
+	<div class="col-5 center-content">
 		Opcje
 	</div>
 </div>
