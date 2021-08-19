@@ -306,4 +306,9 @@ class Order_model extends CI_Model
 			->query("SELECT * FROM order_items WHERE order_id = $order_id")
 			->result();
 	}
+
+    public function checkout_order($order_id)
+    {
+    	die($this->db->update('orders', ['order_paid' => true], 'order_id = ' . $order_id));
+    }
 }

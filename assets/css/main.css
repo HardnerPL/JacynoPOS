@@ -280,3 +280,7 @@ body, .container, .container-fluid {
 .waiter-actions-row {
 	height: 50px;
 }
+
+#main-menu-table {
+	font-size: 14px;
+}

@@ -85,4 +85,9 @@ class Main_menu extends CI_Controller
 	{
 		$this->order_model->deliver_utensils($order_id);
 	}
+
+	public function checkout_order($order_id)
+	{
+		$this->order_model->checkout_order($order_id);
+	}
 }

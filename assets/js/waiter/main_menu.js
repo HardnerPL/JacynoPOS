@@ -94,3 +94,9 @@ function deliver_utensils(order_id) {
 	close_popup();
 	$('#deliver-utensils-btn-' + order_id).remove();
 }
+
+function checkout_order(order_id) {
+	$.get("waiter/main_menu/checkout_order/" + order_id);
+	close_popup();
+	load_main_menu();
+}
