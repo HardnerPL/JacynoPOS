@@ -17,19 +17,17 @@ switch ($order->order_status) {
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')"><?= date('H:i', strtotime($order->order_datetime)) ?></div>
 	<div class="col center-content"
 		 onclick="trigger_collapse('<?= 'order-info-' . $order->order_id ?>')">
-		<span class="fa-stack fa-1x">
-			<i class="fas fa-circle fa-stack-2x <?= $order->drinks_delivered ? 'text-success' : 'text-danger' ?>"></i>
-			<i class="fas fa-wine-glass fa-stack-1x text-light"></i>
-		</span>
+		<a onclick="deliver_drinks_popup(<?= $order->order_id ?>)">
+			<?php if (!$order->drinks_delivered) { ?>
+				<span class="fa-stack fa-1x">
+					<i class="fas fa-circle fa-stack-2x text-danger"></i>
+					<i class="fas fa-wine-glass fa-stack-1x text-light"></i>
+				</span>
+			<?php } ?>
+		</a>
 	</div>
 	<div class="col-5">
 		<div class="row waiter-actions-row no-gutters">
-			<div class="col h-100">
-				<a onclick="checkout_order_popup(<?= $order->order_id ?>)"
-				   class="btn <?= $order->order_paid ? 'btn-warning' : 'btn-grey' ?> w-100 h-100 rounded-0 p-0 center-content">
-					<i class="fas fa-dollar-sign text-light"></i>
-				</a>
-			</div>
 			<div class="col h-100">
 				<?php if (!$order->order_utensils) { ?>
 					<a id="deliver-utensils-btn-<?php echo $order->order_id ?>"
@@ -38,6 +36,12 @@ switch ($order->order_status) {
 						<i class="fas fa-utensils"></i>
 					</a>
 				<?php } ?>
+			</div>
+			<div class="col h-100">
+				<a onclick="checkout_order_popup(<?= $order->order_id ?>)"
+				   class="btn <?= $order->order_paid ? 'btn-warning' : 'btn-grey' ?> w-100 h-100 rounded-0 p-0 center-content">
+					<i class="fas fa-dollar-sign text-light"></i>
+				</a>
 			</div>
 			<div class="col h-100">
 				<a onclick="load_order_menu(<?= $order->order_id ?>)" href="#"

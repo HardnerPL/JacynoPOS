@@ -96,6 +96,24 @@ class Main_menu extends CI_Controller
 		$this->load->view('waiter/popup', $data);
 	}
 
+	public function confirm_drinks_delivery_popup($order_id)
+	{
+		$data['title'] = 'Czy potwierdzasz wydanie napojów?';
+		$drinks = $this->order_model->get_order_drinks($order_id);
+
+		$message = '<div class="text-center">';
+		foreach ($drinks as $drink)
+		{
+			$message .= $drink->count . 'x ' . $drink->item_name . '<br>';
+		}
+
+		$message .= '</div>';
+
+		$data['message'] = $message;
+		$data['yes'] = "deliver_drinks($order_id)";
+		$this->load->view('waiter/popup', $data);
+	}
+
 	public function deliver_utensils($order_id)
 	{
 		$this->order_model->deliver_utensils($order_id);
@@ -104,5 +122,10 @@ class Main_menu extends CI_Controller
 	public function checkout_order($order_id)
 	{
 		$this->order_model->checkout_order($order_id);
+	}
+
+	public function deliver_drinks($order_id)
+	{
+		$this->order_model->deliver_drinks($order_id);
 	}
 }

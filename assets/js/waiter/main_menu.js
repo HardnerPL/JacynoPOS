@@ -89,10 +89,22 @@ function deliver_utensils_popup(order_id) {
 	})
 }
 
+function deliver_drinks_popup(order_id) {
+	$.get("waiter/main_menu/confirm_drinks_delivery_popup/" + order_id, function (data) {
+		$("body").append(data);
+	})
+}
+
 function deliver_utensils(order_id) {
 	$.get("waiter/main_menu/deliver_utensils/" + order_id);
 	close_popup();
 	$('#deliver-utensils-btn-' + order_id).remove();
+}
+
+function deliver_drinks(order_id) {
+	$.get("waiter/main_menu/deliver_drinks/" + order_id);
+	close_popup();
+	load_main_menu();
 }
 
 function checkout_order(order_id) {

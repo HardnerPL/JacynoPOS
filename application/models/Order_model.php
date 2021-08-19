@@ -8,6 +8,8 @@
  * @property CI_DB_query_builder db
  * @property CI_Session session
  * @property CI_Input input
+ * @property Item_model item_model
+ * @property Order_model order_model
  */
 
 class Order_model extends CI_Model
@@ -321,5 +323,31 @@ class Order_model extends CI_Model
 		$this->db->where('oi.order_id', $order_id);
 		$this->db->group_by('oi.order_id');
 		return $this->db->get()->first_row();
+	}
+
+	public function get_order_drinks($order_id)
+	{
+		$this->db->select('COUNT(*) AS count, i.item_name');
+		$this->db->from('order_items oi');
+		$this->db->join('items i', 'oi.item_id = i.item_id', 'left');
+		$this->db->where('oi.order_id', $order_id);
+		$this->db->where('i.item_type', 'drink');
+		$this->db->where('oi.item_status', 'confirmed');
+		$this->db->group_by('i.item_name');
+		return $this->db->get()->result();
+	}
+
+	public function deliver_drinks($order_id)
+	{
+		$this->db->select('oi.order_item_id');
+		$this->db->from('order_items oi');
+		$this->db->join('items i', 'oi.item_id = i.item_id');
+		$this->db->where('oi.order_id', $order_id);
+		$this->db->where('i.item_type', 'drink');
+		$ids = $this->db->get()->result();
+
+		foreach ($ids as $id) {
+			$this->order_model->set_order_item_status($id->order_item_id, 'delivered');
+		}
 	}
 }
