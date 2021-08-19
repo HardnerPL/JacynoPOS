@@ -311,4 +311,15 @@ class Order_model extends CI_Model
     {
     	die($this->db->update('orders', ['order_paid' => true], 'order_id = ' . $order_id));
     }
+
+	public function get_order_utensils($order_id)
+	{
+		$this->db->select('SUM(CASE WHEN i.item_type = "obiad" THEN 1 ELSE 0 END) AS forks_and_knives');
+		$this->db->select('SUM(CASE WHEN i.item_type = "zupa" THEN 1 ELSE 0 END) AS spoons');
+		$this->db->from('order_items oi');
+		$this->db->join('items i', 'oi.item_id = i.item_id', 'left');
+		$this->db->where('oi.order_id', $order_id);
+		$this->db->group_by('oi.order_id');
+		return $this->db->get()->first_row();
+	}
 }

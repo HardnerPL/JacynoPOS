@@ -77,7 +77,21 @@ class Main_menu extends CI_Controller
 
 	public function confirm_utensils_delivery_popup($order_id)
 	{
-		$data['message'] = 'Czy potwierdzasz wydanie sztućców?';
+		$data['title'] = 'Czy potwierdzasz wydanie sztućców?';
+		$utensils = $this->order_model->get_order_utensils($order_id);
+
+		$message = '<div class="text-center">';
+		if ($utensils) {
+			if ($utensils->forks_and_knives) {
+				$message .= $utensils->forks_and_knives . 'x Noże i widelce<br>';
+			}
+			if ($utensils->spoons) {
+				$message .= $utensils->spoons . 'x Łyżki<br>';
+			}
+		}
+		$message .= '</div>';
+
+		$data['message'] = $message;
 		$data['yes'] = "deliver_utensils($order_id)";
 		$this->load->view('waiter/popup', $data);
 	}
