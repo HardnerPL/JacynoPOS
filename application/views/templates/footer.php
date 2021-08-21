@@ -13,7 +13,7 @@
 	if (isset($scripts)) {
 		$scripts = array_map('trim', explode(',', $scripts));
 		foreach ($scripts as $script) {
-			echo "<script src='" . base_url() . "assets/js/" . $script .".js?v=1'></script>";
+			echo "<script src='" . base_url() . "assets/js/" . $script .".js?v=2'></script>";
 		}
 	}
 ?>
