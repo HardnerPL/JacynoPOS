@@ -13,7 +13,7 @@
     <title><?= $title ?></title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="assets/css/all.css" rel="stylesheet">
-    <link href="assets/css/main.css?v=4" rel="stylesheet" type="text/css">
+    <link href="assets/css/main.css?v=5" rel="stylesheet" type="text/css">
 </head>
 <body>
 
