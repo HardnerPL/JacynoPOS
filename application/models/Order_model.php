@@ -31,7 +31,10 @@ class Order_model extends CI_Model
 
 	public function get_order($order_id)
 	{
-		$query = $this->db->query("SELECT * FROM orders WHERE order_id = $order_id");
+		$query = $this->db->query("SELECT *, NOT EXISTS(SELECT * FROM order_items oi 
+       			LEFT JOIN items i on oi.item_id = i.item_id
+       			WHERE oi.order_id = o.order_id AND i.item_type = 'drink' AND oi.item_status = 'confirmed')
+       			AS drinks_delivered FROM orders o WHERE order_id = $order_id");
 		return $query->row();
 	}
 
