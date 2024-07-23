@@ -39,14 +39,11 @@ function refresh_item_sums() {
 	$.get("kitchen/kitchen_main_menu/get_item_sums", function (orderItemCounts) {
 		const COLUMNS = 4;
 		let container = document.getElementById('item-sums-container');
+		let newContainer = container.cloneNode();
 
 		for (let col_index = 0; col_index < COLUMNS; col_index++) {
-			let colId = 'item-sums-col-' + col_index;
-			let oldCol = document.getElementById(colId);
-
 			let col = document.createElement('div');
 			col.classList.add('col');
-			col.id = colId;
 
 			const ul = document.createElement('ul');
 			col.appendChild(ul);
@@ -62,13 +59,10 @@ function refresh_item_sums() {
 				ul.appendChild(li);
 			});
 
-			if (oldCol) {
-				container.replaceChild(col, oldCol);
-			}
-			else {
-				container.appendChild(col);
-			}
+			newContainer.appendChild(col);
 		}
+
+		container.replaceWith(newContainer);
 	});
 }
 
