@@ -24,14 +24,10 @@ function refresh_order_items() {
 	}
 
 	$.get("kitchen/kitchen_main_menu/order_list", function (data) {
-		let scrollTop = $("#kitchen-order-list").children().first().scrollTop();
-		$("#kitchen-order-list").replaceWith(data);
-		$("#kitchen-order-list").children().first().scrollTop(scrollTop);
-		// $('.ready-btn').on('mousedown', function (e) {
-		// 	window.timeoutId = setTimeout(() => show_ready_selects(e), 1000);
-		// }).on('mouseup mouseleave', function () {
-		// 	clearTimeout(window.timeoutId);
-		// });
+		let kitchenOrderList = $("#kitchen-order-list");
+		let scrollTop = kitchenOrderList.children().first().scrollTop();
+		kitchenOrderList.replaceWith(data);
+		kitchenOrderList.children().first().scrollTop(scrollTop);
 	});
 }
 
@@ -74,8 +70,9 @@ function item_ready_popup(order_item_id) {
 
 function item_ready(order_item_id) {
 	$.get("kitchen/kitchen_main_menu/item_ready/" + order_item_id, function () {
-		$("#item-row-" + order_item_id).addClass('bg-light-green');
-		$("#item-row-" + order_item_id).attr('onclick',
+		let itemRow = $("#item-row-" + order_item_id);
+		itemRow.addClass('bg-light-green');
+		itemRow.attr('onclick',
 			'item_delivered_popup(' + order_item_id + ')');
 	})
 }
