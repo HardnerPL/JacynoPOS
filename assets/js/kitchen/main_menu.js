@@ -3,6 +3,7 @@ $(document).ready(function () {
 	window.selectMode = false;
 	window.setInterval(function () {
 		refresh_order_items();
+		refresh_item_sums();
 	}, 5000);
 	window.setInterval(function () {
 		flash_late();
@@ -13,22 +14,62 @@ function load_main_menu() {
 	$.get("kitchen/kitchen_main_menu/load_main_menu", function (data) {
 		$("#container").html(data);
 		refresh_order_items();
+		refresh_item_sums();
 	})
 }
 
 function refresh_order_items() {
-	if (!window.selectMode) {
-		$.get("kitchen/kitchen_main_menu/order_list", function (data) {
-			let scrollTop = $("#kitchen-order-list").children().first().scrollTop();
-			$("#kitchen-order-list").replaceWith(data);
-			$("#kitchen-order-list").children().first().scrollTop(scrollTop);
-			// $('.ready-btn').on('mousedown', function (e) {
-			// 	window.timeoutId = setTimeout(() => show_ready_selects(e), 1000);
-			// }).on('mouseup mouseleave', function () {
-			// 	clearTimeout(window.timeoutId);
-			// });
-		});
+	if (window.selectMode) {
+		return;
 	}
+
+	$.get("kitchen/kitchen_main_menu/order_list", function (data) {
+		let scrollTop = $("#kitchen-order-list").children().first().scrollTop();
+		$("#kitchen-order-list").replaceWith(data);
+		$("#kitchen-order-list").children().first().scrollTop(scrollTop);
+		// $('.ready-btn').on('mousedown', function (e) {
+		// 	window.timeoutId = setTimeout(() => show_ready_selects(e), 1000);
+		// }).on('mouseup mouseleave', function () {
+		// 	clearTimeout(window.timeoutId);
+		// });
+	});
+}
+
+function refresh_item_sums() {
+	$.get("kitchen/kitchen_main_menu/get_item_sums", function (orderItemCounts) {
+		const COLUMNS = 4;
+		let container = document.getElementById('item-sums-container');
+
+		for (let col_index = 0; col_index < COLUMNS; col_index++) {
+			let colId = 'item-sums-col-' + col_index;
+			let oldCol = document.getElementById(colId);
+
+			let col = document.createElement('div');
+			col.classList.add('col');
+			col.id = colId;
+
+			const ul = document.createElement('ul');
+			col.appendChild(ul);
+
+			let item_index = 0;
+			orderItemCounts.forEach(orderItemCount => {
+				if (item_index++ % COLUMNS !== col_index) {
+					return; // Similar to "continue" in PHP
+				}
+				const item_count_name = `${orderItemCount.display_name} x ${orderItemCount.count}`;
+				const li = document.createElement('li');
+				li.textContent = item_count_name;
+				ul.appendChild(li);
+			});
+
+			if (oldCol) {
+				container.replaceChild(col, oldCol);
+			}
+			else {
+				container.appendChild(col);
+			}
+		}
+	});
 }
 
 function item_ready_popup(order_item_id) {
