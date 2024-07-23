@@ -8,6 +8,9 @@ application/cache/*
 application/logs/*
 !application/logs/index.html
 
+application/sessions/*
+!application/sessions/.gitkeep
+
 application/config/config.php
 application/config/database.php
 
